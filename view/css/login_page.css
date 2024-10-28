@@ -1,0 +1,40 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container styling */
+.container {
+    height: 100vh;
+}
+
+/* Card styling */
+.login-card {
+    width: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.login-card img {
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+}
+
+/* Left side form styling */
+.form-control {
+    border-radius: 5px;
+}
+
+.btn-success {
+    border-radius: 5px;
+}
+
+/* Right side styling */
+.bg-success {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+}
