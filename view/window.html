@@ -47,8 +47,8 @@
         </button>
     </div>
 
-    <!-- Main DashBoard -->
-    <div id="dashBoard" class="main-content">
+    <!-- Todo:Main DashBoard -->
+    <div style="display: none" id="dashBoard" class="main-content">
         <!-- Top Navbar -->
         <div class="top-nav d-flex justify-content-end align-items-center">
             <a href="#" class="icon-link me-3">
@@ -72,7 +72,7 @@
        
     </div>
 
-    <!-- Section Content -->
+    <!-- Todo:Section Content -->
     <div style="display: none;" id="sectionDetails" class="main-content">
         <!-- Top Navbar -->
         <div class="top-nav d-flex justify-content-end align-items-center">
@@ -135,11 +135,162 @@
        
     </div>
 
+
+    <!-- Todo: Create staff Details -->
+    <div id="staffDetails"  class="main-content">
+        <!-- Top Navbar -->
+        <div class="top-nav d-flex justify-content-end align-items-center">
+            <a href="#" class="icon-link me-3">
+                <img src="email-icon.png" alt="Email Icon" class="icon">
+            </a>
+            <a href="#" class="icon-link">
+                <img src="user-icon.png" alt="User Icon" class="icon">
+            </a>
+        </div>
+
+        <!-- Content Area -->
+        <div style="box-shadow: none" class="content p-4">
+            <h4>Staff Details</h4>
+            <div class="d-flex justify-content-between align-items-center my-3">
+                <select class="form-select w-auto">
+                    <option selected>Relevance</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+                <button id="addStaffBtn" class="btn btn-success">Add Staff</button>
+            </div>
+            <div style="overflow: hidden !important; background-color: #f8f9fa; box-shadow: none;" class="section-details p-5">
+                <div class="table-container">
+                    <table id="tableStaff" class="styled-table">
+                        <thead>
+                        <tr>
+                            <th>Staff ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Designation</th>
+                            <th>Gender</th>
+                            <th>Joined Date</th>
+                            <th>DOB</th>
+                            <th>Address</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>STF001</td>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>Manager</td>
+                            <td>Male</td>
+                            <td>2022-01-15</td>
+                            <td>1990-06-10</td>
+                            <td>123 Main St, Apt 4, Springfield, IL</td>
+                            <td>+123456789</td>
+                            <td>john.doe@example.com</td>
+                            <td>Admin</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Section content goes here -->
+            </div>
+        </div>
+        <!-- Popup Modal -->
+        <div style="height: 79vh;overflow: scroll;" class="popup" id="popup">
+            <h2>Staff Information</h2>
+
+            <form>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" placeholder="Enter First Name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" placeholder="Enter Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <select id="designation">
+                        <option value="">Select Designation</option>
+                        <option value="MANAGER">MANAGER</option>
+                        <option value="SENIOR_ASSISTANT_MANAGER">SENIOR_ASSISTANT_MANAGER</option>
+                        <option value="ASSISTANT_MANAGER">ASSISTANT_MANAGER</option>
+                        <option value="ADMIN_HR_STAFF">ADMIN_HR_STAFF</option>
+                        <option value="OFFICE_ASSISTANT">OFFICE_ASSISTANT</option>
+                        <option value="SENIOR_AGRONOMIST">SENIOR_AGRONOMIST</option>
+                        <option value="AGRONOMIST">AGRONOMIST</option>
+                        <option value="SOIL_SCIENTIST">SOIL_SCIENTIST</option>
+                        <option value="SENIOR_TECHNICIAN">SENIOR_TECHNICIAN</option>
+                        <option value="SUPERVISOR">SUPERVISOR</option>
+                        <option value="LABOR">LABOR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="joined_date">Joined Date</label>
+                    <input type="date" id="joined_date">
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob">
+                </div>
+
+                <!-- Address Fields -->
+                <div class="address-group">
+                    <label>Address</label>
+                    <input id="homeNumber" type="text" placeholder="Home Number">
+                    <input id="homeLane" type="text" placeholder="Lane">
+                    <input id="mainCity" type="text" placeholder="Main City">
+                    <input id="mainState" type="text" placeholder="Main State">
+                    <input id="postalCode" type="text" placeholder="Postal Code">
+                </div>
+
+                <div class="form-group">
+                    <label for="contact_number">Contact Number</label>
+                    <input type="text" id="contact_number" placeholder="Enter Contact Number">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter Email">
+                </div>
+                <div class="form-group">
+                    <label for="role">Gender</label>
+                    <select id="role">
+                        <option value="">Select Role</option>
+                        <option value="MANAGER">MANAGER</option>
+                        <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                        <option value="SCIENTIST">SCIENTIST</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="staffCanselBtn" type="button" style="position: relative; left: 284px;">Cancel</button>
+                    <button id="staffSaveBtn" style="color: white" class="btn bg-success" type="button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script
          src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="js/window.js" type="module"></script>
+<!--    <script src="../controller/staffController.js" type="module"></script>-->
 </body>
 </html>

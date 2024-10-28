@@ -1,4 +1,4 @@
-class StaffModel{
+export default class StaffModel{
     get staff_id() {
         return this._staff_id;
     }
