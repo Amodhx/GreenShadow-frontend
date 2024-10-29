@@ -2,6 +2,7 @@ import {staff} from "../db/db.js";
 import StaffModel from "../model/staffModel.js";
 
 export default class StaffController {
+
     loadValues() {
 
         // Todo:Get Data From Database
@@ -11,36 +12,78 @@ export default class StaffController {
         //     "a", "a", "a", "a"));
         // this.loadTable()
     }
-    saveStaffValues(staffValues){
+    updateStaffValues(staffModel){
+        this.updateStaffById(staffModel.staff_id,staffModel);
+        this.loadTable();
+    }
+
+     updateStaffById(staffIdToUpdate, newValues) {
+        for (const staffObj of staff) {
+            if (staffObj.staff_id === staffIdToUpdate) {
+                staffObj.first_name = newValues.first_name;
+                staffObj.last_name = newValues.last_name;
+                staffObj.designation = newValues.designation;
+                staffObj.gender = newValues.gender;
+                staffObj.joined_date = newValues.joined_date;
+                staffObj.dob = newValues.dob;
+                staffObj.address_line_01 = newValues.address_line_01;
+                staffObj.address_line_02 = newValues.address_line_02;
+                staffObj.address_line_03 = newValues.address_line_03;
+                staffObj.address_line_04 = newValues.address_line_04;
+                staffObj.address_line_05 = newValues.address_line_05;
+                staffObj.contact_number = newValues.contact_number;
+                staffObj.email = newValues.email;
+                staffObj.role = newValues.role;
+                break;
+            }
+        }
+    }
+
+    deleteStaffValue(staffId) {
+        //     Todo: Delete Staff Values From Database
+
+        this.deleteStaffByIdFromArray(staffId);
+        this.loadTable();
+
+    }
+
+     deleteStaffByIdFromArray(staffIdToDelete) {
+        for (let i = staff.length - 1; i >= 0; i--) {
+            if (staff[i].staff_id === staffIdToDelete) {
+                staff.splice(i, 1);
+            }
+        }
+    }
+
+    saveStaffValues(staffValues) {
         // Todo: You have to save this staff values and get data from database . if not error ekak enw staff_id eke mkd staff_id ek generate krnne backend eken
         staff.push(staffValues);
         this.loadTable()
     }
 
+    getTabelRowValues(index) {
+        return staff[index];
+    }
 
-    loadTable(){
-
-        // Todo:check  table loading
-        // $("#tableStaff").empty();
-
+    loadTable() {
+        $("#staffTblBody").empty();
         staff.map(function (staff) {
-
             var value =
                 ` <tr>
-                        <td>${staff.staff_id}</td>
-                        <td>${staff.first_name}</td>
-                        <td>${staff.last_name}</td>
-                        <td>${staff.designation}</td>
-                        <td>${staff.gender}</td>
-                        <td>${staff.joined_date}</td>
-                        <td>${staff.dob}</td>
-                        <td>${staff.address_line_01+", "+staff.address_line_02+", "+staff.address_line_03+", "+staff.address_line_04+", "+staff.address_line_05}</td>
-                        <td>${staff.contact_number}</td>
-                        <td>${staff.email}</td>
-                        <td>${staff.role}</td>
+                        <td class="staffIdTableValue">${staff.staff_id}</td>
+                        <td class="staffFirstNameTableValue">${staff.first_name}</td>
+                        <td class="staffLastNameTableValue">${staff.last_name}</td>
+                        <td class="staffDestinationTableValue">${staff.designation}</td>
+                        <td class="staffGenderTableValue">${staff.gender}</td>
+                        <td class="staffJoinedDateTableValue">${staff.joined_date}</td>
+                        <td class="staffDOBTableValue">${staff.dob}</td>
+                        <td class="staffAddressTableValue">${staff.address_line_01 + ", " + staff.address_line_02 + ", " + staff.address_line_03 + ", " + staff.address_line_04 + ", " + staff.address_line_05}</td>
+                        <td class="staffContactNumberTableValue">${staff.contact_number}</td>
+                        <td class="staffEmailTableValue">${staff.email}</td>
+                        <td class="staffRoleTableValue">${staff.role}</td>
                         </tr>`
 
-            $("#tableStaff").append(value);
+            $("#staffTblBody").append(value);
         });
     }
 }
