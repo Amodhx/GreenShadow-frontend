@@ -23,6 +23,15 @@ class EquipmentModel{
         this._type = value;
     }
 
+
+    get count() {
+        return this._count;
+    }
+
+    set count(value) {
+        this._count = value;
+    }
+
     get status() {
         return this._status;
     }
@@ -46,10 +55,11 @@ class EquipmentModel{
     set field_code(value) {
         this._field_code = value;
     }
-    constructor(equipment_id, equipment_name, type, status, staff_id, field_code) {
+    constructor(equipment_id, equipment_name, type,count, status, staff_id, field_code) {
         this._equipment_id = equipment_id;
         this._equipment_name = equipment_name;
         this._type = type;
+        this._count = count;
         this._status = status;
         this._staff_id = staff_id;
         this._field_code = field_code;
