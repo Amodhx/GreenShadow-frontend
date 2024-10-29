@@ -1,3 +1,199 @@
+.hide{
+    display: none;
+}
+.form-group1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48%;
+}
+
+.dropdown {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    background-color: #d1ccc0;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+.list-container {
+    width: 100%;
+    border: 1px solid #a5d6a7;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    height: 170px;
+    overflow: scroll;
+}
+
+.list-title {
+    background-color: #66bb6a;
+    color: #fff;
+    padding: 8px;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.list-content {
+    height: 30px;
+    padding: 10px;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-btn, .next-btn {
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cancel-btn {
+    background-color: #bbb;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background-color: #a6a6a6;
+}
+
+.next-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.next-btn:hover {
+    background-color: #45a049;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+}
+
+.popup h2 {
+    text-align: center;
+    margin: 0 0 20px;
+    color: #3f87f5;
+}
+
+.form-group, .address-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    outline: none;
+}
+
+.address-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.address-group input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    outline: none;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px;
+    padding: 20px;
+}
+.action-buttons button[type="button"] {
+    background-color: #d3d3d3;
+    color: #333;
+}
+
+.action-buttons button[type="submit"] {
+    background-color: #3f87f5;
+    color: white;
+}
+
+.action-buttons button[type="button"]:hover {
+    background-color: #b0b0b0;
+}
+
+.action-buttons button[type="submit"]:hover {
+    background-color: #2d6dcf;
+}
+
+/* Show popup and overlay */
+.popup.show, .overlay.show {
+    display: block;
+}
+/**/
+
+
 body{
     width: 100vw;
     height: 100%;
@@ -206,97 +402,4 @@ body{
 
 .btn-success:hover {
     background-color: #45a049;
-}
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 20;
-}
-
-.popup h2 {
-    text-align: center;
-    margin: 0 0 20px;
-    color: #3f87f5;
-}
-
-.form-group, .address-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-    outline: none;
-}
-
-.address-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.address-group input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    font-size: 14px;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-    outline: none;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.action-buttons button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.action-buttons button[type="button"] {
-    background-color: #d3d3d3;
-    color: #333;
-}
-
-.action-buttons button[type="submit"] {
-    background-color: #3f87f5;
-    color: white;
-}
-
-.action-buttons button[type="button"]:hover {
-    background-color: #b0b0b0;
-}
-
-.action-buttons button[type="submit"]:hover {
-    background-color: #2d6dcf;
-}
-
-/* Show popup and overlay */
-.popup.show, .overlay.show {
-    display: block;
 }

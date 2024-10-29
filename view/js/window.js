@@ -1,14 +1,21 @@
 import StaffController from "../../controller/staffController.js";
 import StaffModel from "../../model/staffModel.js";
-import {staff} from "../../db/db.js";
+import {fields, staff} from "../../db/db.js";
+import FieldController from "../../controller/fieldController.js";
+import EquipmentController from "../../controller/equipmentController.js";
 
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const sriLankaContactRegex = /^(?:\+94|0)?7[0-9]\d{7}$/;
 let staff_Id;
 let staff_Controller = new StaffController();
+let field_controller = new FieldController();
+let equipment_Controller = new EquipmentController();
+let fieldsCodes = [];
+let equipmentsCodes = [];
+let staffModel;
 
-$("#staffBtn").on('click',()=>{
+$("#staffBtn").on('click', () => {
     // $("#sectionDetails").css({
     //     display:"none"
     // });
@@ -24,17 +31,17 @@ $("#staffBtn").on('click',()=>{
     console.log("A")
 })
 
-$("#addStaffBtn").on('click',()=>{
-    valuesIndex =  -1;
+$("#addStaffBtn").on('click', () => {
+    valuesIndex = -1;
     setStaffAddFromButtons();
     $("#popup").addClass("show");
 })
-$("#staffCanselBtn").on('click',()=>{
-    let vl =$("#staffCanselBtn").text();
-    if (vl == "Cansel"){
+$("#staffCanselBtn").on('click', () => {
+    let vl = $("#staffCanselBtn").text();
+    if (vl == "Cansel") {
         clearAllStaffAddFields();
         $("#popup").removeClass("show");
-    }else {
+    } else {
         staff_Controller.deleteStaffValue(staff_Id);
         clearAllStaffAddFields();
         $("#popup").removeClass("show");
@@ -44,7 +51,7 @@ $("#staffCanselBtn").on('click',()=>{
     }
 
 })
-$("#staffSaveBtn").on('click',()=>{
+$("#staffNextBtn").on('click', () => {
     let firstName = $("#first_name").val();
     let lastName = $("#last_name").val();
     let designation = $("#designation").val();
@@ -60,8 +67,8 @@ $("#staffSaveBtn").on('click',()=>{
     let email = $("#email").val();
     let role = $("#role").val();
 
-    let vl =$("#staffSaveBtn").text();
-    if (vl == "Save") {
+    let vl = $("#staffNextBtn").text();
+    if (vl == "Next") {
         if (firstName != "" &&
             lastName != "" &&
             designation != "" &&
@@ -79,7 +86,8 @@ $("#staffSaveBtn").on('click',()=>{
 
             if (validateEmail(email)) {
                 if (validateContactNumber(contactNumber)) {
-                    let staffModel = new StaffModel(
+
+                     staffModel = new StaffModel(
                         "",
                         firstName,
                         lastName,
@@ -97,7 +105,9 @@ $("#staffSaveBtn").on('click',()=>{
                         role
                     );
 
-                    staff_Controller.saveStaffValues(staffModel);
+                    setComboBoxValues();
+                    $("#staffSetEquipmentAndFieldsPopup").removeClass('hide');
+                    // staff_Controller.saveStaffValues(staffModel);
                     clearAllStaffAddFields();
                     $("#popup").removeClass("show");
                 } else {
@@ -110,7 +120,7 @@ $("#staffSaveBtn").on('click',()=>{
         } else {
             alert("Add Values Hutto mulinma !!");
         }
-    }else {
+    } else {
         if (validateEmail(email)) {
             if (validateContactNumber(contactNumber)) {
                 let staffModel = new StaffModel(
@@ -142,7 +152,62 @@ $("#staffSaveBtn").on('click',()=>{
     }
 })
 
-function validateEmail(email){
+$("#selectFieldEqFormSaveBtn").on('click', () => {
+    staffModel.fields_list = fieldsCodes;
+    staffModel.equipments_list = equipmentsCodes;
+    staff_Controller.saveStaffValues(staffModel);
+    $("#staffSetEquipmentAndFieldsPopup").addClass('hide');
+    clearAllAddEquipmentFieldsModelFields();
+})
+
+function setComboBoxValues() {
+    let fieldCodes = field_controller.getFieldCodes();
+    fieldCodes.map(function (code) {
+        var vl = `<option>${code}</option>`;
+
+        $("#selectFieldsCombo").append(vl);
+    });
+
+    let eqCodes = equipment_Controller.getEquipmentCodes();
+    eqCodes.map(function (code) {
+        var vl = `<option>${code}</option>`;
+
+        $("#selectEquipmentsCombo").append(vl);
+    });
+}
+
+$("#addEquipmentBtn").on('click', () => {
+    let value = $("#selectEquipmentsCombo").val();
+    equipmentsCodes.push(value);
+    let vl = `<div class="list-content">${value}</div>`;
+    $("#equipmentContainerList").append(vl);
+
+
+})
+
+$("#addFieldsBtn").on('click', () => {
+    let value = $("#selectFieldsCombo").val();
+    fieldsCodes.push(value);
+    let vl = `<div class="list-content">${value}</div>`;
+    $("#fieldContainerList").append(vl);
+})
+
+
+$("#selectFieldEqFormCanselBtn").on('click', () => {
+    clearAllAddEquipmentFieldsModelFields();
+    $("#staffSetEquipmentAndFieldsPopup").addClass('hide');
+});
+
+function clearAllAddEquipmentFieldsModelFields() {
+    $("#fieldContainerList").empty();
+    $("#equipmentContainerList").empty();
+    $("#selectEquipmentsCombo").val("");
+    $("#selectFieldsCombo").val("");
+    equipmentsCodes.length = 0;
+    fieldsCodes.length = 0;
+}
+
+function validateEmail(email) {
     if (emailRegex.test(email)) {
         return true;
     } else {
@@ -150,13 +215,14 @@ function validateEmail(email){
     }
 }
 
-function validateContactNumber(contact){
+function validateContactNumber(contact) {
     if (sriLankaContactRegex.test(contact)) {
         return true;
     } else {
         return false;
     }
 }
+
 function clearAllStaffAddFields() {
     $("#first_name").val("");
     $("#last_name").val("");
@@ -175,9 +241,9 @@ function clearAllStaffAddFields() {
 }
 
 let valuesIndex = -1;
-$("#tableStaff").on('click','tr',function (){
-    valuesIndex =  $(this).index();
-    let staffValues =staff_Controller.getTabelRowValues(valuesIndex);
+$("#tableStaff").on('click', 'tr', function () {
+    valuesIndex = $(this).index();
+    let staffValues = staff_Controller.getTabelRowValues(valuesIndex);
     staff_Id = staffValues.staff_id;
     $("#first_name").val(staffValues.first_name);
     $("#last_name").val(staffValues.last_name);
@@ -194,7 +260,7 @@ $("#tableStaff").on('click','tr',function (){
     $("#email").val(staffValues.email);
     $("#role").val(staffValues.role);
     setStaffAddFromButtons();
-    if (valuesIndex > -1){
+    if (valuesIndex > -1) {
 
     }
 
@@ -203,22 +269,24 @@ $("#tableStaff").on('click','tr',function (){
 
 })
 
-function setStaffAddFromButtons(){
-    if (valuesIndex > -1){
+function setStaffAddFromButtons() {
+    if (valuesIndex > -1) {
         $("#staffCanselBtn").text("Delete");
         $("#staffCanselBtn").css({
-            backgroundColor:"red",
-            color:"white"
+            backgroundColor: "red",
+            color: "white"
         })
-        $("#staffSaveBtn").text("Update");
-    }else {
+        $("#staffNextBtn").text("Update");
+    } else {
         $("#staffCanselBtn").text("Cansel");
         $("#staffCanselBtn").css({
-            backgroundColor:"#d3d3d3",
-            color:"black"
+            backgroundColor: "#d3d3d3",
+            color: "black"
         })
-        $("#staffSaveBtn").text("Save");
+        $("#staffNextBtn").text("Save");
     }
 }
+
+
 
 
