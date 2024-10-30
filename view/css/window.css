@@ -1,3 +1,120 @@
+/* Sidebar container */
+.sidebar {
+    width: 80px;
+    background-color: #E3F9E5;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    overflow: hidden;
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+/* Sidebar logo */
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sidebar buttons */
+.sidebar-btn {
+    width: 60px;
+    height: 60px;
+    background-color: #E3F9E5;
+    color: #333;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+/* Active button style */
+.sidebar-btn.active {
+    background-color: #2ECC71;
+    color: white;
+}
+.sidebar-btn:hover{
+    background-color: #2ECC71;
+    color: white;
+}
+
+/* Icon styling */
+.sidebar-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+/* Line separator */
+.separator {
+    width: 70%;
+    height: 1px;
+    background-color: #c4c4c4;
+    margin: 10px 0;
+}
+/* Main content styling */
+.main-content {
+    margin-left: 82px;
+    padding: 20px;
+    width: calc(100% - 87px);
+    top: -720px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+.top-nav {
+    height: 50px;
+    background-color: #fff;
+    padding-right: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.icon-link {
+    display: inline-block;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Content area */
+.content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.section-details {
+    background-color: #e8f7e7;
+    border-radius: 10px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    height: 71vh;
+    overflow: scroll;
+}
+
+/*Uda tika gtta huttooo*/
+/**/
 .hide{
     display: none;
 }
@@ -44,7 +161,8 @@
     border-radius: 5px;
     background-color: #e0e0e0;
     height: 170px;
-    overflow: scroll;
+    overflow: auto;
+    margin-bottom: 43px;
 }
 
 .list-title {
@@ -94,7 +212,6 @@
     background-color: #45a049;
 }
 .popup {
-    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -106,6 +223,9 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 20;
+    height: 89vh;
+    overflow: scroll;
+    display: none;
 }
 
 .popup h2 {
@@ -165,7 +285,7 @@
 }
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 20px;
 }
@@ -278,122 +398,10 @@ body{
     }
 }
 
-/* Sidebar container */
-.sidebar {
-    width: 80px;
-    background-color: #E3F9E5;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    overflow: hidden;
-    border-radius: 0px 20px 20px 0px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-/* Sidebar logo */
-.logo {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Sidebar buttons */
-.sidebar-btn {
-    width: 60px;
-    height: 60px;
-    background-color: #E3F9E5;
-    color: #333;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    text-align: center;
-    padding: 10px 0;
-    cursor: pointer;
-    margin-bottom: 10px;
-    border-radius: 8px;
-}
-
-/* Active button style */
-.sidebar-btn.active {
-    background-color: #2ECC71;
-    color: white;
-}
-.sidebar-btn:hover{
-    background-color: #2ECC71;
-    color: white;
-}
-
-/* Icon styling */
-.sidebar-btn svg {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 5px;
-}
-
-/* Line separator */
-.separator {
-    width: 70%;
-    height: 1px;
-    background-color: #c4c4c4;
-    margin: 10px 0;
-}
 
 
-/* Main content styling */
-.main-content {
-    margin-left: 82px;
-    padding: 20px;
-    width: calc(100% - 87px);
-    top: -720px;
-    position: relative;
-    overflow: hidden;
-    background-color: #f8f9fa;
-}
 
-.top-nav {
-    height: 50px;
-    background-color: #fff;
-    padding-right: 20px;
-    border-bottom: 1px solid #e5e5e5;
-}
 
-.icon-link {
-    display: inline-block;
-}
-
-.icon {
-    width: 24px;
-    height: 24px;
-}
-
-/* Content area */
-.content {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.section-details {
-    background-color: #e8f7e7;
-    border-radius: 10px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
-    height: 71vh;
-    overflow: scroll;
-}
 
 .btn-success {
     background-color: #4CAF50;

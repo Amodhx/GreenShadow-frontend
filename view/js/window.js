@@ -28,7 +28,7 @@ $("#staffBtn").on('click', () => {
     // $("#staffDetails").css({
     //     display:"none"
     // })
-    console.log("A")
+    // staff_Controller.loadTable();
 })
 
 $("#addStaffBtn").on('click', () => {
@@ -286,6 +286,21 @@ function setStaffAddFromButtons() {
         $("#staffNextBtn").text("Save");
     }
 }
+
+
+
+
+// field section handling start
+
+$("#fieldBtn").on('click',()=>{
+    field_controller.loadCards();
+})
+
+$("#addFieldBtn").on('click',()=>{
+    console.log("A")
+    $("#formPopup").addClass('show');
+})
+
 
 
 

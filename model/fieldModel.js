@@ -1,4 +1,4 @@
-class FieldModel{
+ export class FieldModel{
     get field_code() {
         return this._field_code;
     }
@@ -87,7 +87,7 @@ class FieldModel{
         this._crop_list = crop_list;
         this._field_image_01 = field_image_01;
         this._field_image_02 = field_image_02;
-        this._logs_list = logs_list;
         this._equipments_list = equipments_list;
+        this._logs_list = logs_list;
     }
 }

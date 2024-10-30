@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MainWindow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../view/css/mainWindow.css">
+</head>
+<body>
+
+<!--side bar start-->
+<div class="sidebar">
+    <!-- Logo -->
+    <div class="logo">
+        <!-- Example logo content (use an SVG or image here if needed) -->
+        <img src="../assets/Green_shadow-removebg-preview.png" alt="Logo"
+             style="width: 100%; height: 100%; border-radius: 50%;">
+    </div>
+
+    <!-- Buttons -->
+    <button id="dashBoardBtn" style="margin-top: 23px;" class="sidebar-btn active">
+        <!-- Dashboard Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zM13 3v6h8V3h-8z"/>
+        </svg>
+        Dashboard
+    </button>
+
+    <div class="separator"></div>
+
+    <button id="staffBtn" class="sidebar-btn">
+        <!-- Staff Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.96 1.97 3.45v1.5h6v-1.5c0-1.49-.81-2.61-1.97-3.45-.35-.03-.68-.05-.97-.05z"/>
+        </svg>
+        Staff
+    </button>
+
+    <div class="separator"></div>
+
+    <button id="fieldBtn" class="sidebar-btn">
+        <!-- Fields Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16h-7v-5h7v5zm0-7h-7V5h7v7zm-9 7H5v-7h5v7zm0-9H5V5h5v5z"/>
+        </svg>
+        Fields
+    </button>
+
+    <div class="separator"></div>
+
+    <button id="cropBtn" class="sidebar-btn">
+<!--        Todo :-->
+        <!-- Crop Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C10.34 2 9 3.34 9 5c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.66-1.34-3-3-3zm0 4.5C11.17 6.5 10.5 5.83 10.5 5S11.17 3.5 12 3.5 13.5 4.17 13.5 5 12.83 6.5 12 6.5zm7 7c-1.66 0-3 1.34-3 3 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.66-1.34-3-3-3zm0 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 9c1.66 0 3-1.34 3-3S6.66 3 5 3 2 4.34 2 6s1.34 3 3 3zm0-4.5C5.83 4.5 6.5 5.17 6.5 6S5.83 7.5 5 7.5 3.5 6.83 3.5 6 4.17 4.5 5 4.5zm6 9H9v8h2v-3h2v3h2v-8h-2zm3.3-2.8L9.5 12.7 6.7 10 5.3 11.4 9.5 15.7l7-7L14.3 6.7z"/>
+        </svg>
+        Crops
+    </button>
+
+    <div class="separator"></div>
+
+    <button id="equipmentBtn" class="sidebar-btn">
+        <!--        Todo :-->
+        <!-- Equipment Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.36 2.64a3 3 0 00-4.24 0l-1.54 1.54c-.37.37-.58.87-.58 1.41s.21 1.04.58 1.41l1.18 1.18L7.4 14.53l-1.06-1.06c-.28-.28-.67-.44-1.06-.44s-.78.16-1.06.44L2.64 15.53a1.5 1.5 0 000 2.12l4.71 4.71a1.5 1.5 0 002.12 0l1.59-1.59c.28-.28.44-.67.44-1.06s-.16-.78-.44-1.06l-1.06-1.06 6.85-6.85 1.18 1.18c.37.37.87.58 1.41.58s1.04-.21 1.41-.58l1.54-1.54a3 3 0 000-4.24L19.36 2.64zM4.82 17.77L6.53 16.06l2.83 2.83-1.71 1.71-2.83-2.83z"/>
+        </svg>
+        Equipment
+    </button>
+
+    <div class="separator"></div>
+
+    <button id="vehicleBtn" class="sidebar-btn">
+        <!-- Vehicle Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M5 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7 11V7c0-.55.45-1 1-1h8c.55 0 1 .45 1 1v4h3c1.1 0 2 .9 2 2v4c0 .55-.45 1-1 1h-1v1c0 .55-.45 1-1 1h-1c-.55 0-1-.45-1-1v-1H8v1c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1H4c-.55 0-1-.45-1-1v-4c0-1.1.9-2 2-2h3zm10 0V7H7v4h10z"/>
+        </svg>
+        Vehicle
+    </button>
+</div>
+<!--side bar end-->
+
+<!--Main DashBoard Start-->
+<div  id="dashBoardSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#333" viewBox="0 0 24 24" class="icon">
+                <path d="M12 13.88l-8.5-6.5h17l-8.5 6.5zm0 2.12l8.5-6.5v11c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1v-11l8.5 6.5z"/>
+            </svg>
+        </a>
+        <a href="#" class="icon-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#333" viewBox="0 0 24 24" class="icon">
+                <path d="M12 12c2.67 0 8 1.34 8 4v2c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1v-2c0-2.66 5.33-4 8-4zm0-2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content p-4">
+        <div style="height: 40vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+             class="section-details p-5">
+            <h1>DashBoard</h1>
+            <!-- Section content goes here -->
+        </div>
+        <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 20vw;height: 42vh; background-color: #e8f7e7; color: #333; position: relative;left: 1052px;border-radius: 15px;margin-top: 23px;">
+            <!-- add calender here -->
+        </div>
+    </div>
+
+</div>
+
+
+<!--Staff Section Start-->
+<div style="display: none"  id="staffSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Staff Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
+                <button id="addNewStaffBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">Add New Staff</button>
+            </div>
+        </div>
+        <div style="background-color: #f8f9fa; height: 72vh !important; overflow: hidden;"
+             class="section-details p-5">
+
+<!--            staff Table-->
+            <div class="table-container">
+                <table id="tableStaff" class="styled-table">
+                    <thead>
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Designation</th>
+                        <th>Gender</th>
+                        <th>Joined Date</th>
+                        <th>DOB</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Fields</th>
+                        <th>Equipments</th>
+                        <th>Vehicles</th>
+                    </tr>
+                    </thead>
+                    <tbody id="staffTblBody">
+
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+
+<!--            add staff model-->
+            <div class="modal fade" id="newStaffModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #2b2b2b; color: white;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newStaffModalLabel">Add New Staff Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="staffForm">
+                                <div class="row mb-3">
+                                    <!-- First Name -->
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" placeholder="first name" id="firstName" required>
+                                    </div>
+                                    <!-- Last Name -->
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" placeholder="last name" id="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Designation -->
+                                    <div class="col-md-6">
+                                        <label for="designation" class="form-label">Designation</label>
+                                        <select class="form-control" id="designation" required>
+                                            <option value="" disabled selected>Select Designation</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <option value="SENIOR_ASSISTANT_MANAGER">SENIOR_ASSISTANT_MANAGER</option>
+                                            <option value="ASSISTANT_MANAGER">ASSISTANT_MANAGER</option>
+                                            <option value="ADMIN_HR_STAFF">ADMIN_HR_STAFF</option>
+                                            <option value="OFFICE_ASSISTANT">OFFICE_ASSISTANT</option>
+                                            <option value="SENIOR_AGRONOMIST">SENIOR_AGRONOMIST</option>
+                                            <option value="AGRONOMIST">AGRONOMIST</option>
+                                            <option value="SOIL_SCIENTIST">SOIL_SCIENTIST</option>
+                                            <option value="SENIOR_TECHNICIAN">SENIOR_TECHNICIAN</option>
+                                            <option value="SUPERVISOR">SUPERVISOR</option>
+                                            <option value="LABOR">LABOR</option>
+                                        </select>
+                                    </div>
+                                    <!-- Gender -->
+                                    <div class="col-md-6">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-control" id="gender" required>
+                                            <option value="" disabled selected>Select gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Joined Date-->
+                                    <div class="col-md-6">
+                                        <label for="joinedDate" class="form-label">Joined Date</label>
+                                        <input type="text" class="form-control" placeholder="member join date" id="joinedDate" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- DOB -->
+                                    <div class="col-md-6">
+                                        <lab0l for="dob" class="form-label">Date Of Birth</lab0l>
+                                        <input type="text" class="form-control" id="dob" required>
+                                    </div>
+                                    <!-- Address Line01 -->
+                                    <div class="col-md-6">
+                                        <label for="addressLine01" class="form-label">Address Line01</label>
+                                        <input type="text" class="form-control" placeholder="building no" id="addressLine01" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Address Line02 -->
+                                    <div class="col-md-6">
+                                        <label for="addressLine02" class="form-label">Address Line02</label>
+                                        <input type="text" class="form-control" placeholder="lane" id="addressLine02" required>
+                                    </div>
+                                    <!-- Address Line03 -->
+                                    <div class="col-md-6">
+                                        <label for="addressLine03" class="form-label">Address Line03</label>
+                                        <input type="text" class="form-control" placeholder="main city" id="addressLine03" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Address Line04 -->
+                                    <div class="col-md-6">
+                                        <label for="addressLine04" class="form-label">Address Line04</label>
+                                        <input type="text" class="form-control" placeholder="main state" id="addressLine04" required>
+                                    </div>
+                                    <!-- Address Line05 -->
+                                    <div class="col-md-6">
+                                        <label for="addressLine03" class="form-label">Address Line05</label>
+                                        <input type="text" class="form-control" placeholder="postal code" id="addressLine05" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Contact NO -->
+                                    <div class="col-md-6">
+                                        <label for="ContactNo" class="form-label">Conact No</label>
+                                        <input type="text" class="form-control" placeholder="mobile number" id="ContactNo" required>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="col-md-6">
+                                        <label for="emailStaff" class="form-label">Email</label>
+                                        <input type="text" class="form-control" placeholder="email address" id="emailStaff" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Role -->
+                                    <div class="col-md-6">
+                                        <label for="roleStaff" class="form-label">Role</label>
+                                        <select class="form-control" id="roleStaff" required>
+                                            <option value="" disabled selected>Select Role</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                            <option value="OTHER">OTHER</option>
+                                            <option value="SCIENTIST">SCIENTIST</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="filed-staff" class="form-label">Fields</label>
+                                            <button type="button" class="btn btn-success" id="addStaffFieldButton">Add Field</button>
+                                        </div>
+                                        <!-- Initial dropdown with predefined options -->
+                                        <div id="initialFieldStaff" class="input-group">
+                                            <select id="filed-staff" class="form-control mt-2">
+                                                <option value="">Select Field</option>
+                                            </select>
+                                        </div>
+                                        <!-- Container for additional dynamic dropdowns -->
+                                        <div id="additionalStaffField" class="mt-2"></div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Vehicle -->
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="vehicle-staff" class="form-label">Vehicle</label>
+                                            <button type="button" class="btn btn-success" id="addStaffVehicleButton">Add Vehicle</button>
+                                        </div>
+                                        <!-- Initial dropdown with predefined options -->
+                                        <div id="initialStaffVehicle" class="input-group">
+                                            <select id="vehicle-staff" class="form-control mt-2">
+                                                <option value="">Select Field</option>
+                                            </select>
+                                        </div>
+                                        <!-- Container for additional dynamic dropdowns -->
+                                        <div id="additionalStaffVehicle" class="mt-2"></div>
+                                    </div>
+                                    <!-- Equipment -->
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="equipment-staff" class="form-label">Equipment</label>
+                                            <button type="button" class="btn btn-success" id="addStaffEquipmentButton">Add Equipment</button>
+                                        </div>
+                                        <!-- Initial dropdown with predefined options -->
+                                        <div id="initialStaffEquipment" class="input-group">
+                                            <select id="equipment-staff" class="form-control mt-2">
+                                                <option value="">Select Field</option>
+                                            </select>
+                                        </div>
+                                        <!-- Container for additional dynamic dropdowns -->
+                                        <div id="additionalStaffEquipment" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnCloseStaffDetails" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="btnSaveStaffDetails" type="submit" class="btn btn-success">Save Field</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!--staff section end-->
+
+<!--Field Section start-->
+<div style="display: none" id="fieldSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Section Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <button id="addFieldBtn" class="btn btn-success">Add Field</button>
+        </div>
+        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+             class="section-details p-5">
+            <!-- Section content goes here -->
+        </div>
+    </div>
+
+</div>
+<!--Field Section end-->
+
+<!--Crops section start-->
+<div style="display: none" id="cropSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Crops Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <button id="addCropBtn" class="btn btn-success">Add Crop</button>
+        </div>
+        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+             class="section-details p-5">
+            <!-- Section content goes here -->
+        </div>
+    </div>
+
+</div>
+<!--Crops section end-->
+
+<!--Equipment section start-->
+<div style="display: none" id="equipmentSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Equipment Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <button id="addEquipmentBtn" class="btn btn-success">Add Tool</button>
+        </div>
+        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+             class="section-details p-5">
+            <!-- Section content goes here -->
+        </div>
+    </div>
+
+</div>
+<!--Equipment section end-->
+
+
+<!--Vehicle section start-->
+<div style="display: none" id="vehicleSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Equipment Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <button id="addVehicleBtn" class="btn btn-success">Add Vehicle</button>
+        </div>
+        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+             class="section-details p-5">
+            <!-- Section content goes here -->
+        </div>
+    </div>
+
+</div>
+<!--Vehicle section end-->
+<script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<script src="../view/js/mainWindow.js" type="module"></script>
+</body>
+</html>

@@ -19,6 +19,8 @@ export default class StaffController {
 
      updateStaffById(staffIdToUpdate, newValues) {
         for (const staffObj of staff) {
+            console.log(staff)
+            console.log(newValues)
             if (staffObj.staff_id === staffIdToUpdate) {
                 staffObj.first_name = newValues.first_name;
                 staffObj.last_name = newValues.last_name;
@@ -34,6 +36,9 @@ export default class StaffController {
                 staffObj.contact_number = newValues.contact_number;
                 staffObj.email = newValues.email;
                 staffObj.role = newValues.role;
+                staffObj.fields_list = newValues.fields_list;
+                staffObj.equipments_list = newValues.equipments_list;
+                staffObj.vehicles_list =newValues.vehicles_list;
                 break;
             }
         }
@@ -57,6 +62,7 @@ export default class StaffController {
 
     saveStaffValues(staffValues) {
         // Todo: You have to save this staff values and get data from database . if not error ekak enw staff_id eke mkd staff_id ek generate krnne backend eken
+        staffValues.staff_id = "S01";
         staff.push(staffValues);
         this.loadTable()
     }
@@ -81,6 +87,9 @@ export default class StaffController {
                         <td class="staffContactNumberTableValue">${staff.contact_number}</td>
                         <td class="staffEmailTableValue">${staff.email}</td>
                         <td class="staffRoleTableValue">${staff.role}</td>
+                        <th class="staffFieldsTableValue">${staff.fields_list}</th>
+                        <th class="staffEquipmetnsTableValue">${staff.equipments_list}</th>
+                        <th class="staffEquipmentsVehicleValue">${staff.vehicles_list}</th>
                         </tr>`
 
             $("#staffTblBody").append(value);
