@@ -1,4 +1,4 @@
-import {staff} from "../db/db.js";
+import {equipments, staff} from "../db/db.js";
 import StaffModel from "../model/staffModel.js";
 
 export default class StaffController {
@@ -59,6 +59,13 @@ export default class StaffController {
             }
         }
     }
+    getStaffIds(){
+        let ar = ["S01","S02"];
+        equipments.map(function (eq) {
+            ar.push(eq.equipment_id);
+        });
+        return ar;
+    }
 
     saveStaffValues(staffValues) {
         // Todo: You have to save this staff values and get data from database . if not error ekak enw staff_id eke mkd staff_id ek generate krnne backend eken
@@ -72,6 +79,7 @@ export default class StaffController {
     }
 
     loadTable() {
+        this.loadValues();
         $("#staffTblBody").empty();
         staff.map(function (staff) {
             var value =

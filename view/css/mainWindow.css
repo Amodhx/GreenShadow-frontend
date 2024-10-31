@@ -207,3 +207,12 @@ body{
 }
 
 /*staff table styling end*/
+
+
+/*Field section styling start*/
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
