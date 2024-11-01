@@ -5,6 +5,7 @@ import StaffModel from "../../model/staffModel.js";
 import StaffController from "../../controller/staffController.js";
 import {CropController} from "../../controller/cropController.js";
 import {FieldModel} from "../../model/fieldModel.js";
+import {CropModel} from "../../model/cropModel.js";
 
 
 // staff js start
@@ -312,19 +313,19 @@ function loadEquipmentContainer() {
 
 function setSelectedFields() {
     $('.staffFieldList').each(function () {
-        $(this).val(selected_fieldsToAddContainers.shift())
+        $(this).val(selected_fieldsToAddContainers.slice())
     });
 }
 
 function setSelectedEquipments() {
     $('.staffEquipmentList').each(function () {
-        $(this).val(selected_equipmentsToAddContainers.shift())
+        $(this).val(selected_equipmentsToAddContainers.slice())
     });
 }
 
 function setSelectedVehicles() {
     $('.staffVehicleList').each(function () {
-        $(this).val(selected_vehicleToAddContainers.shift())
+        $(this).val(selected_vehicleToAddContainers.slice())
     });
 }
 
@@ -676,17 +677,17 @@ function loadStaffContainerWhenFieldSave() {
 }
 function setSelectedStaffToUpdateField() {
     $('.staffListSaveField').each(function () {
-        $(this).val(selected_staffOptionsToUpdateFieldAddContainer.shift())
+        $(this).val(selected_staffOptionsToUpdateFieldAddContainer.slice())
     });
 }
 function setSelectedEquipmentsToUpdateField() {
     $('.EquipmentListSaveField').each(function () {
-        $(this).val(selected_equipmentOptionsToUpdateFieldAddContainer.shift())
+        $(this).val(selected_equipmentOptionsToUpdateFieldAddContainer.slice())
     });
 }
 function setSelectedCropsToUpdateField() {
     $('.cropListSaveField').each(function () {
-        $(this).val(selected_cropOptionsToUpdateFieldAddContainer.shift())
+        $(this).val(selected_cropOptionsToUpdateFieldAddContainer.slice())
     });
 }
 
@@ -741,6 +742,8 @@ function loadCropContainerWhenFieldSave() {
 }
 
 $("#addNewFieldBtn").on('click', () => {
+    fieldSaveUpdateIndex = -1;
+    setFieldModelBtn();
     equipment_optionsToSaveFiled = equipment_controller.getEquipmentCodes();
     crop_optionToSaveField = crop_controller.getCropCodes();
     staff_optionsToSaveField = staff_controller.getStaffIds();
@@ -758,7 +761,6 @@ $("#addFieldEquipmentBtn").on('click', () => {
 
 
 $("#btnSaveFieldDetails").on('click', () => {
-    fieldSaveUpdateIndex = -1;
     selected_staffOptionsToSaveField = [];
     selected_equipmentOptionsToSaveField = [];
     selected_cropOptionsToSaveField = [];
@@ -791,7 +793,6 @@ $("#btnSaveFieldDetails").on('click', () => {
                 timer: 1500
             });
             clearFieldAddModalFields();
-            setFieldModelBtn();
         }else {
             Swal.fire({
                 icon: "error",
@@ -916,4 +917,170 @@ function setFieldModelBtn() {
 
 //field JS END
 
+let field_optionsToSaveCrop;
+let cropSaveUpdateIndex = -1;
+let selected_fieldsToSaveCrop = [];
+let selected_fieldOptionsToUpdateCrop = [];
+let cropIdToUpdate ;
 
+$("#addNewCropBtn").on('click',()=>{
+    cropSaveUpdateIndex = -1;
+    setAddCropModelButtons();
+    field_optionsToSaveCrop = field_controller.getFieldCodes();
+})
+$("#addFieldToCropSaveBtn").on('click',()=>{
+    loadFieldContainerWhenCropSave();
+})
+function loadFieldContainerWhenCropSave(){
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="fieldListToSaveCrop form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Fields</option>`);
+    field_optionsToSaveCrop.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalCropField').append($fieldContainer);
+}
+
+function clearAddCropModelFields(){
+    selected_fieldsToSaveCrop = [];
+    $("#cropCommonName").val("");
+    $("#cropScientificName").val("");
+    $("#cropCategory").val("");
+    $("#cropSeason").val("");
+    $('#preview3').attr('src', '#').addClass('d-none');
+    $('#cropImage').val("");
+    $('#additionalCropField').empty();
+}
+$("#btnCloseCropDetails").on('click',()=>{
+    clearAddCropModelFields();
+})
+
+$('#cropImage').on('change', function () {
+    previewImage('cropImage', 'preview3');
+});
+
+$("#btnSaveCropDetails").on('click',()=>{
+
+
+    selected_fieldsToSaveCrop = [];
+    let cropCommonName = $("#cropCommonName").val();
+    let cropScientificName = $("#cropScientificName").val();
+    let cropCategory =  $("#cropCategory").val();
+    let cropSeason = $("#cropSeason").val();
+    let cropImage = $('#preview3').attr('src');
+    $('.fieldListToSaveCrop').each(function () {
+        selected_fieldsToSaveCrop.push($(this).val()); // Add the selected value to the array
+    });
+
+    let cropModel = new CropModel("",cropCommonName,cropScientificName,cropImage,cropCategory,cropSeason,selected_fieldsToSaveCrop,"");
+    if (cropCommonName != "" && cropScientificName != "" && cropCategory != "" && cropSeason != ""){
+        let vl = $("#btnSaveCropDetails").text();
+        if (vl == "Save Crop"){
+            crop_controller.saveCrop(cropModel);
+            $('#newCropModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddCropModelFields();
+        }else {
+            cropModel.crop_code = cropIdToUpdate;
+            crop_controller.updateCropValues(cropModel);
+            $('#newCropModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your Field Was Updated!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddCropModelFields();
+        }
+    }else {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have Add Values First!",
+        });
+    }
+
+})
+
+function setAddCropModelButtons(){
+    if (cropSaveUpdateIndex > -1) {
+        $("#btnSaveCropDetails").text("Update");
+    } else {
+        $("#btnSaveCropDetails").text("Save Crop");
+    }
+}
+
+$(document).on("click", ".btnCropDelete", function () {
+    const index =$(this).data("index");
+    let cropModel = crop_controller.getCropFromIndex(index);
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let idToDelete = cropModel.crop_code;
+            crop_controller.deleteCropValues(idToDelete);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        }
+    });
+
+})
+
+function setSelectedFieldToUpdatedCrop(){
+    $('.fieldListToSaveCrop').each(function () {
+        $(this).val(selected_fieldOptionsToUpdateCrop.slice())
+    });
+}
+function setIdToUpdateCrop(cropModel){
+    cropIdToUpdate = cropModel.crop_code;
+}
+$(document).on("click", ".btnCropUpdate", function () {
+    clearAddCropModelFields();
+    const index = $(this).data("index");
+    cropSaveUpdateIndex =index;
+    setAddCropModelButtons();
+    let cropModel = crop_controller.getCropFromIndex(index);
+    setIdToUpdateCrop(cropModel);
+    selected_fieldsToSaveCrop = cropModel.field_code;
+    selected_fieldOptionsToUpdateCrop = cropModel.field_code;
+    for (let i = 0; i < selected_fieldsToSaveCrop.length; i++) {
+        loadFieldContainerWhenCropSave();
+    }
+    setSelectedFieldToUpdatedCrop();
+    $("#cropCommonName").val(cropModel.crop_common_name);
+    $("#cropScientificName").val(cropModel.crop_scientific_name);
+    $("#cropCategory").val(cropModel.category);
+    $("#cropSeason").val(cropModel.season);
+    $('#preview3').attr('src', cropModel.crop_image).removeClass('d-none');
+    $('#newCropModal').modal('show');
+
+});
