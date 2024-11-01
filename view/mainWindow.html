@@ -395,7 +395,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="background-color: #2b2b2b; color: white;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="newFieldModalLabel">Add New Staff Details</h5>
+                        <h5 class="modal-title" id="newFieldModalLabel">Add New Field Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
                     </div>
                     <div class="modal-body">
@@ -519,7 +519,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
             </select>
-            <button id="addCropBtn" class="btn btn-success">Add Crop</button>
+            <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
+                <button id="addNewCropBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newCropModal">Add New Crop</button>
+            </div>
         </div>
         <div style="border-radius: 10px; overflow: auto;background-color: #f8f9fa;width: 89vw;height: 71vh;">
             <div id="cropCardSection" class="card-grid">
@@ -531,6 +533,80 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
             </div>
 
         </div>
+
+        <!--            add Crop model-->
+        <div class="modal fade" id="newCropModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background-color: #2b2b2b; color: white;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newCropModalLabel">Add New Crop Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="cropForm">
+                            <div class="row mb-3">
+                                <!-- Crop common Name -->
+                                <div class="col-md-6">
+                                    <label for="cropCommonName" class="form-label">Crop common Name</label>
+                                    <input type="text" class="form-control" placeholder="Crop Common Name" id="cropCommonName" required>
+                                </div>
+                                <!-- Crop scientific name -->
+                                <div class="col-md-6">
+                                    <label for="cropScientificName" class="form-label">Crop scientific name</label>
+                                    <input type="text" class="form-control" placeholder="Crop Scientific Name" id="cropScientificName" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Crop Category -->
+                                <div class="col-md-6">
+                                    <label for="cropCategory" class="form-label">Crop Category</label>
+                                    <input type="text" class="form-control" placeholder="Crop Category" id="cropCategory" required>
+                                </div>
+                                <!-- Crop season -->
+                                <div class="col-md-6">
+                                    <label for="cropSeason" class="form-label">Crop Season</label>
+                                    <input type="text" class="form-control" placeholder="Crop Season" id="cropSeason" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <!-- Field List -->
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label for="addFieldToCropSaveBtn" class="form-label">Field</label>
+                                        <button type="button" class="btn btn-success" id="addFieldToCropSaveBtn">Add Field</button>
+                                    </div>
+                                    <!-- Initial dropdown with predefined options -->
+                                    <div id="initialFieldToAddCrop" class="input-group">
+                                        <select id="field-crop" class="form-control mt-2">
+                                            <option value="">Select Field</option>
+                                        </select>
+                                    </div>
+                                    <!-- Container for additional dynamic dropdowns -->
+                                    <div id="additionalCropField" class="mt-2"></div>
+                                </div>
+                            </div>
+                            <!-- crop Image  -->
+                            <div class="row mb-3">
+                                <!-- Crop Image  -->
+                                <div class="col-md-6">
+                                    <label for="fieldImage1" class="form-label">Crop Image </label>
+                                    <input type="file" class="form-control" id="cropImage" accept="image/*">
+                                    <img id="preview3" src="#" alt="Image Preview 1" class="img-fluid mt-2 d-none" style="max-height: 150px;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCloseCropDetails" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnSaveCropDetails" type="submit" class="btn btn-success">Save Crop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
 </div>

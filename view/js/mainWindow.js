@@ -402,16 +402,34 @@ $("#btnSaveStaffDetails").on('click', () => {
                     );
                     staff_controller.saveStaffValues(staffModel);
                     $('#newStaffModal').modal('hide');
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     clearStaffAddModelFields();
                 } else {
-                    alert("invalid Contact number")
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Invalid Contact Number",
+                    });
                 }
 
             } else {
-                alert("Invalid Email");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Invalid Email",
+                });
             }
         } else {
-            alert("First add values");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You have to add values first!",
+                });
         }
     } else {
         //     Todo:Update
@@ -436,8 +454,22 @@ $("#btnSaveStaffDetails").on('click', () => {
             selected_equipments,
             selected_vehicle
         );
+        Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                staff_controller.updateStaffValues(staffModel);
+                Swal.fire("Saved!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
 
-        staff_controller.updateStaffValues(staffModel);
         $('#newStaffModal').modal('hide');
         clearStaffAddModelFields();
         alert("staff Updated !!!!");
@@ -551,8 +583,24 @@ function setStaffAddFromButtons() {
 $("#btnCloseStaffDetails").on('click', () => {
     let vl = $("#btnCloseStaffDetails").text();
     if (vl === "Delete") {
-        staff_controller.deleteStaffValue(selectedStaffDataStaff_id);
-        alert("staff Deleted !!!");
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                staff_controller.deleteStaffValue(selectedStaffDataStaff_id);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
     } else {
         clearStaffAddModelFields();
     }
@@ -744,6 +792,12 @@ $("#btnSaveFieldDetails").on('click', () => {
             });
             clearFieldAddModalFields();
             setFieldModelBtn();
+        }else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have Add Values First!",
+            });
         }
 
     } else {
@@ -858,3 +912,8 @@ function setFieldModelBtn() {
         $("#btnSaveFieldDetails").text("Save Field");
     }
 }
+
+
+//field JS END
+
+
