@@ -743,10 +743,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 
@@ -767,18 +763,105 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     </div>
     <!-- Content Area -->
     <div class="content p-4">
-        <h4>Equipment Details</h4>
+        <h4>Vehicle Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
             <select class="form-select w-auto">
                 <option selected>Relevance</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
             </select>
-            <button id="addVehicleBtn" class="btn btn-success">Add Vehicle</button>
+            <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
+                <button id="addNewVehicleBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newVehicleModal">Add New Vehicle</button>
+            </div>
         </div>
-        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+        <div style="background-color: #f8f9fa; height: 72vh !important; overflow: hidden;"
              class="section-details p-5">
-            <!-- Section content goes here -->
+            <div class="table-container">
+                <table id="tableVehicle" class="styled-table">
+                    <thead>
+                    <tr>
+                        <th>Vehicle ID</th>
+                        <th>Licence Plate Number</th>
+                        <th>Vehicle Category</th>
+                        <th>Fuel Type</th>
+                        <th>Status</th>
+                        <th>Staff Id</th>
+                        <th>Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody id="vehicleTblBody">
+
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+            <!--            add Vehicle model-->
+            <div class="modal fade" id="newVehicleModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #2b2b2b; color: white;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newVehicleModalLabel">Add New Vehicle Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="vehicleForm">
+                                <div class="row mb-3">
+                                    <!-- Vehicle licence plate number -->
+                                    <div class="col-md-6">
+                                        <label for="licencePlateNumber" class="form-label">Vehicle licence plate number</label>
+                                        <input type="text" class="form-control" placeholder="Vehicle licence plate number" id="licencePlateNumber" required>
+                                    </div>
+                                    <!-- Vehicle Category-->
+                                    <div class="col-md-6">
+                                        <label for="vehicleCategory" class="form-label">Vehicle Category</label>
+                                        <input type="text" class="form-control" placeholder="Vehicle Category" id="vehicleCategory" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="vehicleFuelType" class="form-label">Vehicle Fuel Type</label>
+                                        <select class="form-control" id="vehicleFuelType" required>
+                                            <option value="" disabled selected>Select Vehicle Fuel Type</option>
+                                            <option value="PETROL">PETROL</option>
+                                            <option value="DIESEL">DIESEL</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="vehicleStatus" class="form-label">Vehicle Status</label>
+                                        <select class="form-control" id="vehicleStatus" required>
+                                            <option value="" disabled selected>Select Vehicle Status</option>
+                                            <option value="AVAILABLE">AVAILABLE</option>
+                                            <option value="OUT_OF_SERVICE">OUT_OF_SERVICE</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <!-- Staff Id -->
+                                    <div class="col-md-6">
+                                        <label for="staffIdToVehicle" class="form-label">Owner Of the vehicle</label>
+                                        <select class="form-control" id="staffIdToVehicle" required>
+                                            <option value="" disabled selected>Select Staff Id</option>
+
+                                        </select>
+                                    </div>
+                                    <!-- Remarks -->
+                                    <div class="col-md-6">
+                                        <label for="specialRemark" class="form-label">Any Special Remark</label>
+                                        <input type="text" class="form-control" placeholder="Any Special Remark" id="specialRemark" required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnCloseVehicleDetails" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="btnSaveVehicleDetails" type="submit" class="btn btn-success">Save Vehicle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

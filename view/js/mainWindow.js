@@ -7,6 +7,7 @@ import {CropController} from "../../controller/cropController.js";
 import {FieldModel} from "../../model/fieldModel.js";
 import {CropModel} from "../../model/cropModel.js";
 import {EquipmentModel} from "../../model/equipmentModel.js";
+import {VehicleModel} from "../../model/vehicleModel.js";
 
 
 // staff js start
@@ -184,6 +185,7 @@ $("#vehicleBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "block"
     })
+    vehicle_controller.loadTable();
 
 });
 $("#addNewStaffBtn").on('click', () => {
@@ -1321,6 +1323,141 @@ $("#equipmentTblBody").on('click', 'tr', function () {
 //equipment Js End
 
 
+let vehicleIndex = -1;
+let vehicleIdToUpdate ;
+let staffIdToAddVehicle;
 
+$("#addNewVehicleBtn").on('click',()=>{
+    vehicleIndex = -1;
+    setVehicleModelButtons();
+    staffIdToAddVehicle = staff_controller.getStaffIds();
+    setStaffIdComboBoxValues();
+})
+function setStaffIdComboBoxValues(){
+    for (let i = 0; i < staffIdToAddVehicle.length; i++) {
+        let value = `<option value="${staffIdToAddVehicle[i]}">${staffIdToAddVehicle[i]}</option>`
+
+        $("#staffIdToVehicle").append(value);
+    }
+}
+$("#btnCloseVehicleDetails").on('click',()=>{
+    let vl = $("#btnCloseVehicleDetails").text();
+    if (vl == "Delete"){
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                vehicle_controller.deleteVehicleValue(vehicleIdToUpdate);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+        $('#newVehicleModal').modal('hide');
+        clearAddVehicleFields();
+    }else {
+        clearAddVehicleFields();
+    }
+
+})
+function clearAddVehicleFields(){
+    $("#licencePlateNumber").val("");
+    $("#vehicleCategory").val("");
+    $("#vehicleFuelType").val("");
+    $("#vehicleStatus").val("");
+    $("#staffIdToVehicle").val("");
+    $("#specialRemark").val("");
+    $("#staffIdToVehicle").empty();
+    $("#staffIdToVehicle").append('<option value="" disabled selected>Select Staff Id</option>');
+}
+
+function setVehicleModelButtons(){
+    if (vehicleIndex > -1) {
+        $("#btnCloseVehicleDetails").text("Delete");
+        $("#btnCloseVehicleDetails").css({
+            backgroundColor: "red",
+            color: "white"
+        })
+        $("#btnSaveVehicleDetails").text("Update");
+    } else {
+        $("#btnCloseVehicleDetails").text("Close");
+        $("#btnCloseVehicleDetails").css({
+            backgroundColor: "#d3d3d3",
+            color: "black"
+        })
+        $("#btnSaveVehicleDetails").text("Save Vehicle");
+    }
+}
+$("#btnSaveVehicleDetails").on('click',()=>{
+   let licencePlateNumber = $("#licencePlateNumber").val();
+    let vehicleCategory =$("#vehicleCategory").val();
+    let fuelType =$("#vehicleFuelType").val();
+    let vehicleStatus = $("#vehicleStatus").val();
+    let staff_id = $("#staffIdToVehicle").val();
+    let specialRemark =$("#specialRemark").val();
+    console.log(vehicleCategory);
+    if (licencePlateNumber != "" && vehicleCategory != "" && fuelType != "" && vehicleStatus != "" && staff_id != "" ){
+        let vehicleModel = new VehicleModel("",licencePlateNumber,vehicleCategory,fuelType,vehicleStatus,staff_id,specialRemark);
+        let vl = $("#btnSaveVehicleDetails").text();
+        if (vl == "Save Vehicle"){
+            vehicle_controller.saveData(vehicleModel);
+            $('#newVehicleModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddVehicleFields();
+        }else {
+        //     Todo: Update Vehicle
+            vehicleModel.vehicle_code = vehicleIdToUpdate;
+            vehicle_controller.updateVehicleValues(vehicleModel);
+            $('#newVehicleModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your Equipment Was Updated!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddVehicleFields();
+        }
+    }else {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have Add Values First!",
+        });
+    }
+})
+
+
+$("#vehicleTblBody").on('click', 'tr', function () {
+    vehicleIndex = $(this).index();
+    setVehicleModelButtons();
+    setStaffIdComboBoxValues();
+    let vehicleModel = vehicle_controller.getVehicleFromIndex(vehicleIndex);
+    vehicleIdToUpdate = vehicleModel.vehicle_code;
+
+
+    $("#licencePlateNumber").val(vehicleModel.licence_plate_number);
+    $("#vehicleCategory").val(vehicleModel.vehicle_category);
+    $("#vehicleFuelType").val(vehicleModel.fuelType);
+    $("#vehicleStatus").val(vehicleModel.status);
+    $("#staffIdToVehicle").val(vehicleModel.staff_id);
+    $("#specialRemark").val(vehicleModel.remarks);
+
+    $('#newVehicleModal').modal('show');
+
+})
 
 

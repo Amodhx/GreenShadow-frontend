@@ -61,13 +61,13 @@ export default class EquipmentController{
         equipments.map(function (equipment) {
             var value =
                 ` <tr>
-                        <td class="staffIdTableValue">${equipment.equipment_id}</td>
-                        <td class="staffFirstNameTableValue">${equipment.equipment_name}</td>
-                        <td class="staffLastNameTableValue">${equipment.type}</td>
-                        <td class="staffDestinationTableValue">${equipment.count}</td>
-                        <td class="staffGenderTableValue">${equipment.status}</td>
-                        <td class="staffJoinedDateTableValue">${equipment.staff_id}</td>
-                        <td class="staffDOBTableValue">${equipment.field_code}</td>
+                        <td>${equipment.equipment_id}</td>
+                        <td>${equipment.equipment_name}</td>
+                        <td>${equipment.type}</td>
+                        <td>${equipment.count}</td>
+                        <td>${equipment.status}</td>
+                        <td>${equipment.staff_id}</td>
+                        <td>${equipment.field_code}</td>
                         </tr>`
 
             $("#equipmentTblBody").append(value);

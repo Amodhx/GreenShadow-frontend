@@ -1,4 +1,4 @@
-class VehicleModel{
+export class VehicleModel{
     get vehicle_code() {
         return this._vehicle_code;
     }
