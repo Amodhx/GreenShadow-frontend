@@ -1461,3 +1461,6 @@ $("#vehicleTblBody").on('click', 'tr', function () {
 })
 
 
+// vehicle JS End
+
+
