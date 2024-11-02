@@ -6,6 +6,7 @@ import StaffController from "../../controller/staffController.js";
 import {CropController} from "../../controller/cropController.js";
 import {FieldModel} from "../../model/fieldModel.js";
 import {CropModel} from "../../model/cropModel.js";
+import {EquipmentModel} from "../../model/equipmentModel.js";
 
 
 // staff js start
@@ -153,6 +154,8 @@ $("#equipmentBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "none"
     })
+
+    equipment_controller.loadTable();
 
 })
 $("#vehicleBtn").on('click', () => {
@@ -313,19 +316,19 @@ function loadEquipmentContainer() {
 
 function setSelectedFields() {
     $('.staffFieldList').each(function () {
-        $(this).val(selected_fieldsToAddContainers.slice())
+        $(this).val(selected_fieldsToAddContainers.shift())
     });
 }
 
 function setSelectedEquipments() {
     $('.staffEquipmentList').each(function () {
-        $(this).val(selected_equipmentsToAddContainers.slice())
+        $(this).val(selected_equipmentsToAddContainers.shift())
     });
 }
 
 function setSelectedVehicles() {
     $('.staffVehicleList').each(function () {
-        $(this).val(selected_vehicleToAddContainers.slice())
+        $(this).val(selected_vehicleToAddContainers.shift())
     });
 }
 
@@ -517,9 +520,9 @@ $("#tableStaff").on('click', 'tr', function () {
     selected_fields = staffValues.fields_list;
     selected_equipments = staffValues.equipments_list;
     selected_vehicle = staffValues.vehicles_list;
-    selected_fieldsToAddContainers = staffValues.fields_list;
-    selected_equipmentsToAddContainers = staffValues.equipments_list;
-    selected_vehicleToAddContainers = staffValues.vehicles_list;
+    selected_fieldsToAddContainers = selected_fields.slice();
+    selected_equipmentsToAddContainers = selected_equipments.slice();
+    selected_vehicleToAddContainers = selected_vehicle.slice();
 
     for (let i = 0; i < selected_vehicle.length; i++) {
         loadVehicleContainer();
@@ -677,17 +680,17 @@ function loadStaffContainerWhenFieldSave() {
 }
 function setSelectedStaffToUpdateField() {
     $('.staffListSaveField').each(function () {
-        $(this).val(selected_staffOptionsToUpdateFieldAddContainer.slice())
+        $(this).val(selected_staffOptionsToUpdateFieldAddContainer.shift())
     });
 }
 function setSelectedEquipmentsToUpdateField() {
     $('.EquipmentListSaveField').each(function () {
-        $(this).val(selected_equipmentOptionsToUpdateFieldAddContainer.slice())
+        $(this).val(selected_equipmentOptionsToUpdateFieldAddContainer.shift())
     });
 }
 function setSelectedCropsToUpdateField() {
     $('.cropListSaveField').each(function () {
-        $(this).val(selected_cropOptionsToUpdateFieldAddContainer.slice())
+        $(this).val(selected_cropOptionsToUpdateFieldAddContainer.shift())
     });
 }
 
@@ -877,9 +880,9 @@ $(document).on("click", ".btnFieldUpdate", function () {
     selected_equipmentOptionsToSaveField = fieldModel.equipments_list;
     selected_cropOptionsToSaveField = fieldModel.crop_list;
 
-    selected_staffOptionsToUpdateFieldAddContainer =  fieldModel.staff_list;
-    selected_equipmentOptionsToUpdateFieldAddContainer =fieldModel.equipments_list;
-    selected_cropOptionsToUpdateFieldAddContainer = fieldModel.crop_list;
+    selected_staffOptionsToUpdateFieldAddContainer =  selected_staffOptionsToSaveField.slice();
+    selected_equipmentOptionsToUpdateFieldAddContainer =selected_equipmentOptionsToSaveField.slice();
+    selected_cropOptionsToUpdateFieldAddContainer = selected_cropOptionsToSaveField.slice();
 
     for (let i = 0; i < selected_staffOptionsToSaveField.length; i++) {
         loadStaffContainerWhenFieldSave();
@@ -1057,7 +1060,7 @@ $(document).on("click", ".btnCropDelete", function () {
 
 function setSelectedFieldToUpdatedCrop(){
     $('.fieldListToSaveCrop').each(function () {
-        $(this).val(selected_fieldOptionsToUpdateCrop.slice())
+        $(this).val(selected_fieldOptionsToUpdateCrop.shift())
     });
 }
 function setIdToUpdateCrop(cropModel){
@@ -1071,7 +1074,7 @@ $(document).on("click", ".btnCropUpdate", function () {
     let cropModel = crop_controller.getCropFromIndex(index);
     setIdToUpdateCrop(cropModel);
     selected_fieldsToSaveCrop = cropModel.field_code;
-    selected_fieldOptionsToUpdateCrop = cropModel.field_code;
+    selected_fieldOptionsToUpdateCrop = selected_fieldsToSaveCrop.slice();
     for (let i = 0; i < selected_fieldsToSaveCrop.length; i++) {
         loadFieldContainerWhenCropSave();
     }
@@ -1084,3 +1087,240 @@ $(document).on("click", ".btnCropUpdate", function () {
     $('#newCropModal').modal('show');
 
 });
+
+
+//crop crud over;
+
+let field_optionsToSaveEquipment;
+let staff_optionsToSaveEquipment;
+let equipmentSaveUpdateIndex = -1;
+let selected_fieldsToSaveEquipment = [];
+let selected_StaffToSaveEquipment = [];
+let selected_StaffOptionsToUpdateEquipment = [];
+let selected_fieldOptionsToUpdateEquipment = [];
+let equipmentIdToUpdate ;
+
+$("#addNewEquipmentBtn").on('click',()=>{
+    equipmentSaveUpdateIndex = -1;
+    setEquipmentModelButtons();
+    staff_optionsToSaveEquipment = staff_controller.getStaffIds();
+    field_optionsToSaveEquipment = equipment_controller.getEquipmentCodes();
+})
+
+$("#addFieldToEquipmentSaveBtn").on('click',()=>{
+    loadFieldContainerWhenEquipmentSave();
+})
+$("#addStaffToEquipmentSaveBtn").on('click',()=>{
+    loadStaffContainerWhenEquipmentSave();
+})
+
+$("#btnSaveEquipmentDetails").on('click',()=>{
+     selected_fieldsToSaveEquipment = [];
+    selected_StaffToSaveEquipment = [];
+
+    let equipmentName =  $("#equipmentName").val();
+    let equipmentType =  $("#equipmentType").val();
+    let equipmentCount = $("#equipmentCount").val();
+    let equipmentStatus =  $("#equipmentStatus").val();
+
+    $('.fieldListToSaveEquipment').each(function () {
+        selected_fieldsToSaveEquipment.push($(this).val()); // Add the selected value to the array
+    });
+    $('.staffListToSaveEquipment').each(function () {
+        selected_StaffToSaveEquipment.push($(this).val()); // Add the selected value to the array
+    });
+
+    if (equipmentName!= "" && equipmentCount!= "" && equipmentType != "" && equipmentStatus!= ""){
+        let vl = $("#btnSaveEquipmentDetails").text();
+        let equipmentModel =  new EquipmentModel("",equipmentName,equipmentType,equipmentCount,equipmentStatus,selected_StaffToSaveEquipment,selected_fieldsToSaveEquipment);
+        console.log(equipmentModel)
+        if (vl == "Save Tool"){
+            equipment_controller.saveEquipment(equipmentModel);
+            $('#newEquipmentModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddEquipmentModelFields();
+
+        }else {
+            //     Todo : Update
+
+            equipmentModel.equipment_id = equipmentIdToUpdate;
+            equipment_controller.updateEquipmentValues(equipmentModel);
+            $('#newEquipmentModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your Equipment Was Updated!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddEquipmentModelFields();
+        }
+    }else {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have Add Values First!",
+        });
+    }
+
+})
+
+$("#btnCloseEquipmentDetails").on('click',()=>{
+    let vl =  $("#btnCloseEquipmentDetails").text();
+    if (vl == "Close"){
+        clearAddEquipmentModelFields();
+    }else {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                equipment_controller.deleteEquipmentValue(equipmentIdToUpdate);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+        $('#newEquipmentModal').modal('hide');
+        clearAddEquipmentModelFields();
+
+
+    }
+})
+
+function clearAddEquipmentModelFields(){
+     selected_fieldsToSaveEquipment = [];
+     selected_StaffToSaveEquipment = [];
+     $("#equipmentName").val("");
+     $("#equipmentType").val("");
+     $("#equipmentCount").val("");
+     $("#equipmentStatus").val("");
+     $("#additionalFieldToEquipment").empty();
+     $("#additionalStaffToEquipment").empty();
+
+}
+function setEquipmentModelButtons(){
+    if (equipmentSaveUpdateIndex > -1) {
+        $("#btnCloseEquipmentDetails").text("Delete");
+        $("#btnCloseEquipmentDetails").css({
+            backgroundColor: "red",
+            color: "white"
+        })
+        $("#btnSaveEquipmentDetails").text("Update");
+    } else {
+        $("#btnCloseEquipmentDetails").text("Close");
+        $("#btnCloseEquipmentDetails").css({
+            backgroundColor: "#d3d3d3",
+            color: "black"
+        })
+        $("#btnSaveEquipmentDetails").text("Save Tool");
+    }
+}
+function loadFieldContainerWhenEquipmentSave(){
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="fieldListToSaveEquipment form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Fields</option>`);
+    field_optionsToSaveEquipment.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalFieldToEquipment').append($fieldContainer);
+}
+function loadStaffContainerWhenEquipmentSave(){
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="staffListToSaveEquipment form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Fields</option>`);
+    staff_optionsToSaveEquipment.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalStaffToEquipment').append($fieldContainer);
+}
+
+function setSelectedFieldToUpdatedEquipment(){
+    $('.fieldListToSaveEquipment').each(function () {
+        $(this).val(selected_fieldOptionsToUpdateEquipment.shift())
+
+    });
+}
+function setSelectedStaffToUpdatedEquipment(){
+    $('.staffListToSaveEquipment').each(function () {
+        $(this).val(selected_StaffOptionsToUpdateEquipment.shift())
+
+    });
+}
+$("#equipmentTblBody").on('click', 'tr', function () {
+    selected_fieldsToSaveEquipment = [];
+    selected_fieldOptionsToUpdateEquipment = [];
+    equipmentSaveUpdateIndex = $(this).index();
+    setEquipmentModelButtons();
+    let equipmentModel = equipment_controller.getEquipmentFromIndex(equipmentSaveUpdateIndex);
+    equipmentIdToUpdate = equipmentModel.equipment_id;
+
+    selected_fieldsToSaveEquipment = equipmentModel.field_code;
+    selected_fieldOptionsToUpdateEquipment = selected_fieldsToSaveEquipment.slice();
+    selected_StaffToSaveEquipment = equipmentModel.staff_id;
+    selected_StaffOptionsToUpdateEquipment = selected_StaffToSaveEquipment.slice();
+    for (let i = 0; i < selected_fieldsToSaveEquipment.length; i++) {
+        loadFieldContainerWhenEquipmentSave();
+    }
+    for (let i = 0; i < selected_StaffToSaveEquipment.length; i++) {
+        loadStaffContainerWhenEquipmentSave();
+    }
+    setSelectedFieldToUpdatedEquipment();
+    setSelectedStaffToUpdatedEquipment();
+    $("#equipmentName").val(equipmentModel.equipment_name);
+    $("#equipmentType").val(equipmentModel.type);
+    $("#equipmentCount").val(equipmentModel.count);
+     $("#equipmentStatus").val(equipmentModel.status);
+
+    $('#newEquipmentModal').modal('show');
+
+})
+
+
+//equipment Js End
+
+
+
+
+

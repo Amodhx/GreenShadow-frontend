@@ -1,4 +1,4 @@
-class EquipmentModel{
+export class EquipmentModel{
     get equipment_id() {
         return this._equipment_id;
     }

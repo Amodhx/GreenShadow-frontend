@@ -632,11 +632,121 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
             </select>
-            <button id="addEquipmentBtn" class="btn btn-success">Add Tool</button>
+            <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
+                <button id="addNewEquipmentBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newEquipmentModal">Add New Tool</button>
+            </div>
         </div>
-        <div style="height: 72vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+        <div style="background-color: #f8f9fa; height: 72vh !important; overflow: hidden;"
              class="section-details p-5">
-            <!-- Section content goes here -->
+            <div class="table-container">
+                <table id="tableEquipments" class="styled-table">
+                    <thead>
+                    <tr>
+                        <th>Equipment ID</th>
+                        <th>Equipment Name</th>
+                        <th>Type</th>
+                        <th>Count</th>
+                        <th>Status</th>
+                        <th>Staff List</th>
+                        <th>Field List</th>
+                    </tr>
+                    </thead>
+                    <tbody id="equipmentTblBody">
+
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!--            add Equipments model-->
+            <div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #2b2b2b; color: white;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newEquipmentModalLabel">Add New Equipment Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="equipmentForm">
+                                <div class="row mb-3">
+                                    <!-- Equipment Name -->
+                                    <div class="col-md-6">
+                                        <label for="equipmentName" class="form-label">Equipment Name</label>
+                                        <input type="text" class="form-control" placeholder="Equipment Name" id="equipmentName" required>
+                                    </div>
+                                    <!-- Equipment Type-->
+                                    <div class="col-md-6">
+                                        <label for="equipmentType" class="form-label">Equipment Type</label>
+                                        <select class="form-control" id="equipmentType" required>
+                                            <option value="" disabled selected>Select Equipment Type</option>
+                                            <option value="Electronic">Electronic</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <!-- Equipment Count -->
+                                    <div class="col-md-6">
+                                        <label for="equipmentCount" class="form-label">Equipment Count</label>
+                                        <input type="text" class="form-control" placeholder="Equipment Count" id="equipmentCount" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="equipmentStatus" class="form-label">Equipment Status</label>
+                                        <select class="form-control" id="equipmentStatus" required>
+                                            <option value="" disabled selected>Select Equipment Status</option>
+                                            <option value="Electronic">Available</option>
+                                            <option value="Mechanical">Not Available</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <!-- Staff List -->
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="addFieldToCropSaveBtn" class="form-label">Field</label>
+                                            <button type="button" class="btn btn-success" id="addStaffToEquipmentSaveBtn">Add Field</button>
+                                        </div>
+                                        <!-- Initial dropdown with predefined options -->
+                                        <div id="initialStaffToAddEquipment" class="input-group">
+                                            <select id="staff-equipment" class="form-control mt-2">
+                                                <option value="">Select Field</option>
+                                            </select>
+                                        </div>
+                                        <!-- Container for additional dynamic dropdowns -->
+                                        <div id="additionalStaffToEquipment" class="mt-2"></div>
+                                    </div>
+
+                                    <!-- Field List -->
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="addFieldToCropSaveBtn" class="form-label">Field</label>
+                                            <button type="button" class="btn btn-success" id="addFieldToEquipmentSaveBtn">Add Field</button>
+                                        </div>
+                                        <!-- Initial dropdown with predefined options -->
+                                        <div id="initialFieldToAddEquipment" class="input-group">
+                                            <select id="field-equipment" class="form-control mt-2">
+                                                <option value="">Select Field</option>
+                                            </select>
+                                        </div>
+                                        <!-- Container for additional dynamic dropdowns -->
+                                        <div id="additionalFieldToEquipment" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnCloseEquipmentDetails" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="btnSaveEquipmentDetails" type="submit" class="btn btn-success">Save Tool</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 
