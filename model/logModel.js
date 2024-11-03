@@ -1,4 +1,4 @@
-class LogModel{
+export class LogModel{
     get log_code() {
         return this._log_code;
     }

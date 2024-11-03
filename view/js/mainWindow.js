@@ -8,6 +8,8 @@ import {FieldModel} from "../../model/fieldModel.js";
 import {CropModel} from "../../model/cropModel.js";
 import {EquipmentModel} from "../../model/equipmentModel.js";
 import {VehicleModel} from "../../model/vehicleModel.js";
+import {LogController} from "../../controller/logController.js";
+import {LogModel} from "../../model/logModel.js";
 
 
 // staff js start
@@ -18,7 +20,10 @@ $("#dashBoardBtn").on('click', () => {
     $("#cropBtn").removeClass('active');
     $("#equipmentBtn").removeClass('active');
     $("#vehicleBtn").removeClass('active');
-
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
     $("#dashBoardSection").css({
         display: "block"
     })
@@ -47,7 +52,10 @@ $("#staffBtn").on('click', () => {
     $("#cropBtn").removeClass('active');
     $("#equipmentBtn").removeClass('active');
     $("#vehicleBtn").removeClass('active');
-
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
     $("#dashBoardSection").css({
         display: "none"
     })
@@ -77,7 +85,10 @@ $("#fieldBtn").on('click', () => {
     $("#cropBtn").removeClass('active');
     $("#equipmentBtn").removeClass('active');
     $("#vehicleBtn").removeClass('active');
-
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
     $("#dashBoardSection").css({
         display: "none"
     })
@@ -107,7 +118,10 @@ $("#cropBtn").on('click', () => {
     $("#cropBtn").addClass('active');
     $("#equipmentBtn").removeClass('active');
     $("#vehicleBtn").removeClass('active');
-
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
     $("#dashBoardSection").css({
         display: "none"
     })
@@ -136,6 +150,11 @@ $("#equipmentBtn").on('click', () => {
     $("#cropBtn").removeClass('active');
     $("#equipmentBtn").addClass('active');
     $("#vehicleBtn").removeClass('active');
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
+
 
     $("#dashBoardSection").css({
         display: "none"
@@ -166,6 +185,10 @@ $("#vehicleBtn").on('click', () => {
     $("#cropBtn").removeClass('active');
     $("#equipmentBtn").removeClass('active');
     $("#vehicleBtn").addClass('active');
+    $("#logsBtn").removeClass('active');
+    $("#logsSection").css({
+        display: "none"
+    })
 
     $("#dashBoardSection").css({
         display: "none"
@@ -188,6 +211,38 @@ $("#vehicleBtn").on('click', () => {
     vehicle_controller.loadTable();
 
 });
+$("#logsBtn").on('click', () => {
+    $("#dashBoardBtn").removeClass('active');
+    $("#staffBtn").removeClass('active');
+    $("#fieldBtn").removeClass('active');
+    $("#cropBtn").removeClass('active');
+    $("#equipmentBtn").removeClass('active');
+    $("#vehicleBtn").removeClass('active');
+    $("#logsBtn").addClass('active');
+
+    $("#dashBoardSection").css({
+        display: "none"
+    })
+    $("#staffSection").css({
+        display: "none"
+    })
+    $("#fieldSection").css({
+        display: "none"
+    })
+    $("#cropSection").css({
+        display: "none"
+    })
+    $("#equipmentSection").css({
+        display: "none"
+    })
+    $("#vehicleSection").css({
+        display: "none"
+    })
+    $("#logsSection").css({
+        display: "block"
+    })
+    log_controller.loadCards();
+})
 $("#addNewStaffBtn").on('click', () => {
     loadOptionsValues();
     staffTblSelectIndex = -1;
@@ -198,6 +253,7 @@ let vehicle_controller = new VehicleController();
 let equipment_controller = new EquipmentController();
 let staff_controller = new StaffController();
 let crop_controller = new CropController();
+let log_controller = new LogController();
 let field_options;
 let vehicle_options;
 let equipment_options;
@@ -431,11 +487,11 @@ $("#btnSaveStaffDetails").on('click', () => {
                 });
             }
         } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "You have to add values first!",
-                });
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have to add values first!",
+            });
         }
     } else {
         //     Todo:Update
@@ -680,16 +736,19 @@ function loadStaffContainerWhenFieldSave() {
     // Append the new field container to the additionalStaffField
     $('#additionalFieldStaff').append($fieldContainer);
 }
+
 function setSelectedStaffToUpdateField() {
     $('.staffListSaveField').each(function () {
         $(this).val(selected_staffOptionsToUpdateFieldAddContainer.shift())
     });
 }
+
 function setSelectedEquipmentsToUpdateField() {
     $('.EquipmentListSaveField').each(function () {
         $(this).val(selected_equipmentOptionsToUpdateFieldAddContainer.shift())
     });
 }
+
 function setSelectedCropsToUpdateField() {
     $('.cropListSaveField').each(function () {
         $(this).val(selected_cropOptionsToUpdateFieldAddContainer.shift())
@@ -798,7 +857,7 @@ $("#btnSaveFieldDetails").on('click', () => {
                 timer: 1500
             });
             clearFieldAddModalFields();
-        }else {
+        } else {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -810,7 +869,7 @@ $("#btnSaveFieldDetails").on('click', () => {
         //     Todo: Update
         field_model.field_code = filedIdToUpdate;
         field_controller.updateFiledValues(field_model);
-        console.log("MainWindo"+field_model)
+        console.log("MainWindo" + field_model)
         $('#newFieldModal').modal('hide');
         Swal.fire({
             icon: "success",
@@ -825,7 +884,7 @@ $("#btnSaveFieldDetails").on('click', () => {
 
 })
 
-function clearFieldAddModalFields(){
+function clearFieldAddModalFields() {
     selected_staffOptionsToSaveField = [];
     selected_equipmentOptionsToSaveField = [];
     selected_cropOptionsToSaveField = [];
@@ -842,13 +901,13 @@ function clearFieldAddModalFields(){
 
 }
 
-$("#btnCloseFieldDetails").on('click',()=>{
+$("#btnCloseFieldDetails").on('click', () => {
     clearFieldAddModalFields();
 })
 
 $(document).on("click", ".btnFieldDelete", function () {
-    const index =$(this).data("index");
-    let filedModel =field_controller.getFieldFromIndex(index);
+    const index = $(this).data("index");
+    let filedModel = field_controller.getFieldFromIndex(index);
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -882,8 +941,8 @@ $(document).on("click", ".btnFieldUpdate", function () {
     selected_equipmentOptionsToSaveField = fieldModel.equipments_list;
     selected_cropOptionsToSaveField = fieldModel.crop_list;
 
-    selected_staffOptionsToUpdateFieldAddContainer =  selected_staffOptionsToSaveField.slice();
-    selected_equipmentOptionsToUpdateFieldAddContainer =selected_equipmentOptionsToSaveField.slice();
+    selected_staffOptionsToUpdateFieldAddContainer = selected_staffOptionsToSaveField.slice();
+    selected_equipmentOptionsToUpdateFieldAddContainer = selected_equipmentOptionsToSaveField.slice();
     selected_cropOptionsToUpdateFieldAddContainer = selected_cropOptionsToSaveField.slice();
 
     for (let i = 0; i < selected_staffOptionsToSaveField.length; i++) {
@@ -907,7 +966,8 @@ $(document).on("click", ".btnFieldUpdate", function () {
     $('#newFieldModal').modal('show');
 
 });
-function setIdToUpdateField(fieldModel){
+
+function setIdToUpdateField(fieldModel) {
     filedIdToUpdate = fieldModel.field_code;
 }
 
@@ -926,17 +986,18 @@ let field_optionsToSaveCrop;
 let cropSaveUpdateIndex = -1;
 let selected_fieldsToSaveCrop = [];
 let selected_fieldOptionsToUpdateCrop = [];
-let cropIdToUpdate ;
+let cropIdToUpdate;
 
-$("#addNewCropBtn").on('click',()=>{
+$("#addNewCropBtn").on('click', () => {
     cropSaveUpdateIndex = -1;
     setAddCropModelButtons();
     field_optionsToSaveCrop = field_controller.getFieldCodes();
 })
-$("#addFieldToCropSaveBtn").on('click',()=>{
+$("#addFieldToCropSaveBtn").on('click', () => {
     loadFieldContainerWhenCropSave();
 })
-function loadFieldContainerWhenCropSave(){
+
+function loadFieldContainerWhenCropSave() {
     const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
 
     // Create a new select element with options
@@ -961,7 +1022,7 @@ function loadFieldContainerWhenCropSave(){
     $('#additionalCropField').append($fieldContainer);
 }
 
-function clearAddCropModelFields(){
+function clearAddCropModelFields() {
     selected_fieldsToSaveCrop = [];
     $("#cropCommonName").val("");
     $("#cropScientificName").val("");
@@ -971,7 +1032,8 @@ function clearAddCropModelFields(){
     $('#cropImage').val("");
     $('#additionalCropField').empty();
 }
-$("#btnCloseCropDetails").on('click',()=>{
+
+$("#btnCloseCropDetails").on('click', () => {
     clearAddCropModelFields();
 })
 
@@ -979,23 +1041,23 @@ $('#cropImage').on('change', function () {
     previewImage('cropImage', 'preview3');
 });
 
-$("#btnSaveCropDetails").on('click',()=>{
+$("#btnSaveCropDetails").on('click', () => {
 
 
     selected_fieldsToSaveCrop = [];
     let cropCommonName = $("#cropCommonName").val();
     let cropScientificName = $("#cropScientificName").val();
-    let cropCategory =  $("#cropCategory").val();
+    let cropCategory = $("#cropCategory").val();
     let cropSeason = $("#cropSeason").val();
     let cropImage = $('#preview3').attr('src');
     $('.fieldListToSaveCrop').each(function () {
         selected_fieldsToSaveCrop.push($(this).val()); // Add the selected value to the array
     });
 
-    let cropModel = new CropModel("",cropCommonName,cropScientificName,cropImage,cropCategory,cropSeason,selected_fieldsToSaveCrop,"");
-    if (cropCommonName != "" && cropScientificName != "" && cropCategory != "" && cropSeason != ""){
+    let cropModel = new CropModel("", cropCommonName, cropScientificName, cropImage, cropCategory, cropSeason, selected_fieldsToSaveCrop, "");
+    if (cropCommonName != "" && cropScientificName != "" && cropCategory != "" && cropSeason != "") {
         let vl = $("#btnSaveCropDetails").text();
-        if (vl == "Save Crop"){
+        if (vl == "Save Crop") {
             crop_controller.saveCrop(cropModel);
             $('#newCropModal').modal('hide');
             Swal.fire({
@@ -1005,7 +1067,7 @@ $("#btnSaveCropDetails").on('click',()=>{
                 timer: 1500
             });
             clearAddCropModelFields();
-        }else {
+        } else {
             cropModel.crop_code = cropIdToUpdate;
             crop_controller.updateCropValues(cropModel);
             $('#newCropModal').modal('hide');
@@ -1017,7 +1079,7 @@ $("#btnSaveCropDetails").on('click',()=>{
             });
             clearAddCropModelFields();
         }
-    }else {
+    } else {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -1027,7 +1089,7 @@ $("#btnSaveCropDetails").on('click',()=>{
 
 })
 
-function setAddCropModelButtons(){
+function setAddCropModelButtons() {
     if (cropSaveUpdateIndex > -1) {
         $("#btnSaveCropDetails").text("Update");
     } else {
@@ -1036,7 +1098,7 @@ function setAddCropModelButtons(){
 }
 
 $(document).on("click", ".btnCropDelete", function () {
-    const index =$(this).data("index");
+    const index = $(this).data("index");
     let cropModel = crop_controller.getCropFromIndex(index);
     Swal.fire({
         title: "Are you sure?",
@@ -1060,18 +1122,20 @@ $(document).on("click", ".btnCropDelete", function () {
 
 })
 
-function setSelectedFieldToUpdatedCrop(){
+function setSelectedFieldToUpdatedCrop() {
     $('.fieldListToSaveCrop').each(function () {
         $(this).val(selected_fieldOptionsToUpdateCrop.shift())
     });
 }
-function setIdToUpdateCrop(cropModel){
+
+function setIdToUpdateCrop(cropModel) {
     cropIdToUpdate = cropModel.crop_code;
 }
+
 $(document).on("click", ".btnCropUpdate", function () {
     clearAddCropModelFields();
     const index = $(this).data("index");
-    cropSaveUpdateIndex =index;
+    cropSaveUpdateIndex = index;
     setAddCropModelButtons();
     let cropModel = crop_controller.getCropFromIndex(index);
     setIdToUpdateCrop(cropModel);
@@ -1100,30 +1164,30 @@ let selected_fieldsToSaveEquipment = [];
 let selected_StaffToSaveEquipment = [];
 let selected_StaffOptionsToUpdateEquipment = [];
 let selected_fieldOptionsToUpdateEquipment = [];
-let equipmentIdToUpdate ;
+let equipmentIdToUpdate;
 
-$("#addNewEquipmentBtn").on('click',()=>{
+$("#addNewEquipmentBtn").on('click', () => {
     equipmentSaveUpdateIndex = -1;
     setEquipmentModelButtons();
     staff_optionsToSaveEquipment = staff_controller.getStaffIds();
     field_optionsToSaveEquipment = equipment_controller.getEquipmentCodes();
 })
 
-$("#addFieldToEquipmentSaveBtn").on('click',()=>{
+$("#addFieldToEquipmentSaveBtn").on('click', () => {
     loadFieldContainerWhenEquipmentSave();
 })
-$("#addStaffToEquipmentSaveBtn").on('click',()=>{
+$("#addStaffToEquipmentSaveBtn").on('click', () => {
     loadStaffContainerWhenEquipmentSave();
 })
 
-$("#btnSaveEquipmentDetails").on('click',()=>{
-     selected_fieldsToSaveEquipment = [];
+$("#btnSaveEquipmentDetails").on('click', () => {
+    selected_fieldsToSaveEquipment = [];
     selected_StaffToSaveEquipment = [];
 
-    let equipmentName =  $("#equipmentName").val();
-    let equipmentType =  $("#equipmentType").val();
+    let equipmentName = $("#equipmentName").val();
+    let equipmentType = $("#equipmentType").val();
     let equipmentCount = $("#equipmentCount").val();
-    let equipmentStatus =  $("#equipmentStatus").val();
+    let equipmentStatus = $("#equipmentStatus").val();
 
     $('.fieldListToSaveEquipment').each(function () {
         selected_fieldsToSaveEquipment.push($(this).val()); // Add the selected value to the array
@@ -1132,11 +1196,11 @@ $("#btnSaveEquipmentDetails").on('click',()=>{
         selected_StaffToSaveEquipment.push($(this).val()); // Add the selected value to the array
     });
 
-    if (equipmentName!= "" && equipmentCount!= "" && equipmentType != "" && equipmentStatus!= ""){
+    if (equipmentName != "" && equipmentCount != "" && equipmentType != "" && equipmentStatus != "") {
         let vl = $("#btnSaveEquipmentDetails").text();
-        let equipmentModel =  new EquipmentModel("",equipmentName,equipmentType,equipmentCount,equipmentStatus,selected_StaffToSaveEquipment,selected_fieldsToSaveEquipment);
+        let equipmentModel = new EquipmentModel("", equipmentName, equipmentType, equipmentCount, equipmentStatus, selected_StaffToSaveEquipment, selected_fieldsToSaveEquipment);
         console.log(equipmentModel)
-        if (vl == "Save Tool"){
+        if (vl == "Save Tool") {
             equipment_controller.saveEquipment(equipmentModel);
             $('#newEquipmentModal').modal('hide');
             Swal.fire({
@@ -1147,7 +1211,7 @@ $("#btnSaveEquipmentDetails").on('click',()=>{
             });
             clearAddEquipmentModelFields();
 
-        }else {
+        } else {
             //     Todo : Update
 
             equipmentModel.equipment_id = equipmentIdToUpdate;
@@ -1161,7 +1225,7 @@ $("#btnSaveEquipmentDetails").on('click',()=>{
             });
             clearAddEquipmentModelFields();
         }
-    }else {
+    } else {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -1171,11 +1235,11 @@ $("#btnSaveEquipmentDetails").on('click',()=>{
 
 })
 
-$("#btnCloseEquipmentDetails").on('click',()=>{
-    let vl =  $("#btnCloseEquipmentDetails").text();
-    if (vl == "Close"){
+$("#btnCloseEquipmentDetails").on('click', () => {
+    let vl = $("#btnCloseEquipmentDetails").text();
+    if (vl == "Close") {
         clearAddEquipmentModelFields();
-    }else {
+    } else {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -1201,18 +1265,19 @@ $("#btnCloseEquipmentDetails").on('click',()=>{
     }
 })
 
-function clearAddEquipmentModelFields(){
-     selected_fieldsToSaveEquipment = [];
-     selected_StaffToSaveEquipment = [];
-     $("#equipmentName").val("");
-     $("#equipmentType").val("");
-     $("#equipmentCount").val("");
-     $("#equipmentStatus").val("");
-     $("#additionalFieldToEquipment").empty();
-     $("#additionalStaffToEquipment").empty();
+function clearAddEquipmentModelFields() {
+    selected_fieldsToSaveEquipment = [];
+    selected_StaffToSaveEquipment = [];
+    $("#equipmentName").val("");
+    $("#equipmentType").val("");
+    $("#equipmentCount").val("");
+    $("#equipmentStatus").val("");
+    $("#additionalFieldToEquipment").empty();
+    $("#additionalStaffToEquipment").empty();
 
 }
-function setEquipmentModelButtons(){
+
+function setEquipmentModelButtons() {
     if (equipmentSaveUpdateIndex > -1) {
         $("#btnCloseEquipmentDetails").text("Delete");
         $("#btnCloseEquipmentDetails").css({
@@ -1229,7 +1294,8 @@ function setEquipmentModelButtons(){
         $("#btnSaveEquipmentDetails").text("Save Tool");
     }
 }
-function loadFieldContainerWhenEquipmentSave(){
+
+function loadFieldContainerWhenEquipmentSave() {
     const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
 
     // Create a new select element with options
@@ -1253,7 +1319,8 @@ function loadFieldContainerWhenEquipmentSave(){
     // Append the new field container to the additionalStaffField
     $('#additionalFieldToEquipment').append($fieldContainer);
 }
-function loadStaffContainerWhenEquipmentSave(){
+
+function loadStaffContainerWhenEquipmentSave() {
     const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
 
     // Create a new select element with options
@@ -1278,18 +1345,20 @@ function loadStaffContainerWhenEquipmentSave(){
     $('#additionalStaffToEquipment').append($fieldContainer);
 }
 
-function setSelectedFieldToUpdatedEquipment(){
+function setSelectedFieldToUpdatedEquipment() {
     $('.fieldListToSaveEquipment').each(function () {
         $(this).val(selected_fieldOptionsToUpdateEquipment.shift())
 
     });
 }
-function setSelectedStaffToUpdatedEquipment(){
+
+function setSelectedStaffToUpdatedEquipment() {
     $('.staffListToSaveEquipment').each(function () {
         $(this).val(selected_StaffOptionsToUpdateEquipment.shift())
 
     });
 }
+
 $("#equipmentTblBody").on('click', 'tr', function () {
     selected_fieldsToSaveEquipment = [];
     selected_fieldOptionsToUpdateEquipment = [];
@@ -1313,7 +1382,7 @@ $("#equipmentTblBody").on('click', 'tr', function () {
     $("#equipmentName").val(equipmentModel.equipment_name);
     $("#equipmentType").val(equipmentModel.type);
     $("#equipmentCount").val(equipmentModel.count);
-     $("#equipmentStatus").val(equipmentModel.status);
+    $("#equipmentStatus").val(equipmentModel.status);
 
     $('#newEquipmentModal').modal('show');
 
@@ -1324,25 +1393,27 @@ $("#equipmentTblBody").on('click', 'tr', function () {
 
 
 let vehicleIndex = -1;
-let vehicleIdToUpdate ;
+let vehicleIdToUpdate;
 let staffIdToAddVehicle;
 
-$("#addNewVehicleBtn").on('click',()=>{
+$("#addNewVehicleBtn").on('click', () => {
     vehicleIndex = -1;
     setVehicleModelButtons();
     staffIdToAddVehicle = staff_controller.getStaffIds();
     setStaffIdComboBoxValues();
 })
-function setStaffIdComboBoxValues(){
+
+function setStaffIdComboBoxValues() {
     for (let i = 0; i < staffIdToAddVehicle.length; i++) {
         let value = `<option value="${staffIdToAddVehicle[i]}">${staffIdToAddVehicle[i]}</option>`
 
         $("#staffIdToVehicle").append(value);
     }
 }
-$("#btnCloseVehicleDetails").on('click',()=>{
+
+$("#btnCloseVehicleDetails").on('click', () => {
     let vl = $("#btnCloseVehicleDetails").text();
-    if (vl == "Delete"){
+    if (vl == "Delete") {
 
         Swal.fire({
             title: "Are you sure?",
@@ -1364,12 +1435,13 @@ $("#btnCloseVehicleDetails").on('click',()=>{
         });
         $('#newVehicleModal').modal('hide');
         clearAddVehicleFields();
-    }else {
+    } else {
         clearAddVehicleFields();
     }
 
 })
-function clearAddVehicleFields(){
+
+function clearAddVehicleFields() {
     $("#licencePlateNumber").val("");
     $("#vehicleCategory").val("");
     $("#vehicleFuelType").val("");
@@ -1380,7 +1452,7 @@ function clearAddVehicleFields(){
     $("#staffIdToVehicle").append('<option value="" disabled selected>Select Staff Id</option>');
 }
 
-function setVehicleModelButtons(){
+function setVehicleModelButtons() {
     if (vehicleIndex > -1) {
         $("#btnCloseVehicleDetails").text("Delete");
         $("#btnCloseVehicleDetails").css({
@@ -1397,18 +1469,19 @@ function setVehicleModelButtons(){
         $("#btnSaveVehicleDetails").text("Save Vehicle");
     }
 }
-$("#btnSaveVehicleDetails").on('click',()=>{
-   let licencePlateNumber = $("#licencePlateNumber").val();
-    let vehicleCategory =$("#vehicleCategory").val();
-    let fuelType =$("#vehicleFuelType").val();
+
+$("#btnSaveVehicleDetails").on('click', () => {
+    let licencePlateNumber = $("#licencePlateNumber").val();
+    let vehicleCategory = $("#vehicleCategory").val();
+    let fuelType = $("#vehicleFuelType").val();
     let vehicleStatus = $("#vehicleStatus").val();
     let staff_id = $("#staffIdToVehicle").val();
-    let specialRemark =$("#specialRemark").val();
+    let specialRemark = $("#specialRemark").val();
     console.log(vehicleCategory);
-    if (licencePlateNumber != "" && vehicleCategory != "" && fuelType != "" && vehicleStatus != "" && staff_id != "" ){
-        let vehicleModel = new VehicleModel("",licencePlateNumber,vehicleCategory,fuelType,vehicleStatus,staff_id,specialRemark);
+    if (licencePlateNumber != "" && vehicleCategory != "" && fuelType != "" && vehicleStatus != "" && staff_id != "") {
+        let vehicleModel = new VehicleModel("", licencePlateNumber, vehicleCategory, fuelType, vehicleStatus, staff_id, specialRemark);
         let vl = $("#btnSaveVehicleDetails").text();
-        if (vl == "Save Vehicle"){
+        if (vl == "Save Vehicle") {
             vehicle_controller.saveData(vehicleModel);
             $('#newVehicleModal').modal('hide');
             Swal.fire({
@@ -1418,8 +1491,8 @@ $("#btnSaveVehicleDetails").on('click',()=>{
                 timer: 1500
             });
             clearAddVehicleFields();
-        }else {
-        //     Todo: Update Vehicle
+        } else {
+            //     Todo: Update Vehicle
             vehicleModel.vehicle_code = vehicleIdToUpdate;
             vehicle_controller.updateVehicleValues(vehicleModel);
             $('#newVehicleModal').modal('hide');
@@ -1431,7 +1504,7 @@ $("#btnSaveVehicleDetails").on('click',()=>{
             });
             clearAddVehicleFields();
         }
-    }else {
+    } else {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -1463,4 +1536,276 @@ $("#vehicleTblBody").on('click', 'tr', function () {
 
 // vehicle JS End
 
+let logIndex = -1;
+let logIdToUpdateDelete;
+let staffOptionsToSaveLog;
+let fieldOptionsToSaveLog;
+let CropOptionsToSaveLog;
 
+let selected_staffOptionsToSaveLog = [];
+let selected_fieldOptionsToSaveLog = [];
+let selected_cropOptionsToSaveLog = [];
+
+let selected_staffOptionsToUpdateLog = [];
+let selected_fieldOptionsToUpdateLog = [];
+let selected_cropOptionsToUpdateLog = [];
+
+
+$("#addNewLogBtn").on('click', () => {
+    logIndex = -1;
+    setLogModelButtons();
+    staffOptionsToSaveLog = staff_controller.getStaffIds();
+    fieldOptionsToSaveLog = field_controller.getFieldCodes();
+    CropOptionsToSaveLog = crop_controller.getCropCodes();
+})
+
+function setLogModelButtons() {
+    if (logIndex > -1) {
+        $("#btnSaveLogDetails").text("Update");
+    } else {
+        $("#btnSaveLogDetails").text("Save Log");
+    }
+}
+
+$('#logImage').on('change', function () {
+    previewImage('logImage', 'preview4');
+});
+$("#btnCloseLogDetails").on('click', () => {
+    clearAddLogModelFields();
+})
+
+function clearAddLogModelFields() {
+    selected_staffOptionsToSaveLog = [];
+    selected_fieldOptionsToSaveLog = [];
+    selected_cropOptionsToSaveLog = [];
+    $('#preview4').attr('src', '#').addClass('d-none');
+    $('#logImage').val("");
+    $("#logType").val("");
+    $("#logRemark").val("");
+    $("#additionalStaffToAddLogs").empty();
+    $("#additionalFieldToAddLogs").empty();
+    $("#additionalCropToAddLogs").empty();
+}
+
+$("#addStaffToLogSaveBtn").on('click', () => {
+    loadStaffContainerWhenLogSave();
+})
+$("#addFieldToLogSaveBtn").on('click', () => {
+    loadFieldContainerWhenLogsSave();
+})
+$("#addCropsToLogSaveBtn").on('click', () => {
+    loadCropContainerWhenLogsSave();
+})
+
+function loadStaffContainerWhenLogSave() {
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="staffListToSaveLog form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Staffs</option>`);
+    staffOptionsToSaveLog.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalStaffToAddLogs').append($fieldContainer);
+}
+
+function loadFieldContainerWhenLogsSave() {
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="fieldsListToSaveLog form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Fields</option>`);
+    fieldOptionsToSaveLog.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalFieldToAddLogs').append($fieldContainer);
+}
+
+function loadCropContainerWhenLogsSave() {
+    const $fieldContainer = $('<div class="d-flex align-items-center mt-2"></div>');
+
+    // Create a new select element with options
+    const $newSelect = $('<select class="cropListToSaveLog form-control me-2"></select>');
+    $newSelect.append(`<option value="">Select Crops</option>`);
+    CropOptionsToSaveLog.forEach(function (optionValue) {
+        $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
+    });
+
+    // Create a remove button
+    const $removeButton = $('<button type="button" class="btn btn-danger">Remove</button>');
+
+    // Add click event to remove the field
+    $removeButton.on('click', function () {
+        $fieldContainer.remove(); // Remove this container when clicked
+    });
+
+    // Append select and remove button to the field container
+    $fieldContainer.append($newSelect).append($removeButton);
+
+    // Append the new field container to the additionalStaffField
+    $('#additionalCropToAddLogs').append($fieldContainer);
+}
+
+$("#btnSaveLogDetails").on('click', () => {
+    selected_staffOptionsToSaveLog = [];
+    selected_fieldOptionsToSaveLog =[];
+    selected_cropOptionsToSaveLog=[];
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+    const day = currentDate.getDate();
+
+    let date = year + "-" + month + "-" + day;
+
+    let observedImage = $('#preview4').attr('src');
+    let logType = $("#logType").val();
+    let logDetails = $("#logRemark").val();
+
+    $('.staffListToSaveLog').each(function () {
+        selected_staffOptionsToSaveLog.push($(this).val()); // Add the selected value to the array
+    });
+    $('.fieldsListToSaveLog').each(function () {
+        selected_fieldOptionsToSaveLog.push($(this).val()); // Add the selected value to the array
+    });
+    $('.cropListToSaveLog').each(function () {
+        selected_cropOptionsToSaveLog.push($(this).val()); // Add the selected value to the array
+    });
+
+    if (logType != "" && logDetails != "") {
+        let vl = $("#btnSaveLogDetails").text();
+
+        let logModel = new LogModel("", date, logDetails, logType, observedImage, selected_fieldOptionsToSaveLog, selected_cropOptionsToSaveLog, selected_staffOptionsToSaveLog);
+        if (vl == "Save Log") {
+            log_controller.saveCrop(logModel);
+            $('#newLogModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddLogModelFields();
+        } else {
+            logModel.log_code = logIdToUpdateDelete;
+            log_controller.updateLogValues(logModel);
+            $('#newLogModal').modal('hide');
+            Swal.fire({
+                icon: "success",
+                title: "Your Equipment Was Updated!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearAddLogModelFields();
+        }
+
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have Add Values First!",
+        });
+    }
+
+})
+
+$(document).on("click", ".btnLogUpdate", function () {
+    clearAddCropModelFields();
+    const index = $(this).data("index");
+    logIndex = index;
+    setLogModelButtons();
+    let logModel = log_controller.getLogFromIndex(index);
+    logIdToUpdateDelete = logModel.log_code;
+    selected_staffOptionsToSaveLog = logModel.staffs_list;
+    selected_fieldOptionsToSaveLog = logModel.fields_list;
+    selected_cropOptionsToSaveLog = logModel.crops_list;
+
+
+    selected_staffOptionsToUpdateLog = selected_staffOptionsToSaveLog.slice();
+    selected_fieldOptionsToUpdateLog = selected_fieldOptionsToSaveLog.slice();
+    selected_cropOptionsToUpdateLog = selected_cropOptionsToSaveLog.slice();
+
+    $('#preview4').attr('src', logModel.observe_image).removeClass('d-none');
+
+    $("#logType").val(logModel.logType);
+    $("#logRemark").val(logModel.log_details);
+
+
+    for (let i = 0; i <selected_staffOptionsToSaveLog.length; i++) {
+        loadStaffContainerWhenLogSave();
+    }
+    for (let i = 0; i < selected_fieldOptionsToSaveLog.length; i++) {
+        loadFieldContainerWhenLogsSave();
+    }
+    for (let i = 0; i < selected_cropOptionsToSaveLog.length; i++) {
+        loadCropContainerWhenLogsSave();
+    }
+    setSelectedFieldToUpdatedLog();
+    setSelectedStaffToUpdatedLog();
+    setSelectedCropToUpdatedLog();
+
+    $('#newLogModal').modal('show');
+
+});
+
+function setSelectedFieldToUpdatedLog() {
+    $('.fieldsListToSaveLog').each(function () {
+        $(this).val(selected_fieldOptionsToUpdateLog.shift())
+    });
+}
+function setSelectedStaffToUpdatedLog() {
+    $('.staffListToSaveLog').each(function () {
+        $(this).val(selected_staffOptionsToUpdateLog.shift())
+    });
+}
+function setSelectedCropToUpdatedLog() {
+    $('.cropListToSaveLog').each(function () {
+        $(this).val(selected_cropOptionsToUpdateLog.shift())
+    });
+}
+$(document).on("click", ".btnLogDelete", function () {
+    clearAddCropModelFields();
+    const index = $(this).data("index");
+    cropSaveUpdateIndex = index;
+    setAddCropModelButtons();
+    let cropModel = crop_controller.getCropFromIndex(index);
+    setIdToUpdateCrop(cropModel);
+    selected_fieldsToSaveCrop = cropModel.field_code;
+    selected_fieldOptionsToUpdateCrop = selected_fieldsToSaveCrop.slice();
+    for (let i = 0; i < selected_fieldsToSaveCrop.length; i++) {
+        loadFieldContainerWhenCropSave();
+    }
+    setSelectedFieldToUpdatedCrop();
+    $("#cropCommonName").val(cropModel.crop_common_name);
+    $("#cropScientificName").val(cropModel.crop_scientific_name);
+    $("#cropCategory").val(cropModel.category);
+    $("#cropSeason").val(cropModel.season);
+    $('#preview3').attr('src', cropModel.crop_image).removeClass('d-none');
+    $('#newCropModal').modal('show');
+
+});

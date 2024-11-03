@@ -877,6 +877,147 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
 </div>
 <!--Vehicle section end-->
 
+
+<!--Logs section start-->
+<div style="display: none" id="logsSection" class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav d-flex justify-content-end align-items-center">
+        <a href="#" class="icon-link me-3">
+            <img src="email-icon.png" alt="Email Icon" class="icon">
+        </a>
+        <a href="#" class="icon-link">
+            <img src="user-icon.png" alt="User Icon" class="icon">
+        </a>
+    </div>
+    <!-- Content Area -->
+    <div class="content p-4">
+        <h4>Logs Details</h4>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <select class="form-select w-auto">
+                <option selected>Relevance</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+            <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
+                <button id="addNewLogBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newLogModal">Add New Log</button>
+            </div>
+        </div>
+        <div style="background-color: #f8f9fa; height: 72vh !important; overflow: hidden;"
+             class="section-details p-5">
+            <div id="logCardSection" class="card-grid">
+
+
+
+            </div>
+
+
+
+<!--                        add Logs model-->
+                        <div class="modal fade" id="newLogModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content" style="background-color: #2b2b2b; color: white;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="newLogModalLabel">Add New Log Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="logForm">
+                                            <div class="row mb-3">
+                                                <!-- Log Observed Image  -->
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="logImage" class="form-label">Observed Image</label>
+                                                        <input type="file" class="form-control" id="logImage" accept="image/*">
+                                                        <img id="preview4" src="#" alt="Image Preview 1" class="img-fluid mt-2 d-none" style="max-height: 150px;">
+                                                    </div>
+                                                    <!-- Log Type-->
+                                                    <div class="col-md-6">
+                                                        <label for="logType" class="form-label">Vehicle Fuel Type</label>
+                                                        <select class="form-control" id="logType" required>
+                                                            <option value="" disabled selected>Select Log Type</option>
+                                                            <option value="DANGER">DANGER</option>
+                                                            <option value="NORMAL">NORMAL</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <!-- Log Details -->
+                                                <div class="col-md-6">
+                                                    <label for="logRemark" class="form-label">Log Remark</label>
+                                                    <input type="text" class="form-control" placeholder="Any Special Remark" id="logRemark" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <!-- Staff List -->
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <label for="addFieldToCropSaveBtn" class="form-label">Staff</label>
+                                                        <button type="button" class="btn btn-success" id="addStaffToLogSaveBtn">Add Staff</button>
+                                                    </div>
+                                                    <!-- Initial dropdown with predefined options -->
+                                                    <div id="initialStaffToAddLogs" class="input-group">
+                                                        <select id="staff-logs" class="form-control mt-2">
+                                                            <option value="">Select Staff</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Container for additional dynamic dropdowns -->
+                                                    <div id="additionalStaffToAddLogs" class="mt-2"></div>
+                                                </div>
+
+                                                <!-- Field List -->
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <label for="addFieldToCropSaveBtn" class="form-label">Field</label>
+                                                        <button type="button" class="btn btn-success" id="addFieldToLogSaveBtn">Add Field</button>
+                                                    </div>
+                                                    <!-- Initial dropdown with predefined options -->
+                                                    <div id="initialFieldToAddLogs" class="input-group">
+                                                        <select id="field-logs" class="form-control mt-2">
+                                                            <option value="">Select Field</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Container for additional dynamic dropdowns -->
+                                                    <div id="additionalFieldToAddLogs" class="mt-2"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <!-- Crops List -->
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <label for="addFieldToCropSaveBtn" class="form-label">Crops</label>
+                                                        <button type="button" class="btn btn-success" id="addCropsToLogSaveBtn">Add Crop</button>
+                                                    </div>
+                                                    <!-- Initial dropdown with predefined options -->
+                                                    <div id="initialCropToAddLogs" class="input-group">
+                                                        <select id="crop-logs" class="form-control mt-2">
+                                                            <option value="">Select Crop</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Container for additional dynamic dropdowns -->
+                                                    <div id="additionalCropToAddLogs" class="mt-2"></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnCloseLogDetails" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button id="btnSaveLogDetails" type="submit" class="btn btn-success">Save Log</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+        </div>
+    </div>
+
+</div>
+<!--Logs section end-->
+
 <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js
 "></script>
