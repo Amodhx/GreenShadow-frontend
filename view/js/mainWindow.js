@@ -12,6 +12,26 @@ import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
 
 
+$(".userIcon ").on('click',()=>{
+    Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to leave the system?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Log Out!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.replace('index.html');
+            Swal.fire({
+                title: "Log Outed!",
+                text: "You log out the system",
+                icon: "success"
+            });
+        }
+    });
+})
 // staff js start
 $("#dashBoardBtn").on('click', () => {
     $("#dashBoardBtn").addClass('active');
