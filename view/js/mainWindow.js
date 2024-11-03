@@ -1789,23 +1789,28 @@ function setSelectedCropToUpdatedLog() {
     });
 }
 $(document).on("click", ".btnLogDelete", function () {
-    clearAddCropModelFields();
     const index = $(this).data("index");
     cropSaveUpdateIndex = index;
-    setAddCropModelButtons();
-    let cropModel = crop_controller.getCropFromIndex(index);
-    setIdToUpdateCrop(cropModel);
-    selected_fieldsToSaveCrop = cropModel.field_code;
-    selected_fieldOptionsToUpdateCrop = selected_fieldsToSaveCrop.slice();
-    for (let i = 0; i < selected_fieldsToSaveCrop.length; i++) {
-        loadFieldContainerWhenCropSave();
-    }
-    setSelectedFieldToUpdatedCrop();
-    $("#cropCommonName").val(cropModel.crop_common_name);
-    $("#cropScientificName").val(cropModel.crop_scientific_name);
-    $("#cropCategory").val(cropModel.category);
-    $("#cropSeason").val(cropModel.season);
-    $('#preview3').attr('src', cropModel.crop_image).removeClass('d-none');
-    $('#newCropModal').modal('show');
+    let logModel = log_controller.getLogFromIndex(index);
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            log_controller.deleteCropValues(logModel.log_code);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        }
+    });
+    $('#newLogModal').modal('hide');
+
 
 });
