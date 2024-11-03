@@ -24,5 +24,5 @@ function validateEmail(email){
 }
 function checkCredentials(email,password){
     event.preventDefault();
-    window.location.replace('window.html');
+    window.location.replace('mainWindow.html');
 }
