@@ -10,7 +10,7 @@ export default class FieldController{
     }
 
     saveData(filedValues){
-        filedValues.field_code = "F01";
+        filedValues.field_code = Math.floor((Math.random() * 10) + 1);
         fields.push(filedValues);
         this.loadCards();
 

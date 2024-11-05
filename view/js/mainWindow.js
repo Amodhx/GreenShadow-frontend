@@ -863,7 +863,7 @@ $("#btnSaveFieldDetails").on('click', () => {
         selected_cropOptionsToSaveField.push($(this).val()); // Add the selected value to the array
     });
 
-    let field_model = new FieldModel(",", fieldName, fieldLocation, extendSize, selected_staffOptionsToSaveField, selected_cropOptionsToSaveField, image1, image2, "", selected_equipmentOptionsToSaveField);
+    let field_model = new FieldModel("", fieldName, fieldLocation, extendSize, selected_staffOptionsToSaveField, selected_cropOptionsToSaveField, image1, image2, "", selected_equipmentOptionsToSaveField);
 
     let btnText = $("#btnSaveFieldDetails").text();
     if (btnText === "Save Field") {
