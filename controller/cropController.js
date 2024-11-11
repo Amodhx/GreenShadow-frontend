@@ -1,8 +1,13 @@
 import {crops, equipments, fields} from "../db/db.js";
-import {CropModel} from "../model/cropModel.js";
+import CropApi from "../api/cropApi.js";
 
 export class CropController {
-    loadData() {
+    cropApi = new CropApi();
+
+
+    async loadData() {
+        await this.cropApi.getAllCrops();
+        await this.loadCards();
         //     ToDO: Get data from database
 
 
@@ -10,50 +15,29 @@ export class CropController {
     getCropFromIndex(index){
         return crops[index];
     }
-    deleteCropValues(cropCode){
-        this.deleteCropByIdFromArray(cropCode);
-        this.loadCards();
+    async deleteCropValues(cropCode){
+        await this.cropApi.deleteCrop(cropCode);
+        await this.loadData();
 
     }
-    deleteCropByIdFromArray(cropIdToDelete) {
-        for (let i = crops.length - 1; i >= 0; i--) {
-            if (crops[i].crop_code === cropIdToDelete) {
-                crops.splice(i, 1);
-            }
-        }
-    }
     getCropCodes(){
-        let ar = ["C01","C02"];
+        let ar = [];
         equipments.map(function (eq) {
             ar.push(eq.equipment_id);
         });
         return ar;
     }
-    saveCrop(cropModel){
-        crops.push(cropModel);
-        this.loadCards();
+    async saveCrop(cropModel){
+        await this.cropApi.saveCrop(cropModel);
+        await this.loadData();
     }
 
-    updateCropValues(cropModel){
-        this.updateCropById(cropModel.crop_code,cropModel);
-        this.loadCards();
-    }
-    updateCropById(cropIdToUpdate, newValues) {
-        for (const cropObj of crops) {
-            if (cropObj.crop_code === cropIdToUpdate) {
-                cropObj.crop_common_name = newValues.crop_common_name;
-                cropObj.crop_scientific_name = newValues.crop_scientific_name;
-                cropObj.category = newValues.category;
-                cropObj.season = newValues.season;
-                cropObj.crop_image = newValues.crop_image;
-                cropObj.field_code = newValues.field_code;
-                break;
-            }
-        }
+    async updateCropValues(cropModel){
+        await this.cropApi.updateCrop(cropModel);
+        await this.loadData();
     }
 
-    loadCards() {
-        this.loadData(); // Todo:Check how loading cards
+    loadCards() { // Todo:Check how loading cards
         $("#cropCardSection").empty();
         crops.map(function (crop,index) {
             var value =
