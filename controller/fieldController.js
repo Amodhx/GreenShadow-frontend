@@ -1,23 +1,20 @@
 import {fields, staff} from "../db/db.js";
-import {FieldModel} from "../model/fieldModel.js";
+import FieldApi from "../api/fieldApi.js";
 export default class FieldController{
-
-    loadData(){
-    //     ToDO: Get data from database
-
-
-
+     fieldApi = new FieldApi();
+     async loadData(){
+         await this.fieldApi.getAllFiledData();
+         await this.loadCards();
     }
 
-    saveData(filedValues){
-        filedValues.field_code = Math.floor((Math.random() * 10) + 1);
-        fields.push(filedValues);
-        this.loadCards();
+    async saveData(filedValues){
+        await this.fieldApi.saveFieldData(filedValues);
+        await this.loadData();
 
     }
-    updateFiledValues(filedModel){
-        this.updateFieldById(filedModel.field_code,filedModel);
-        this.loadCards();
+    async updateFiledValues(filedModel){
+        await this.fieldApi.updateFieldData(filedModel);
+        await this.loadData();
     }
 
     updateFieldById(fieldIdToUpdate, newValues) {
@@ -35,9 +32,9 @@ export default class FieldController{
             }
         }
     }
-    deleteFieldValues(fieldId){
-        this.deleteFieldByIdFromArray(fieldId);
-        this.loadCards();
+    async deleteFieldValues(fieldId){
+        await this.fieldApi.deleteFieldData(fieldId);
+        await this.loadData();
     }
     deleteFieldByIdFromArray(fieldIdToDelete) {
         for (let i = fields.length - 1; i >= 0; i--) {
@@ -46,9 +43,9 @@ export default class FieldController{
             }
         }
     }
-    getFieldCodes(){
-        this.loadData();
-        let ar = ["F01","F02"];
+    async getFieldCodes(){
+        await this.loadData();
+        let ar = [];
         fields.map(function (field) {
             ar.push(field.field_code);
         });
@@ -59,16 +56,15 @@ export default class FieldController{
         return fields[index];
     }
 
-    loadCards(){
-        this.loadData();
+     async loadCards(){
+        console.log("LOAD Table Start")
         // Todo:Check how loading cards
         $("#fieldCardSection").empty();
-        console.log(fields);
         fields.map(function (field,index) {
             var value =
                 `<div class="card text-white" style="background-color: #2b2b2b; border: 1px solid gray;">
                     <!-- Image Carousel with Fixed Height -->
-                    <div id="${field.field_name}"  class="carousel slide" data-bs-ride="carousel">
+                    <div id="${index}"  class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="${field.field_image_01}"  class="d-block w-100 fixed-image" height="175px" alt="Field Image 1">
