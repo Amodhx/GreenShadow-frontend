@@ -20,10 +20,11 @@ export class CropController {
         await this.loadData();
 
     }
-    getCropCodes(){
+    async getCropCodes(){
+        await this.loadData();
         let ar = [];
-        equipments.map(function (eq) {
-            ar.push(eq.equipment_id);
+        crops.map(function (crop) {
+            ar.push(crop.crop_code);
         });
         return ar;
     }
