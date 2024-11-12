@@ -41,7 +41,7 @@ export default class CropApi{
                 headers: {
                     "Authorization": "Bearer " + this.token
                 },
-                success: function(response) {
+                success: function() {
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -93,7 +93,7 @@ export default class CropApi{
                 headers: {
                     "Authorization": "Bearer " + this.token
                 },
-                success: function(response) {
+                success: function() {
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -142,7 +142,7 @@ export default class CropApi{
                 headers: {
                     "Authorization": "Bearer " + this.token
                 },
-                success: function(response) {
+                success: function() {
                     resolve();
                 },
                 error: function(xhr, status, error) {

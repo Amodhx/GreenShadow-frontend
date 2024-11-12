@@ -11,7 +11,15 @@ import {VehicleModel} from "../../model/vehicleModel.js";
 import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
 
+window.onload = function() {
+    field_controller.loadData();
+    crop_controller.loadData();
+    equipment_controller.loadValues();
+    log_controller.loadValues();
+    staff_controller.loadValues();
+    vehicle_controller.loadValues();
 
+};
 $(".userIcon ").on('click',()=>{
     Swal.fire({
         title: "Are you sure?",
@@ -95,7 +103,7 @@ $("#staffBtn").on('click', () => {
         display: "none"
     })
 
-    staff_controller.loadValues();
+    staff_controller.loadTable();
 
 })
 $("#fieldBtn").on('click', () => {
@@ -291,7 +299,9 @@ let selected_vehicleToAddContainers = [];
 let selected_equipmentsToAddContainers = [];
 
 function loadOptionsValues() {
+    console.log("FieldOPtions")
     field_options = field_controller.getFieldCodes();
+    console.log("Getted field Options")
     vehicle_options = vehicle_controller.getVehicleCodes();
     equipment_options = equipment_controller.getEquipmentCodes();
 }
