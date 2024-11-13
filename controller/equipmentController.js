@@ -9,7 +9,6 @@ export default class EquipmentController{
         await this.loadTable();
     }
     async getEquipmentCodes(){
-        await this.loadValues();
         let ar = [];
         equipments.map(function (eq) {
             ar.push(eq.equipment_id);

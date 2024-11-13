@@ -16,18 +16,17 @@ export default class EquipmentApi{
                 staff_id_list: equipmentModel.staff_id,
                 field_code_list: equipmentModel.field_code
             };
-
+            console.log(data)
             $.ajax({
                 url: "http://localhost:5050/api/v1/equipment/saveEquipment",
                 type: "POST",
+                contentType: "application/json",
                 data:JSON.stringify(data),
-                processData: false,  // Prevents jQuery from processing data as a query string
-                contentType: false,
                 headers: {
-                    contentType: "application/json",
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    console.log(response)
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -55,9 +54,8 @@ export default class EquipmentApi{
             $.ajax({
                 url: "http://localhost:5050/api/v1/equipment/updateEquipment",
                 type: "PATCH",
+                contentType: "application/json",
                 data:JSON.stringify(data),
-                processData: false,  // Prevents jQuery from processing data as a query string
-                contentType: false,
                 headers: {
                     contentType: "application/json",
                     "Authorization": "Bearer " + this.token
@@ -106,7 +104,7 @@ export default class EquipmentApi{
                 },
                 success: function(response) {
                     response.forEach(equipment => {
-                        equipments.push(new EquipmentModel(equipment.equipment_id,equipment.equipment_name,equipment.type,equipment.count,equipment.status,equipment.staff_id,equipment.field_code));
+                        equipments.push(new EquipmentModel(equipment.equipment_id,equipment.equipment_name,equipment.type,equipment.count,equipment.status,equipment.staff_id_list,equipment.field_code_list));
                     });
                     resolve();
                 },

@@ -687,8 +687,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
                                         <label for="equipmentStatus" class="form-label">Equipment Status</label>
                                         <select class="form-control" id="equipmentStatus" required>
                                             <option value="" disabled selected>Select Equipment Status</option>
-                                            <option value="Electronic">Available</option>
-                                            <option value="Mechanical">Not Available</option>
+                                            <option value="AVAILABLE">Available</option>
+                                            <option value="NOT_AVAILABLE">Not Available</option>
                                         </select>
                                     </div>
                                 </div>
@@ -697,13 +697,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
                                     <!-- Staff List -->
                                     <div class="col-md-6">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <label for="addFieldToCropSaveBtn" class="form-label">Field</label>
-                                            <button type="button" class="btn btn-success" id="addStaffToEquipmentSaveBtn">Add Field</button>
+                                            <label for="addFieldToCropSaveBtn" class="form-label">Staff</label>
+                                            <button type="button" class="btn btn-success" id="addStaffToEquipmentSaveBtn">Add Staff</button>
                                         </div>
                                         <!-- Initial dropdown with predefined options -->
                                         <div id="initialStaffToAddEquipment" class="input-group">
                                             <select id="staff-equipment" class="form-control mt-2">
-                                                <option value="">Select Field</option>
+                                                <option value="">Select Staff</option>
                                             </select>
                                         </div>
                                         <!-- Container for additional dynamic dropdowns -->
