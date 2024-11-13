@@ -1,49 +1,29 @@
-import {crops, logs} from "../db/db.js";
+import {logs} from "../db/db.js";
+import LogApi from "../api/logApi.js";
 export class LogController{
-
-    loadValues(){
-
+    logApi = new LogApi();
+    async loadValues(){
+        await this.logApi.getAllLog();
+        await this.loadCards();
     }
 
     getLogFromIndex(index){
         return logs[index];
     }
-    deleteCropValues(logCode){
-        this.deleteLogByIdFromArray(logCode);
-        this.loadCards();
+    async deleteCropValues(logCode){
+        await this.logApi.deleteLog(logCode);
+        await this.loadValues();
 
     }
-    deleteLogByIdFromArray(logIdToDelete) {
-        for (let i = logs.length - 1; i >= 0; i--) {
-            if (logs[i].log_code === logIdToDelete) {
-                logs.splice(i, 1);
-            }
-        }
+    async saveCrop(logModel){
+        await this.logApi.saveLog(logModel);
+        await this.loadValues();
     }
-    saveCrop(logModel){
-        logs.push(logModel);
-        this.loadCards();
+    async updateLogValues(logModel){
+        await this.logApi.updateLog(logModel);
+        await this.loadValues();
     }
-    updateLogValues(logModel){
-        this.updateLogById(logModel.log_code,logModel);
-        this.loadCards();
-    }
-    updateLogById(logIdToUpdate, newValues) {
-        for (const logObj of logs) {
-            if (logObj.log_code === logIdToUpdate) {
-                logObj.log_date = newValues.log_date;
-                logObj.log_details = newValues.log_details;
-                logObj.observe_image = newValues.observe_image;
-                logObj.logType = newValues.logType;
-                logObj.crops_list = newValues.crops_list;
-                logObj.staffs_list = newValues.staffs_list;
-                logObj.fields_list = newValues.fields_list;
-                break;
-            }
-        }
-    }
-    loadCards(){
-        this.loadValues(); // Todo:Check how loading cards
+    loadCards(){// Todo:Check how loading cards
         $("#logCardSection").empty();
         logs.map(function (log,index) {
             var value =

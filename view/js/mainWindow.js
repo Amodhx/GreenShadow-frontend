@@ -1218,11 +1218,11 @@ let selected_StaffOptionsToUpdateEquipment = [];
 let selected_fieldOptionsToUpdateEquipment = [];
 let equipmentIdToUpdate;
 
-$("#addNewEquipmentBtn").on('click', () => {
+$("#addNewEquipmentBtn").on('click', async () => {
     equipmentSaveUpdateIndex = -1;
     setEquipmentModelButtons();
-    staff_optionsToSaveEquipment = staff_controller.getStaffIds();
-    field_optionsToSaveEquipment = equipment_controller.getEquipmentCodes();
+    staff_optionsToSaveEquipment = await staff_controller.getStaffIds();
+    field_optionsToSaveEquipment = await field_controller.getFieldCodes();
 })
 
 $("#addFieldToEquipmentSaveBtn").on('click', () => {
@@ -1240,7 +1240,6 @@ $("#btnSaveEquipmentDetails").on('click', () => {
     let equipmentType = $("#equipmentType").val();
     let equipmentCount = $("#equipmentCount").val();
     let equipmentStatus = $("#equipmentStatus").val();
-
     $('.fieldListToSaveEquipment').each(function () {
         selected_fieldsToSaveEquipment.push($(this).val()); // Add the selected value to the array
     });
@@ -1251,8 +1250,9 @@ $("#btnSaveEquipmentDetails").on('click', () => {
     if (equipmentName != "" && equipmentCount != "" && equipmentType != "" && equipmentStatus != "") {
         let vl = $("#btnSaveEquipmentDetails").text();
         let equipmentModel = new EquipmentModel("", equipmentName, equipmentType, equipmentCount, equipmentStatus, selected_StaffToSaveEquipment, selected_fieldsToSaveEquipment);
-        console.log(equipmentModel)
+
         if (vl == "Save Tool") {
+
             equipment_controller.saveEquipment(equipmentModel);
             $('#newEquipmentModal').modal('hide');
             Swal.fire({
@@ -1411,7 +1411,9 @@ function setSelectedStaffToUpdatedEquipment() {
     });
 }
 
-$("#equipmentTblBody").on('click', 'tr', function () {
+$("#equipmentTblBody").on('click', 'tr', async function () {
+    staff_optionsToSaveEquipment = await staff_controller.getStaffIds();
+    field_optionsToSaveEquipment = await field_controller.getFieldCodes();
     selected_fieldsToSaveEquipment = [];
     selected_fieldOptionsToUpdateEquipment = [];
     equipmentSaveUpdateIndex = $(this).index();
@@ -1448,10 +1450,10 @@ let vehicleIndex = -1;
 let vehicleIdToUpdate;
 let staffIdToAddVehicle;
 
-$("#addNewVehicleBtn").on('click', () => {
+$("#addNewVehicleBtn").on('click', async () => {
     vehicleIndex = -1;
     setVehicleModelButtons();
-    staffIdToAddVehicle = staff_controller.getStaffIds();
+    staffIdToAddVehicle = await staff_controller.getStaffIds();
     setStaffIdComboBoxValues();
 })
 
@@ -1566,8 +1568,9 @@ $("#btnSaveVehicleDetails").on('click', () => {
 })
 
 
-$("#vehicleTblBody").on('click', 'tr', function () {
+$("#vehicleTblBody").on('click', 'tr', async function () {
     vehicleIndex = $(this).index();
+    staffIdToAddVehicle = await staff_controller.getStaffIds();
     setVehicleModelButtons();
     setStaffIdComboBoxValues();
     let vehicleModel = vehicle_controller.getVehicleFromIndex(vehicleIndex);

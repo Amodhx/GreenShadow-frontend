@@ -1,61 +1,36 @@
 import {equipments, vehicles} from "../db/db.js";
-import {VehicleModel} from "../model/vehicleModel.js";
+import VehicleApi from "../api/vehicleApi.js";
 
 export class VehicleController{
-
-    loadValues(){
-
+    vehicleApi = new VehicleApi();
+    async loadValues(){
+        await this.vehicleApi.getAllVehicle();
+        await this.loadTable();
     }
-    deleteVehicleValue(equipmentId) {
-        //     Todo: Delete Staff Values From Database
-
-        this.deleteVehicleByIdFromArray(equipmentId);
-        this.loadTable();
-
+    async deleteVehicleValue(vehicleId) {
+        await this.vehicleApi.deleteVehicle(vehicleId);
+        await this.loadValues();
     }
-
-    deleteVehicleByIdFromArray(vehicleIdToDelete) {
-        for (let i = vehicles.length - 1; i >= 0; i--) {
-            if (vehicles[i].vehicle_code === vehicleIdToDelete) {
-                vehicles.splice(i, 1);
-            }
-        }
+    async updateVehicleValues(vehicleModel){
+        await this.vehicleApi.updateVehicle(vehicleModel);
+        await this.loadValues();
     }
-    updateVehicleValues(vehicleModel){
-        this.updateValueFromId(vehicleModel.vehicle_code,vehicleModel);
-        this.loadTable();
-    }
-    updateValueFromId(vehicleId,vehicleModel){
-        for (const vehicleObj of vehicles) {
-            if (vehicleObj.vehicle_code === vehicleId) {
-                vehicleObj.licence_plate_number = vehicleModel.licence_plate_number;
-                vehicleObj.vehicle_category = vehicleModel.vehicle_category;
-                vehicleObj.fuelType = vehicleModel.fuelType;
-                vehicleObj.status = vehicleModel.status;
-                vehicleObj.staff_id = vehicleModel.staff_id;
-                vehicleObj.remarks = vehicleModel.remarks;
-                break;
-            }
-        }
-    }
-    getVehicleCodes(){
-        let ar = ["V01","V02"];
-        vehicles.map(function (field) {
-            ar.push(field.field_code);
+    async getVehicleCodes(){
+        let ar = [];
+        vehicles.map(function (vehicle) {
+            ar.push(vehicle.vehicle_code);
         });
         return ar;
     }
     getVehicleFromIndex(index){
         return vehicles[index];
     }
-    saveData(vehicleValues){
-        vehicleValues.vehicle_code = "F01";
-        vehicles.push(vehicleValues);
-        this.loadTable();
+    async saveData(vehicleValues){
+        await this.vehicleApi.saveVehicle(vehicleValues);
+        await this.loadValues();
 
     }
     loadTable() {
-        this.loadValues();
         $("#vehicleTblBody").empty();
         vehicles.map(function (vehicle) {
             var value =

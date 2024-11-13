@@ -61,8 +61,9 @@ export default class FieldApi {
 
             const staffString = fieldModel.staff_list.join(",");
             const cropString = fieldModel.crop_list.join(",");
-            const logsString = fieldModel.logs_list().join(",");
+            const logsString = fieldModel.logs_list.join(",");
             const equipmentString = fieldModel.equipments_list.join(",");
+
             let formData = new FormData();
             formData.append("field_code",fieldModel.field_code)
             formData.append("field_name",fieldModel.field_name)
@@ -127,7 +128,7 @@ export default class FieldApi {
 
             const staffString = fieldModel.staff_list.join(",");
             const cropString = fieldModel.crop_list.join(",");
-            const logsString = fieldModel.logs_list().join(",");
+            const logsString = fieldModel.logs_list.join(",");
             const equipmentString = fieldModel.equipments_list.join(",");
             let formData = new FormData();
             formData.append("field_code",fieldModel.field_code)
@@ -142,7 +143,7 @@ export default class FieldApi {
             formData.append("equipments_list",equipmentString)
 
             $.ajax({
-                url: "http://localhost:5050/api/v1/field/saveField",
+                url: "http://localhost:5050/api/v1/field/updateField",
                 type: "PATCH",
                 data:formData,
                 processData: false,  // Prevents jQuery from processing data as a query string

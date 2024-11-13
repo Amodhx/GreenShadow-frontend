@@ -114,7 +114,6 @@ export default class CropApi{
                 type: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
-                    "Content-Type": "application/json"
                 },
                 success: function(response) {
                     response.forEach(crop => {
