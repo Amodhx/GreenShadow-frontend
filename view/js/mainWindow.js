@@ -1606,12 +1606,12 @@ let selected_fieldOptionsToUpdateLog = [];
 let selected_cropOptionsToUpdateLog = [];
 
 
-$("#addNewLogBtn").on('click', () => {
+$("#addNewLogBtn").on('click', async () => {
     logIndex = -1;
     setLogModelButtons();
-    staffOptionsToSaveLog = staff_controller.getStaffIds();
-    fieldOptionsToSaveLog = field_controller.getFieldCodes();
-    CropOptionsToSaveLog = crop_controller.getCropCodes();
+    staffOptionsToSaveLog = await staff_controller.getStaffIds();
+    fieldOptionsToSaveLog = await field_controller.getFieldCodes();
+    CropOptionsToSaveLog = await crop_controller.getCropCodes();
 })
 
 function setLogModelButtons() {
@@ -1789,12 +1789,16 @@ $("#btnSaveLogDetails").on('click', () => {
 
 })
 
-$(document).on("click", ".btnLogUpdate", function () {
+$(document).on("click", ".btnLogUpdate", async function () {
+    staffOptionsToSaveLog = await staff_controller.getStaffIds();
+    fieldOptionsToSaveLog = await field_controller.getFieldCodes();
+    CropOptionsToSaveLog = await crop_controller.getCropCodes();
     clearAddCropModelFields();
     const index = $(this).data("index");
     logIndex = index;
     setLogModelButtons();
     let logModel = log_controller.getLogFromIndex(index);
+    console.log(logModel)
     logIdToUpdateDelete = logModel.log_code;
     selected_staffOptionsToSaveLog = logModel.staffs_list;
     selected_fieldOptionsToSaveLog = logModel.fields_list;
