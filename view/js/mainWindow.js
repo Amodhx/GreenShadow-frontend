@@ -11,7 +11,7 @@ import {VehicleModel} from "../../model/vehicleModel.js";
 import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
 
-window.onload = function() {
+window.onload = function () {
     field_controller.loadData();
     crop_controller.loadData();
     equipment_controller.loadValues();
@@ -20,7 +20,7 @@ window.onload = function() {
     vehicle_controller.loadValues();
 
 };
-$(".userIcon ").on('click',()=>{
+$(".userIcon ").on('click', () => {
     Swal.fire({
         title: "Are you sure?",
         text: "Do you want to leave the system?!",
@@ -271,8 +271,12 @@ $("#logsBtn").on('click', () => {
     })
     log_controller.loadCards();
 })
-$("#addNewStaffBtn").on('click', () => {
-    loadOptionsValues();
+$("#addNewStaffBtn").on('click', async () => {
+    clearStaffAddModelFields();
+    await loadOptionsValues();
+    console.log(field_options);
+    console.log(vehicle_options);
+    console.log(equipment_options);
     staffTblSelectIndex = -1;
     setStaffAddFromButtons();
 });
@@ -287,6 +291,7 @@ let vehicle_options;
 let equipment_options;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const sriLankaContactRegex = /^(?:\+94|0)?7[0-9]\d{7}$/;
+const dateRegex = /\d{4}[-/]\d{2}[-/]\d{2}/;
 let staffTblSelectIndex = -1;
 let selectedStaffDataStaff_id;
 
@@ -298,12 +303,10 @@ let selected_fieldsToAddContainers = [];
 let selected_vehicleToAddContainers = [];
 let selected_equipmentsToAddContainers = [];
 
-function loadOptionsValues() {
-    console.log("FieldOPtions")
-    field_options = field_controller.getFieldCodes();
-    console.log("Getted field Options")
-    vehicle_options = vehicle_controller.getVehicleCodes();
-    equipment_options = equipment_controller.getEquipmentCodes();
+async function loadOptionsValues() {
+    field_options = await field_controller.getFieldCodes();
+    vehicle_options = await vehicle_controller.getVehicleCodes();
+    equipment_options = await equipment_controller.getEquipmentCodes();
 }
 
 // Add Field
@@ -470,37 +473,44 @@ $("#btnSaveStaffDetails").on('click', () => {
 
             if (validateEmail(email)) {
                 if (validateContactNumber(contactNumber)) {
-
-                    staffModel = new StaffModel(
-                        "",
-                        firstName,
-                        lastName,
-                        designation,
-                        gender,
-                        joinedDate,
-                        dob,
-                        homeNumber,
-                        homeLane,
-                        mainCity,
-                        mainState,
-                        postalCode,
-                        contactNumber,
-                        email,
-                        role,
-                        selected_fields,
-                        "",
-                        selected_equipments,
-                        selected_vehicle
-                    );
-                    staff_controller.saveStaffValues(staffModel);
-                    $('#newStaffModal').modal('hide');
-                    Swal.fire({
-                        icon: "success",
-                        title: "Your work has been saved",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    clearStaffAddModelFields();
+                    if (validateDate(joinedDate) && validateDate(dob)) {
+                        staffModel = new StaffModel(
+                            "",
+                            firstName,
+                            lastName,
+                            designation,
+                            gender,
+                            joinedDate,
+                            dob,
+                            homeNumber,
+                            homeLane,
+                            mainCity,
+                            mainState,
+                            postalCode,
+                            contactNumber,
+                            email,
+                            role,
+                            selected_fields,
+                            "",
+                            selected_equipments,
+                            selected_vehicle
+                        );
+                        staff_controller.saveStaffValues(staffModel);
+                        $('#newStaffModal').modal('hide');
+                        Swal.fire({
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        clearStaffAddModelFields();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Invalid Date",
+                        });
+                    }
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -561,10 +571,8 @@ $("#btnSaveStaffDetails").on('click', () => {
                 Swal.fire("Changes are not saved", "", "info");
             }
         });
-
         $('#newStaffModal').modal('hide');
         clearStaffAddModelFields();
-        alert("staff Updated !!!!");
     }
 
 
@@ -572,6 +580,14 @@ $("#btnSaveStaffDetails").on('click', () => {
 
 function validateEmail(email) {
     if (emailRegex.test(email)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validateDate(date) {
+    if (dateRegex.test(date)) {
         return true;
     } else {
         return false;
@@ -586,8 +602,9 @@ function validateContactNumber(contact) {
     }
 }
 
-$("#tableStaff").on('click', 'tr', function () {
+$("#tableStaff").on('click', 'tr', async function () {
     clearStaffAddModelFields();
+    await loadOptionsValues();
     staffTblSelectIndex = $(this).index();
     let staffValues = staff_controller.getTabelRowValues(staffTblSelectIndex);
     selectedStaffDataStaff_id = staffValues.staff_id;
@@ -835,12 +852,13 @@ function loadCropContainerWhenFieldSave() {
     $('#additionalFieldCrop').append($fieldContainer);
 }
 
-$("#addNewFieldBtn").on('click', () => {
+$("#addNewFieldBtn").on('click', async () => {
     fieldSaveUpdateIndex = -1;
     setFieldModelBtn();
-    equipment_optionsToSaveFiled = equipment_controller.getEquipmentCodes();
-    crop_optionToSaveField = crop_controller.getCropCodes();
-    staff_optionsToSaveField = staff_controller.getStaffIds();
+    clearFieldAddModalFields();
+    equipment_optionsToSaveFiled = await equipment_controller.getEquipmentCodes();
+    crop_optionToSaveField = await crop_controller.getCropCodes();
+    staff_optionsToSaveField = await staff_controller.getStaffIds();
 })
 
 $("#addFieldStaffBtn").on('click', () => {
@@ -873,7 +891,7 @@ $("#btnSaveFieldDetails").on('click', () => {
         selected_cropOptionsToSaveField.push($(this).val()); // Add the selected value to the array
     });
 
-    let field_model = new FieldModel("", fieldName, fieldLocation, extendSize, selected_staffOptionsToSaveField, selected_cropOptionsToSaveField, image1, image2, "", selected_equipmentOptionsToSaveField);
+    let field_model = new FieldModel("", fieldName, fieldLocation, extendSize, selected_staffOptionsToSaveField, selected_cropOptionsToSaveField, image1, image2, [], selected_equipmentOptionsToSaveField);
 
     let btnText = $("#btnSaveFieldDetails").text();
     if (btnText === "Save Field") {
@@ -959,7 +977,10 @@ $(document).on("click", ".btnFieldDelete", function () {
     });
 
 })
-$(document).on("click", ".btnFieldUpdate", function () {
+$(document).on("click", ".btnFieldUpdate", async function () {
+    equipment_optionsToSaveFiled = await equipment_controller.getEquipmentCodes();
+    crop_optionToSaveField = await crop_controller.getCropCodes();
+    staff_optionsToSaveField = await staff_controller.getStaffIds();
     clearFieldAddModalFields();
     const index = $(this).data("index");
     fieldSaveUpdateIndex = index;
@@ -1018,10 +1039,10 @@ let selected_fieldsToSaveCrop = [];
 let selected_fieldOptionsToUpdateCrop = [];
 let cropIdToUpdate;
 
-$("#addNewCropBtn").on('click', () => {
+$("#addNewCropBtn").on('click', async () => {
     cropSaveUpdateIndex = -1;
     setAddCropModelButtons();
-    field_optionsToSaveCrop = field_controller.getFieldCodes();
+    field_optionsToSaveCrop = await field_controller.getFieldCodes();
 })
 $("#addFieldToCropSaveBtn").on('click', () => {
     loadFieldContainerWhenCropSave();
@@ -1084,7 +1105,7 @@ $("#btnSaveCropDetails").on('click', () => {
         selected_fieldsToSaveCrop.push($(this).val()); // Add the selected value to the array
     });
 
-    let cropModel = new CropModel("", cropCommonName, cropScientificName, cropImage, cropCategory, cropSeason, selected_fieldsToSaveCrop, "");
+    let cropModel = new CropModel("", cropCommonName, cropScientificName, cropImage, cropCategory, cropSeason, selected_fieldsToSaveCrop, []);
     if (cropCommonName != "" && cropScientificName != "" && cropCategory != "" && cropSeason != "") {
         let vl = $("#btnSaveCropDetails").text();
         if (vl == "Save Crop") {
@@ -1162,8 +1183,9 @@ function setIdToUpdateCrop(cropModel) {
     cropIdToUpdate = cropModel.crop_code;
 }
 
-$(document).on("click", ".btnCropUpdate", function () {
+$(document).on("click", ".btnCropUpdate", async function () {
     clearAddCropModelFields();
+    field_optionsToSaveCrop = await field_controller.getFieldCodes();
     const index = $(this).data("index");
     cropSaveUpdateIndex = index;
     setAddCropModelButtons();
@@ -1704,8 +1726,8 @@ function loadCropContainerWhenLogsSave() {
 
 $("#btnSaveLogDetails").on('click', () => {
     selected_staffOptionsToSaveLog = [];
-    selected_fieldOptionsToSaveLog =[];
-    selected_cropOptionsToSaveLog=[];
+    selected_fieldOptionsToSaveLog = [];
+    selected_cropOptionsToSaveLog = [];
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
@@ -1786,7 +1808,7 @@ $(document).on("click", ".btnLogUpdate", function () {
     $("#logRemark").val(logModel.log_details);
 
 
-    for (let i = 0; i <selected_staffOptionsToSaveLog.length; i++) {
+    for (let i = 0; i < selected_staffOptionsToSaveLog.length; i++) {
         loadStaffContainerWhenLogSave();
     }
     for (let i = 0; i < selected_fieldOptionsToSaveLog.length; i++) {
@@ -1808,16 +1830,19 @@ function setSelectedFieldToUpdatedLog() {
         $(this).val(selected_fieldOptionsToUpdateLog.shift())
     });
 }
+
 function setSelectedStaffToUpdatedLog() {
     $('.staffListToSaveLog').each(function () {
         $(this).val(selected_staffOptionsToUpdateLog.shift())
     });
 }
+
 function setSelectedCropToUpdatedLog() {
     $('.cropListToSaveLog').each(function () {
         $(this).val(selected_cropOptionsToUpdateLog.shift())
     });
 }
+
 $(document).on("click", ".btnLogDelete", function () {
     const index = $(this).data("index");
     cropSaveUpdateIndex = index;

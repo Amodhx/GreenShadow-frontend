@@ -29,8 +29,8 @@ export default class CropApi{
             formData.append("crop_image",blob)
             formData.append("category",cropModel.category)
             formData.append("season",cropModel.season)
-            formData.append("field_code_list",fieldList)
-            formData.append("logs_list",logList)
+            formData.append("field_code_list",fieldList || [])
+            formData.append("logs_list",logList || [])
 
             $.ajax({
                 url: "http://localhost:5050/api/v1/crop/saveCrop",
@@ -81,8 +81,8 @@ export default class CropApi{
             formData.append("crop_image",blob)
             formData.append("category",cropModel.category)
             formData.append("season",cropModel.season)
-            formData.append("field_code_list",fieldList)
-            formData.append("logs_list",logList)
+            formData.append("field_code_list",fieldList || [])
+            formData.append("logs_list",logList || [])
 
             $.ajax({
                 url: "http://localhost:5050/api/v1/crop/updateCrop",
@@ -119,7 +119,7 @@ export default class CropApi{
                 success: function(response) {
                     response.forEach(crop => {
                         let imageData1 = `data:image/jpeg;base64,${crop.crop_image}`;
-                        crops.push(new CropModel(crop.crop_code,crop.crop_common_name,crop.crop_scientific_name,imageData1,crop.category,crop.season,crop.field_code,crop.logs_list))
+                        crops.push(new CropModel(crop.crop_code,crop.crop_common_name,crop.crop_scientific_name,imageData1,crop.category,crop.season,crop.field_code_list,crop.logs_list))
                     });
                     resolve();
                 },

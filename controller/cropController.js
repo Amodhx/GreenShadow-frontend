@@ -21,7 +21,6 @@ export class CropController {
 
     }
     async getCropCodes(){
-        await this.loadData();
         let ar = [];
         crops.map(function (crop) {
             ar.push(crop.crop_code);

@@ -16,39 +16,16 @@ export default class FieldController{
         await this.fieldApi.updateFieldData(filedModel);
         await this.loadData();
     }
-
-    updateFieldById(fieldIdToUpdate, newValues) {
-        for (const fieldObj of fields) {
-            if (fieldObj.field_code === fieldIdToUpdate) {
-                fieldObj.field_name = newValues.field_name;
-                fieldObj.field_location = newValues.field_location;
-                fieldObj.extent_size = newValues.extent_size;
-                fieldObj.field_image_01 = newValues.field_image_01;
-                fieldObj.field_image_02 = newValues.field_image_02;
-                fieldObj.staff_list = newValues.staff_list;
-                fieldObj.crop_list = newValues.crop_list;
-                fieldObj.equipments_list = newValues.equipments_list;
-                break;
-            }
-        }
-    }
     async deleteFieldValues(fieldId){
         await this.fieldApi.deleteFieldData(fieldId);
         await this.loadData();
     }
-    deleteFieldByIdFromArray(fieldIdToDelete) {
-        for (let i = fields.length - 1; i >= 0; i--) {
-            if (fields[i].field_code === fieldIdToDelete) {
-                fields.splice(i, 1);
-            }
-        }
-    }
     async getFieldCodes(){
-        await this.loadData();
         let ar = [];
         fields.map(function (field) {
             ar.push(field.field_code);
         });
+        console.log(ar)
         return ar;
     }
 
@@ -57,8 +34,6 @@ export default class FieldController{
     }
 
      async loadCards(){
-        console.log("LOAD Table Start")
-        // Todo:Check how loading cards
         $("#fieldCardSection").empty();
         fields.map(function (field,index) {
             var value =
