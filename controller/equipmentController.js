@@ -2,11 +2,12 @@ import {equipments, fields, staff} from "../db/db.js";
 import EquipmentApi from "../api/equipmentApi.js";
 export default class EquipmentController{
     equipmentApi = new EquipmentApi();
+    equipmentList;
 
     async loadValues(){
-        // Todo:getDataFromBackend
+        $("#equipmentSort").val("All")
         await this.equipmentApi.getAllEquipment();
-        await this.loadTable();
+        await this.loadTableSorting("All");
     }
     async getEquipmentCodes(){
         let ar = [];
@@ -14,6 +15,26 @@ export default class EquipmentController{
             ar.push(eq.equipment_id);
         });
         return ar;
+    }
+
+    async loadTableSorting(value){
+        var sortedEquipmentList = [];
+        if (value == "All"){
+            equipments.map(function (equipment) {
+                sortedEquipmentList.push(equipment);
+            });
+            this.equipmentList = sortedEquipmentList;
+            this.loadTable(sortedEquipmentList);
+        }else {
+            equipments.map(function (equipment) {
+                if (equipment.status == value){
+                    sortedEquipmentList.push(equipment);
+                }
+            });
+            this.equipmentList = sortedEquipmentList;
+            this.loadTable(sortedEquipmentList);
+        }
+
     }
     async saveEquipment(equipmentModel){
         await this.equipmentApi.saveEquipment(equipmentModel);
@@ -26,15 +47,15 @@ export default class EquipmentController{
 
     }
     getEquipmentFromIndex(index){
-        return equipments[index];
+        return this.equipmentList[index];
     }
     async updateEquipmentValues(equipmentModel){
         await this.equipmentApi.updateEquipment(equipmentModel);
         await this.loadValues();
     }
-    loadTable(){
+    loadTable(sortedEquipmentList){
         $("#equipmentTblBody").empty();
-        equipments.map(function (equipment) {
+        sortedEquipmentList.map(function (equipment) {
             var value =
                 ` <tr>
                         <td>${equipment.equipment_id}</td>

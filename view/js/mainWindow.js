@@ -1902,6 +1902,8 @@ $("#staffSortBy").on('change', async () => {
     await staff_controller.loadTaleSorting($("#staffSortBy").val());
 })
 $("#fieldSorting").on('change', async () => {
-    // await staff_controller.loadTaleSorting($("#staffSortBy").val());
     await field_controller.loadTableSorting($("#fieldSorting").val());
+})
+$("#equipmentSort").on('change', async () => {
+    await equipment_controller.loadTableSorting($("#equipmentSort").val());
 })

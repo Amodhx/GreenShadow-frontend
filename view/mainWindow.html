@@ -684,11 +684,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <div class="content p-4">
         <h4>Crops Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-            </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewCropBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newCropModal">Add New Crop</button>
             </div>
@@ -794,10 +789,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <div class="content p-4">
         <h4>Equipment Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+            <select id="equipmentSort" class="form-select w-auto">
+                <option value="All" selected>Sort by</option>
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="NOT_AVAILABLE">NOT_AVAILABLE</option>
             </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewEquipmentBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newEquipmentModal">Add New Tool</button>
