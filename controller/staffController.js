@@ -5,7 +5,7 @@ export default class StaffController {
     staffApi = new StaffApi();
     async loadValues() {
         await this.staffApi.getAllStaff();
-        await this.loadTable();
+        await this.loadTaleSorting("All");
     }
     async updateStaffValues(staffModel) {
         await this.staffApi.updateStaff(staffModel);
@@ -24,6 +24,23 @@ export default class StaffController {
         return ar;
     }
 
+    async loadTaleSorting(designation){
+        var sortedStaffList = [];
+        if (designation == "All"){
+            console.log("ALL")
+            staff.map(function (staff) {
+                sortedStaffList.push(staff);
+            });
+            this.loadTable(sortedStaffList);
+        }else {
+            staff.map(function (staff) {
+                if (staff.designation == designation) {
+                    sortedStaffList.push(staff);
+                }
+            });
+            this.loadTable(sortedStaffList);
+        }
+    }
 
     async saveStaffValues(staffValues) {
         await this.staffApi.saveStaff(staffValues);
@@ -34,9 +51,11 @@ export default class StaffController {
         return staff[index];
     }
 
-    loadTable() {
+
+
+    loadTable(sortedStaffList) {
         $("#staffTblBody").empty();
-        staff.map(function (staff) {
+        sortedStaffList.map(function (staff) {
             var value =
                 ` <tr>
                         <td class="staffIdTableValue">${staff.staff_id}</td>

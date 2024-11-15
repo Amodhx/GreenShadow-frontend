@@ -10,6 +10,12 @@ import {EquipmentModel} from "../../model/equipmentModel.js";
 import {VehicleModel} from "../../model/vehicleModel.js";
 import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
+import {crops,vehicles,staff,fields} from "../../db/db.js";
+
+let total_staff ;
+let total_crops;
+let total_fields;
+let total_vehicles;
 
 window.onload = function () {
     field_controller.loadData();
@@ -18,6 +24,14 @@ window.onload = function () {
     log_controller.loadValues();
     staff_controller.loadValues();
     vehicle_controller.loadValues();
+
+    total_staff = staff.length;
+    total_vehicles = vehicles.length;
+    total_crops = crops.length;
+    total_fields = fields.length;
+
+    $("#staffSortBy").val("All")
+
 
 };
 $(".userIcon ").on('click', () => {
@@ -103,7 +117,8 @@ $("#staffBtn").on('click', () => {
         display: "none"
     })
 
-    staff_controller.loadTable();
+    staff_controller.loadValues();
+    $("#staffSortBy").val("All")
 
 })
 $("#fieldBtn").on('click', () => {
@@ -136,7 +151,7 @@ $("#fieldBtn").on('click', () => {
         display: "none"
     })
 
-    field_controller.loadCards();
+    field_controller.loadData();
 
 })
 $("#cropBtn").on('click', () => {
@@ -168,7 +183,7 @@ $("#cropBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "none"
     })
-    crop_controller.loadCards();
+    crop_controller.loadData();
 
 })
 $("#equipmentBtn").on('click', () => {
@@ -203,7 +218,7 @@ $("#equipmentBtn").on('click', () => {
         display: "none"
     })
 
-    equipment_controller.loadTable();
+    equipment_controller.loadValues();
 
 })
 $("#vehicleBtn").on('click', () => {
@@ -236,7 +251,7 @@ $("#vehicleBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "block"
     })
-    vehicle_controller.loadTable();
+    vehicle_controller.loadValues();
 
 });
 $("#logsBtn").on('click', () => {
@@ -269,7 +284,7 @@ $("#logsBtn").on('click', () => {
     $("#logsSection").css({
         display: "block"
     })
-    log_controller.loadCards();
+    log_controller.loadValues();
 })
 $("#addNewStaffBtn").on('click', async () => {
     clearStaffAddModelFields();
@@ -1876,3 +1891,14 @@ $(document).on("click", ".btnLogDelete", function () {
 
 
 });
+
+
+
+//sorting
+
+$("#staffSortBy").on('change', async () => {
+    await staff_controller.loadTaleSorting($("#staffSortBy").val());
+})
+$("#fieldSorting").on('change', async () => {
+    // await staff_controller.loadTaleSorting($("#staffSortBy").val());
+})

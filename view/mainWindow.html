@@ -10,6 +10,124 @@
     <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
 " rel="stylesheet">
+    <style>
+        .home-section nav{
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: calc(100% - 240px);
+            left: 240px;
+            z-index: 100;
+            padding: 0 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+        .home-section nav .sidebar-button{
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .home-section nav .search-box{
+            position: relative;
+            height: 50px;
+            max-width: 550px;
+            width: 100%;
+            margin: 0 20px;
+        }
+        nav .profile-details i{
+            font-size: 25px;
+            color: #333;
+        }
+        .home-content .overview-boxes{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            margin-bottom: 26px;
+        }
+        .overview-boxes .box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: calc(100% / 4 - 15px);
+            background: #fff;
+            padding: 15px 14px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .overview-boxes .box-topic{
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .home-content .box .number{
+            display: inline-block;
+            font-size: 35px;
+            margin-top: -6px;
+            font-weight: 500;
+            width: 120px;
+            text-align: center;
+        }
+        .home-content .box .indicator{
+            display: flex;
+            align-items: center;
+        }
+        .home-content .box .indicator i{
+            height: 20px;
+            width: 20px;
+            background: #8FDACB;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        .box .indicator i.down{
+            background: #e87d88;
+        }
+        .home-content .box .indicator .text{
+            font-size: 12px;
+        }
+        .home-content .box .cart{
+            display: inline-block;
+            font-size: 32px;
+            height: 50px;
+            width: 50px;
+            background: #cce5ff;
+            line-height: 50px;
+            text-align: center;
+            color: #66b0ff;
+            border-radius: 12px;
+            margin: -15px 0 0 6px;
+        }
+        .home-content .box .cart.two{
+            color: #2BD47D;
+            background: #C0F2D8;
+        }
+        .home-content .box .cart.three{
+            color: #ffc233;
+            background: #ffe8b3;
+        }
+        .home-content .box .cart.four{
+            color: #e05260;
+            background: #f7d4d7;
+        }
+        .home-content .total-order{
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .home-content .sales-boxes{
+            display: flex;
+            justify-content: space-between;
+            /* padding: 0 20px; */
+        }
+    </style>
 </head>
 <body>
 
@@ -95,7 +213,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
 <!--side bar end-->
 
 <!--Main DashBoard Start-->
-<div  id="dashBoardSection" class="main-content">
+<div style="height: 100vh;"  id="dashBoardSection" class="main-content">
     <!-- Top Navbar -->
     <div class="top-nav d-flex justify-content-end align-items-center">
         <a href="#" class="userIcon icon-link">
@@ -104,17 +222,66 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     </div>
 
     <!-- Content Area -->
-    <div class="content p-4">
-        <div style="height: 40vh !important; overflow: hidden; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
-             class="section-details p-5">
-            <h1>DashBoard</h1>
+    <div style="position: relative; top: 85px;" class="home-content" id="home">
 
+        <div class="overview-boxes">
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Fields</div>
+                    <div class="number">40</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                <i class='bx bx-user-plus cart'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Vehicles</div>
+                    <div class="number">11</div>
+                    <div class="indicator">
+                        <i class='bx bx-down-arrow-alt down'></i>
+                        <span class="text">Down From Today</span>
+                    </div>
+                </div>
+                <i class='bx bx-cart cart four'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Staff</div>
+                    <div class="number">38</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                <i class='bx bxl-shopify cart two'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Crops</div>
+                    <div class="number">$12</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                <i class='bx bxs-dollar-circle cart three'></i>
+            </div>
         </div>
 
+        <div style="margin-top: 60px !important;height: 46vh;" class="row m-3 overview">
 
-        <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 20vw;height: 42vh; background-color: #e8f7e7; color: #333; position: relative;left: 1052px;border-radius: 15px;margin-top: 23px;">
-            <!-- add calender here -->
+            <div class="card m-1 cards col-md-8" style="border-radius: 8px;
+                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Monthly Income of last 12 months</h5>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
         </div>
+
     </div>
 
 </div>
@@ -133,10 +300,19 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <div class="content p-4">
         <h4>Staff Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+            <select id="staffSortBy" class="form-select w-auto">
+                <option value="All" selected>Sort by</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="SENIOR_ASSISTANT_MANAGER">SENIOR_ASSISTANT_MANAGER</option>
+                <option value="ASSISTANT_MANAGER">ASSISTANT_MANAGER</option>
+                <option value="ADMIN_HR_STAFF">ADMIN_HR_STAFF</option>
+                <option value="OFFICE_ASSISTANT">OFFICE_ASSISTANT</option>
+                <option value="SENIOR_AGRONOMIST">SENIOR_AGRONOMIST</option>
+                <option value="AGRONOMIST">AGRONOMIST</option>
+                <option value="SOIL_SCIENTIST">SOIL_SCIENTIST</option>
+                <option value="SENIOR_TECHNICIAN">SENIOR_TECHNICIAN</option>
+                <option value="SUPERVISOR">SUPERVISOR</option>
+                <option value="LABOR">LABOR</option>
             </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewStaffBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">Add New Staff</button>
@@ -371,10 +547,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <div class="content p-4">
         <h4>Section Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+            <select id="fieldSorting" class="form-select w-auto">
+                <option value="All" selected>Sort by</option>
+                <option value="size">Size</option>
             </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewFieldBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newFieldModal">Add New Field</button>
@@ -994,6 +1169,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
 
 </div>
 <!--Logs section end-->
+
 
 <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js
