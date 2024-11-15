@@ -2,13 +2,34 @@ import {logs} from "../db/db.js";
 import LogApi from "../api/logApi.js";
 export class LogController{
     logApi = new LogApi();
+    logList;
     async loadValues(){
         await this.logApi.getAllLog();
-        await this.loadCards();
+        $("#logSorting").val("All")
+        await this.loadCardSorting("All");
+    }
+
+    async loadCardSorting(value){
+        let sortedLogList =[];
+        if (value == "All"){
+            logs.map(function (log) {
+                sortedLogList.push(log);
+            });
+            this.logList = sortedLogList;
+            this.loadCards(sortedLogList);
+        }else {
+            logs.map(function (log) {
+                if (log.logType == value){
+                    sortedLogList.push(log);
+                }
+            });
+            this.logList = sortedLogList;
+            this.loadCards(sortedLogList);
+        }
     }
 
     getLogFromIndex(index){
-        return logs[index];
+        return this.logList[index];
     }
     async deleteCropValues(logCode){
         await this.logApi.deleteLog(logCode);
@@ -23,9 +44,9 @@ export class LogController{
         await this.logApi.updateLog(logModel);
         await this.loadValues();
     }
-    loadCards(){// Todo:Check how loading cards
+    loadCards(sortedLogList){
         $("#logCardSection").empty();
-        logs.map(function (log,index) {
+        sortedLogList.map(function (log,index) {
             var value =
                 `<div class="row">
                     <div class="col-md-6 col-lg-4 mb-4">

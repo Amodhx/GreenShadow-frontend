@@ -301,7 +301,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
         <h4>Staff Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
             <select id="staffSortBy" class="form-select w-auto">
-                <option value="All" selected>Sort by</option>
+                <option value="All" selected>All Staff</option>
                 <option value="MANAGER">MANAGER</option>
                 <option value="SENIOR_ASSISTANT_MANAGER">SENIOR_ASSISTANT_MANAGER</option>
                 <option value="ASSISTANT_MANAGER">ASSISTANT_MANAGER</option>
@@ -790,7 +790,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
         <h4>Equipment Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
             <select id="equipmentSort" class="form-select w-auto">
-                <option value="All" selected>Sort by</option>
+                <option value="All" selected>All</option>
                 <option value="AVAILABLE">AVAILABLE</option>
                 <option value="NOT_AVAILABLE">NOT_AVAILABLE</option>
             </select>
@@ -923,11 +923,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <!-- Content Area -->
     <div class="content p-4">
         <h4>Vehicle Details</h4>
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+        <div  class="d-flex justify-content-between align-items-center my-3">
+            <select id="vehicleSorting" class="form-select w-auto">
+                <option value="All" selected>All</option>
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="OUT_OF_SERVICE">OUT_OF_SERVICE</option>
             </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewVehicleBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newVehicleModal">Add New Vehicle</button>
@@ -1040,10 +1040,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css
     <div class="content p-4">
         <h4>Logs Details</h4>
         <div class="d-flex justify-content-between align-items-center my-3">
-            <select class="form-select w-auto">
-                <option selected>Relevance</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+            <select id="logSorting" class="form-select w-auto">
+                <option value="All" selected>All</option>
+                <option value="DANGER">DANGER</option>
+                <option value="NORMAL">NORMAL</option>
             </select>
             <div class="d-flex ms-auto gap-2 mb-3" style="width: 20%; justify-content: end;">
                 <button id="addNewLogBtn" type="button" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#newLogModal">Add New Log</button>

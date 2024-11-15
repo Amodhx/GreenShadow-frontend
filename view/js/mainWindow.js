@@ -32,6 +32,10 @@ window.onload = function () {
 
     $("#staffSortBy").val("All")
     $("#fieldSorting").val("All")
+    $("#vehicleSorting").val("All")
+    $("#equipmentSort").val("All")
+    $("#logSorting").val("All")
+
 
 
 };
@@ -221,6 +225,8 @@ $("#equipmentBtn").on('click', () => {
     })
 
     equipment_controller.loadValues();
+    $("#equipmentSort").val("All")
+
 
 })
 $("#vehicleBtn").on('click', () => {
@@ -253,6 +259,7 @@ $("#vehicleBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "block"
     })
+    $("#vehicleSorting").val("All")
     vehicle_controller.loadValues();
 
 });
@@ -286,6 +293,7 @@ $("#logsBtn").on('click', () => {
     $("#logsSection").css({
         display: "block"
     })
+    $("#logSorting").val("All");
     log_controller.loadValues();
 })
 $("#addNewStaffBtn").on('click', async () => {
@@ -1909,4 +1917,10 @@ $("#fieldSorting").on('change', async () => {
 })
 $("#equipmentSort").on('change', async () => {
     await equipment_controller.loadTableSorting($("#equipmentSort").val());
+})
+$("#vehicleSorting").on('change', async () => {
+    await vehicle_controller.loadTableSorting($("#vehicleSorting").val());
+})
+$("#logSorting").on('change', async () => {
+    await log_controller.loadCardSorting($("#logSorting").val());
 })
