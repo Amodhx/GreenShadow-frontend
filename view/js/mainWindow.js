@@ -31,6 +31,7 @@ window.onload = function () {
     total_fields = fields.length;
 
     $("#staffSortBy").val("All")
+    $("#fieldSorting").val("All")
 
 
 };
@@ -152,6 +153,7 @@ $("#fieldBtn").on('click', () => {
     })
 
     field_controller.loadData();
+    $("#fieldSorting").val("All")
 
 })
 $("#cropBtn").on('click', () => {
@@ -1901,4 +1903,5 @@ $("#staffSortBy").on('change', async () => {
 })
 $("#fieldSorting").on('change', async () => {
     // await staff_controller.loadTaleSorting($("#staffSortBy").val());
+    await field_controller.loadTableSorting($("#fieldSorting").val());
 })

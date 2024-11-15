@@ -2,23 +2,47 @@ import {fields, staff} from "../db/db.js";
 import FieldApi from "../api/fieldApi.js";
 export default class FieldController{
      fieldApi = new FieldApi();
+     fieldList ;
      async loadData(){
          await this.fieldApi.getAllFiledData();
-         await this.loadCards();
+         await this.loadTableSorting("All");
+         $("#fieldSorting").val("All")
+     }
+
+
+    async loadTableSorting(value){
+         let sortedFieldValues = [];
+         if (value == "All"){
+             fields.map(function (field) {
+                 sortedFieldValues.push(field);
+             });
+             this.fieldList = sortedFieldValues;
+             this.loadCards(sortedFieldValues);
+         }else {
+             fields.map(function (field) {
+                 sortedFieldValues.push(field);
+             });
+             sortedFieldValues.sort((a,b) => a.extent_size - b.extent_size);
+             this.fieldList = sortedFieldValues;
+             this.loadCards(sortedFieldValues);
+         }
     }
 
     async saveData(filedValues){
         await this.fieldApi.saveFieldData(filedValues);
         await this.loadData();
 
+
     }
     async updateFiledValues(filedModel){
         await this.fieldApi.updateFieldData(filedModel);
         await this.loadData();
+
     }
     async deleteFieldValues(fieldId){
         await this.fieldApi.deleteFieldData(fieldId);
         await this.loadData();
+
     }
     async getFieldCodes(){
         let ar = [];
@@ -30,12 +54,12 @@ export default class FieldController{
     }
 
     getFieldFromIndex(index){
-        return fields[index];
+        return this.fieldList[index];
     }
 
-     async loadCards(){
+     async loadCards(sortedFieldValues){
         $("#fieldCardSection").empty();
-        fields.map(function (field,index) {
+         sortedFieldValues.map(function (field,index) {
             var value =
                 `<div class="card text-white" style="background-color: #2b2b2b; border: 1px solid gray;">
                     <!-- Image Carousel with Fixed Height -->

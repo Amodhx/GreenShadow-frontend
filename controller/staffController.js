@@ -6,6 +6,7 @@ export default class StaffController {
     staffList ;
     async loadValues() {
         await this.staffApi.getAllStaff();
+        $("#staffSortBy").val("All")
         await this.loadTaleSorting("All");
     }
     async updateStaffValues(staffModel) {
