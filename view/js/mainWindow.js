@@ -1059,6 +1059,7 @@ let cropIdToUpdate;
 $("#addNewCropBtn").on('click', async () => {
     cropSaveUpdateIndex = -1;
     setAddCropModelButtons();
+    clearAddCropModelFields();
     field_optionsToSaveCrop = await field_controller.getFieldCodes();
 })
 $("#addFieldToCropSaveBtn").on('click', () => {
@@ -1238,6 +1239,7 @@ let equipmentIdToUpdate;
 $("#addNewEquipmentBtn").on('click', async () => {
     equipmentSaveUpdateIndex = -1;
     setEquipmentModelButtons();
+    clearAddEquipmentModelFields();
     staff_optionsToSaveEquipment = await staff_controller.getStaffIds();
     field_optionsToSaveEquipment = await field_controller.getFieldCodes();
 })
@@ -1434,6 +1436,7 @@ $("#equipmentTblBody").on('click', 'tr', async function () {
     selected_fieldsToSaveEquipment = [];
     selected_fieldOptionsToUpdateEquipment = [];
     equipmentSaveUpdateIndex = $(this).index();
+    clearAddEquipmentModelFields();
     setEquipmentModelButtons();
     let equipmentModel = equipment_controller.getEquipmentFromIndex(equipmentSaveUpdateIndex);
     equipmentIdToUpdate = equipmentModel.equipment_id;
