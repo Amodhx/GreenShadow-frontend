@@ -3,6 +3,7 @@ import StaffApi from "../api/staffApi.js";
 
 export default class StaffController {
     staffApi = new StaffApi();
+    staffList ;
     async loadValues() {
         await this.staffApi.getAllStaff();
         await this.loadTaleSorting("All");
@@ -31,6 +32,7 @@ export default class StaffController {
             staff.map(function (staff) {
                 sortedStaffList.push(staff);
             });
+            this.staffList = sortedStaffList;
             this.loadTable(sortedStaffList);
         }else {
             staff.map(function (staff) {
@@ -38,6 +40,7 @@ export default class StaffController {
                     sortedStaffList.push(staff);
                 }
             });
+            this.staffList = sortedStaffList;
             this.loadTable(sortedStaffList);
         }
     }
@@ -48,7 +51,7 @@ export default class StaffController {
     }
 
     getTabelRowValues(index) {
-        return staff[index];
+        return this.staffList[index];
     }
 
 
