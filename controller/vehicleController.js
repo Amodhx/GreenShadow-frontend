@@ -3,9 +3,11 @@ import VehicleApi from "../api/vehicleApi.js";
 
 export class VehicleController{
     vehicleApi = new VehicleApi();
+    vehicleList =[];
     async loadValues(){
         await this.vehicleApi.getAllVehicle();
-        await this.loadTable();
+        $("#vehicleSorting").val("All")
+        await this.loadTableSorting("All");
     }
     async deleteVehicleValue(vehicleId) {
         await this.vehicleApi.deleteVehicle(vehicleId);
@@ -15,6 +17,26 @@ export class VehicleController{
         await this.vehicleApi.updateVehicle(vehicleModel);
         await this.loadValues();
     }
+
+    async loadTableSorting(value){
+        let sortedVehicleList = []
+        if (value == "All"){
+            vehicles.map(function (vehicle) {
+                sortedVehicleList.push(vehicle);
+            });
+            this.vehicleList = sortedVehicleList;
+            this.loadTable(sortedVehicleList);
+        }else {
+            vehicles.map(function (vehicle) {
+                if (vehicle.status == value){
+                    sortedVehicleList.push(vehicle);
+                }
+            });
+            this.vehicleList = sortedVehicleList;
+            this.loadTable(sortedVehicleList);
+
+        }
+    }
     async getVehicleCodes(){
         let ar = [];
         vehicles.map(function (vehicle) {
@@ -23,16 +45,16 @@ export class VehicleController{
         return ar;
     }
     getVehicleFromIndex(index){
-        return vehicles[index];
+        return this.vehicleList[index];
     }
     async saveData(vehicleValues){
         await this.vehicleApi.saveVehicle(vehicleValues);
         await this.loadValues();
 
     }
-    loadTable() {
+    loadTable(sortedVehicleList) {
         $("#vehicleTblBody").empty();
-        vehicles.map(function (vehicle) {
+        sortedVehicleList.map(function (vehicle) {
             var value =
                 ` <tr>
                         <td>${vehicle.vehicle_code}</td>
