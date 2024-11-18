@@ -1,4 +1,4 @@
-class UserModel{
+export  default class UserModel{
     get user_id() {
         return this._user_id;
     }

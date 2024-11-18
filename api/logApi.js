@@ -1,7 +1,7 @@
 import {logs} from "../db/db.js";
 import {LogModel} from "../model/logModel.js";
 export default class LogApi{
-    token = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJNQU5BR0VSIn1dLCJzdWIiOiJhbXhkaGFhYWFzYWFkZGFzZGRkbmFuYWFhYWFzZGRpdHNoYUBnbWFpbC5jb20iLCJpYXQiOjE3MzEyNjAyMjQsImV4cCI6MTczMjUxMTg2MH0.bFEw5jWifz1ZulO0vMwjDqRrxd6YRapTM-rUZu41dNM";
+    token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxbmFzZHNAZ21haWwuY29tIiwiaWF0IjoxNzMxODE2NDAzLCJleHAiOjE3MzI4MTY0MDN9.WPn523qGJZORA57wNPEACNVVr1a7ciD7MoCnZMf8Mik";
 
     async saveLog(logModel){
         return new Promise((resolve, reject) => {

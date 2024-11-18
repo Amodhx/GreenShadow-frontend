@@ -1,8 +1,11 @@
 import {equipments, staff} from "../db/db.js";
 import StaffApi from "../api/staffApi.js";
+import UserModel from "../model/userModel.js";
+import UserController from "./userController.js";
 
 export default class StaffController {
     staffApi = new StaffApi();
+    user_controller = new UserController();
     staffList ;
     async loadValues() {
         await this.staffApi.getAllStaff();
@@ -48,7 +51,21 @@ export default class StaffController {
 
     async saveStaffValues(staffValues) {
         await this.staffApi.saveStaff(staffValues);
+        await this.sendDataToSaveUser(staffValues);
         await this.loadValues();
+    }
+    async sendDataToSaveUser(staffValues){
+        let number = await this.generatePassword();
+        let userRole = staffValues.role;
+
+        if (userRole != "OTHER"){
+            let userModel = new UserModel("",staffValues.email,number, userRole);
+            this.user_controller.saveUser(userModel);
+        }
+
+    }
+    async generatePassword() {
+        return Math.floor(100000 + Math.random() * 900000);
     }
 
     getTabelRowValues(index) {

@@ -1404,7 +1404,7 @@ function loadStaffContainerWhenEquipmentSave() {
 
     // Create a new select element with options
     const $newSelect = $('<select class="staffListToSaveEquipment form-control me-2"></select>');
-    $newSelect.append(`<option value="">Select Fields</option>`);
+    $newSelect.append(`<option value="">Select Staff</option>`);
     staff_optionsToSaveEquipment.forEach(function (optionValue) {
         $newSelect.append(`<option value="${optionValue}">${optionValue}</option>`);
     });
