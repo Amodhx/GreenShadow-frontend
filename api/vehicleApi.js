@@ -1,7 +1,7 @@
 import {vehicles} from "../db/db.js";
 import {VehicleModel} from "../model/vehicleModel.js";
 export default class VehicleApi{
-    token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxbmFzZHNAZ21haWwuY29tIiwiaWF0IjoxNzMxODE2NDAzLCJleHAiOjE3MzI4MTY0MDN9.WPn523qGJZORA57wNPEACNVVr1a7ciD7MoCnZMf8Mik";
+    token = localStorage.getItem('jwtToken');
 
     async saveVehicle(vehicleModel){
         return new Promise((resolve, reject) => {

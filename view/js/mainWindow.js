@@ -18,6 +18,7 @@ let total_fields;
 let total_vehicles;
 
 window.onload = function () {
+    console.log(localStorage.getItem('jwtToken'))
     field_controller.loadData();
     crop_controller.loadData();
     equipment_controller.loadValues();

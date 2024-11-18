@@ -27,4 +27,33 @@ export class UserApi{
             });
         });
     }
+
+    async signIn(email,password){
+        return new Promise((resolve, reject) => {
+
+            const data = {
+                email:email,
+                password : password,
+            };
+
+            $.ajax({
+                url: "http://localhost:5050/api/v1/auth/signIn",
+                type: "POST",
+                contentType: "application/json",
+                data:JSON.stringify(data),
+                success: function(response) {
+                    const token = response.token;
+                    if (token) {
+                        localStorage.setItem('jwtToken', token);
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    resolve(false);
+                }
+            });
+        });
+    }
 }

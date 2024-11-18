@@ -1,18 +1,30 @@
-
+import {UserApi} from "../../api/userApi.js";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-$("#signInBtn").on('click',()=>{
+const user_api = new UserApi();
+
+$("#signInBtn").on('click',async () => {
     let userNameFieldText = $("#userNameField").val();
     let passwordFieldText = $("#passwordField").val();
-    if(userNameFieldText != "" && passwordFieldText != ""){
-        if(validateEmail(userNameFieldText)){
-            checkCredentials(userNameFieldText,passwordFieldText);
-        }else{
+    if (userNameFieldText != "" && passwordFieldText != "") {
+        if (validateEmail(userNameFieldText)) {
+            let isValid = await checkCredentials(userNameFieldText, passwordFieldText);
+            console.log(isValid); // This will wait for the result from `checkCredentials`
+            if (isValid) {
+                window.location.replace('mainWindow.html');
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: "Invalid Credential",
+                });
+            }
+        } else {
             alert("Invalid email address!!");
         }
     }
 
-    
+
 });
 
 function validateEmail(email){
@@ -22,7 +34,18 @@ function validateEmail(email){
         return false;
     }
 }
-function checkCredentials(email,password){
-    event.preventDefault();
-    window.location.replace('mainWindow.html');
+async function  checkCredentials(email,password){
+    try {
+        let result = await user_api.signIn(email, password); // Wait for `user_api.signIn`
+        if (result) {
+            console.log("TRUE");
+            return true;
+        } else {
+            console.log("FALSE");
+            return false;
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return false;
+    }
 }

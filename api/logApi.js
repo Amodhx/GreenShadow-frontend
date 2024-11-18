@@ -1,7 +1,7 @@
 import {logs} from "../db/db.js";
 import {LogModel} from "../model/logModel.js";
 export default class LogApi{
-    token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxbmFzZHNAZ21haWwuY29tIiwiaWF0IjoxNzMxODE2NDAzLCJleHAiOjE3MzI4MTY0MDN9.WPn523qGJZORA57wNPEACNVVr1a7ciD7MoCnZMf8Mik";
+    token = localStorage.getItem('jwtToken');
 
     async saveLog(logModel){
         return new Promise((resolve, reject) => {
