@@ -75,6 +75,7 @@ export default class StaffApi{
                 equipments_list: staffModel.equipments_list || [],
                 vehicles_list: staffModel.vehicles_list || []
             };
+            console.log(data)
 
             $.ajax({
                 url: "http://localhost:5050/api/v1/staff/updateStaff",

@@ -10,9 +10,9 @@ import {EquipmentModel} from "../../model/equipmentModel.js";
 import {VehicleModel} from "../../model/vehicleModel.js";
 import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
-import {crops,vehicles,staff,fields} from "../../db/db.js";
+import {crops, vehicles, staff, fields} from "../../db/db.js";
 
-let total_staff ;
+let total_staff;
 let total_crops;
 let total_fields;
 let total_vehicles;
@@ -36,7 +36,6 @@ window.onload = function () {
     $("#vehicleSorting").val("All")
     $("#equipmentSort").val("All")
     $("#logSorting").val("All")
-
 
 
 };
@@ -523,12 +522,6 @@ $("#btnSaveStaffDetails").on('click', () => {
                         );
                         staff_controller.saveStaffValues(staffModel);
                         $('#newStaffModal').modal('hide');
-                        Swal.fire({
-                            icon: "success",
-                            title: "Your work has been saved",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
                         clearStaffAddModelFields();
                     } else {
                         Swal.fire({
@@ -592,7 +585,6 @@ $("#btnSaveStaffDetails").on('click', () => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 staff_controller.updateStaffValues(staffModel);
-                Swal.fire("Saved!", "", "success");
             } else if (result.isDenied) {
                 Swal.fire("Changes are not saved", "", "info");
             }
@@ -729,11 +721,6 @@ $("#btnCloseStaffDetails").on('click', () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 staff_controller.deleteStaffValue(selectedStaffDataStaff_id);
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
             }
         });
     } else {
@@ -924,12 +911,6 @@ $("#btnSaveFieldDetails").on('click', () => {
         if (fieldName != "" && fieldLocation != "" && extendSize != "" && image1 != "" && image2 != "") {
             field_controller.saveData(field_model);
             $('#newFieldModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearFieldAddModalFields();
         } else {
             Swal.fire({
@@ -945,12 +926,6 @@ $("#btnSaveFieldDetails").on('click', () => {
         field_controller.updateFiledValues(field_model);
         console.log("MainWindo" + field_model)
         $('#newFieldModal').modal('hide');
-        Swal.fire({
-            icon: "success",
-            title: "Your Field Was Updated!",
-            showConfirmButton: false,
-            timer: 1500
-        });
         clearFieldAddModalFields();
 
     }
@@ -994,11 +969,6 @@ $(document).on("click", ".btnFieldDelete", function () {
         if (result.isConfirmed) {
             let idTodelete = filedModel.field_code;
             field_controller.deleteFieldValues(idTodelete);
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
         }
     });
 
@@ -1120,8 +1090,6 @@ $('#cropImage').on('change', function () {
 });
 
 $("#btnSaveCropDetails").on('click', () => {
-
-
     selected_fieldsToSaveCrop = [];
     let cropCommonName = $("#cropCommonName").val();
     let cropScientificName = $("#cropScientificName").val();
@@ -1138,23 +1106,11 @@ $("#btnSaveCropDetails").on('click', () => {
         if (vl == "Save Crop") {
             crop_controller.saveCrop(cropModel);
             $('#newCropModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddCropModelFields();
         } else {
             cropModel.crop_code = cropIdToUpdate;
             crop_controller.updateCropValues(cropModel);
             $('#newCropModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your Field Was Updated!",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddCropModelFields();
         }
     } else {
@@ -1190,11 +1146,6 @@ $(document).on("click", ".btnCropDelete", function () {
         if (result.isConfirmed) {
             let idToDelete = cropModel.crop_code;
             crop_controller.deleteCropValues(idToDelete);
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
         }
     });
 
@@ -1283,12 +1234,6 @@ $("#btnSaveEquipmentDetails").on('click', () => {
 
             equipment_controller.saveEquipment(equipmentModel);
             $('#newEquipmentModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddEquipmentModelFields();
 
         } else {
@@ -1297,12 +1242,6 @@ $("#btnSaveEquipmentDetails").on('click', () => {
             equipmentModel.equipment_id = equipmentIdToUpdate;
             equipment_controller.updateEquipmentValues(equipmentModel);
             $('#newEquipmentModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your Equipment Was Updated!",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddEquipmentModelFields();
         }
     } else {
@@ -1331,11 +1270,6 @@ $("#btnCloseEquipmentDetails").on('click', () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 equipment_controller.deleteEquipmentValue(equipmentIdToUpdate);
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
             }
         });
         $('#newEquipmentModal').modal('hide');
@@ -1509,11 +1443,6 @@ $("#btnCloseVehicleDetails").on('click', () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 vehicle_controller.deleteVehicleValue(vehicleIdToUpdate);
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
             }
         });
         $('#newVehicleModal').modal('hide');
@@ -1567,24 +1496,12 @@ $("#btnSaveVehicleDetails").on('click', () => {
         if (vl == "Save Vehicle") {
             vehicle_controller.saveData(vehicleModel);
             $('#newVehicleModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddVehicleFields();
         } else {
             //     Todo: Update Vehicle
             vehicleModel.vehicle_code = vehicleIdToUpdate;
             vehicle_controller.updateVehicleValues(vehicleModel);
             $('#newVehicleModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your Equipment Was Updated!",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddVehicleFields();
         }
     } else {
@@ -1788,23 +1705,11 @@ $("#btnSaveLogDetails").on('click', () => {
         if (vl == "Save Log") {
             log_controller.saveCrop(logModel);
             $('#newLogModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddLogModelFields();
         } else {
             logModel.log_code = logIdToUpdateDelete;
             log_controller.updateLogValues(logModel);
             $('#newLogModal').modal('hide');
-            Swal.fire({
-                icon: "success",
-                title: "Your Equipment Was Updated!",
-                showConfirmButton: false,
-                timer: 1500
-            });
             clearAddLogModelFields();
         }
 
@@ -1894,18 +1799,12 @@ $(document).on("click", ".btnLogDelete", function () {
     }).then((result) => {
         if (result.isConfirmed) {
             log_controller.deleteCropValues(logModel.log_code);
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
         }
     });
     $('#newLogModal').modal('hide');
 
 
 });
-
 
 
 //sorting

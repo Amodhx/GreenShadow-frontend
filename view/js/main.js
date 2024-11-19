@@ -4,6 +4,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const user_api = new UserApi();
 
 $("#signInBtn").on('click',async () => {
+    event.preventDefault();
     let userNameFieldText = $("#userNameField").val();
     let passwordFieldText = $("#passwordField").val();
     if (userNameFieldText != "" && passwordFieldText != "") {
