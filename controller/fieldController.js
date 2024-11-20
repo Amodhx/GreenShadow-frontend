@@ -60,10 +60,12 @@ export default class FieldController{
      async loadCards(sortedFieldValues){
         $("#fieldCardSection").empty();
          sortedFieldValues.map(function (field,index) {
+
+             var carouselId = `carousel${index}`
             var value =
-                `<div class="card text-white" style="background-color: #2b2b2b; border: 1px solid gray;">
+                `<div id="card${index}" class="card text-white" style="background-color: #2b2b2b; border: 1px solid gray;">
                     <!-- Image Carousel with Fixed Height -->
-                    <div id="${index}"  class="carousel slide" data-bs-ride="carousel">
+                    <div id="${carouselId}"  class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="${field.field_image_01}"  class="d-block w-100 fixed-image" height="175px" alt="Field Image 1">
@@ -73,11 +75,11 @@ export default class FieldController{
                             </div>
                         </div>
                         <!-- Carousel Controls -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#${field.field_name}" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#${field.field_name}" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
