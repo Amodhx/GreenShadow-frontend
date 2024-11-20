@@ -1489,16 +1489,15 @@ $("#btnSaveVehicleDetails").on('click', () => {
     let vehicleStatus = $("#vehicleStatus").val();
     let staff_id = $("#staffIdToVehicle").val();
     let specialRemark = $("#specialRemark").val();
-    console.log(vehicleCategory);
     if (licencePlateNumber != "" && vehicleCategory != "" && fuelType != "" && vehicleStatus != "" && staff_id != "") {
         let vehicleModel = new VehicleModel("", licencePlateNumber, vehicleCategory, fuelType, vehicleStatus, staff_id, specialRemark);
+        console.log(vehicleModel)
         let vl = $("#btnSaveVehicleDetails").text();
         if (vl == "Save Vehicle") {
             vehicle_controller.saveData(vehicleModel);
             $('#newVehicleModal').modal('hide');
             clearAddVehicleFields();
         } else {
-            //     Todo: Update Vehicle
             vehicleModel.vehicle_code = vehicleIdToUpdate;
             vehicle_controller.updateVehicleValues(vehicleModel);
             $('#newVehicleModal').modal('hide');

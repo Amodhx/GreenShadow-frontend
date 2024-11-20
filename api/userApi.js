@@ -56,4 +56,29 @@ export class UserApi{
             });
         });
     }
+
+    async refreshToken(){
+        return new Promise((resolve, reject) => {
+            let refreshToken = localStorage.getItem('jwtToken');
+            $.ajax({
+                url: `http://localhost:5050/api/v1/auth/refresh/${refreshToken}`,
+                type: "GET",
+                success: function(response) {
+                    const token = response.token;
+                    if (token) {
+                        localStorage.setItem('jwtToken', token);
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.status)
+                    console.log(status)
+                    console.log(error)
+                    resolve(false);
+                }
+            });
+        });
+    }
 }

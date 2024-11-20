@@ -37,12 +37,10 @@ function validateEmail(email){
 }
 async function  checkCredentials(email,password){
     try {
-        let result = await user_api.signIn(email, password); // Wait for `user_api.signIn`
+        let result = await user_api.signIn(email, password);
         if (result) {
-            console.log("TRUE");
             return true;
         } else {
-            console.log("FALSE");
             return false;
         }
     } catch (error) {
