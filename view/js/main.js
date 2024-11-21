@@ -34,6 +34,7 @@ $("#resendCode").on('click', async () => {
     let numberPromise = await generateRandomNumber();
     localStorage.setItem('securityKey', numberPromise);
     user_api.sendCodeToChangePassword(email, numberPromise);
+    setTimer();
     Swal.fire({
         title: "Sent To Mail",
         text: "Check your mail box!",
@@ -41,6 +42,25 @@ $("#resendCode").on('click', async () => {
     });
 })
 
+function setTimer(){
+    let time = 60; // Initial time in seconds (1 minute)
+
+    let countdown = setInterval(function () {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        // Format the timer to always show two digits for seconds
+        $("#timer").text(minutes + ":" + (seconds < 10 ? "0" + seconds : seconds));
+
+        if (time <= 0) {
+            clearInterval(countdown);
+            $("#timer").text("Code was expired resend it");
+            localStorage.removeItem('securityKey')
+        }
+
+        time--; // Decrement the time
+    }, 1000);
+}
 $("#getEmailAndSendCodeBtn").on('click', async () => {
     event.preventDefault();
     let email = $("#email").val();
@@ -56,6 +76,7 @@ $("#getEmailAndSendCodeBtn").on('click', async () => {
         if (newVar){
             $("#forgotPasswordModal").modal('hide');
             $("#passwordResetModal").modal('show');
+            setTimer();
         }else {
             Swal.fire("Server Error Try Again later");
             $("#forgotPasswordModal").modal('hide');
