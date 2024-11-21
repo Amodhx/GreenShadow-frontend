@@ -921,7 +921,6 @@ $("#btnSaveFieldDetails").on('click', () => {
         }
 
     } else {
-        //     Todo: Update
         field_model.field_code = filedIdToUpdate;
         field_controller.updateFiledValues(field_model);
         console.log("MainWindo" + field_model)

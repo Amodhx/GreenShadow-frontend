@@ -37,7 +37,7 @@ export class CropController {
         await this.loadData();
     }
 
-    loadCards() { // Todo:Check how loading cards
+    loadCards() {
         $("#cropCardSection").empty();
         crops.map(function (crop,index) {
             var value =

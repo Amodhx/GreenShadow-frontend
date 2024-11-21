@@ -1,9 +1,11 @@
 import {UserApi} from "../../api/userApi.js";
+
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const user_api = new UserApi();
 
-$("#signInBtn").on('click',async () => {
+
+$("#signInBtn").on('click', async () => {
     event.preventDefault();
     let userNameFieldText = $("#userNameField").val();
     let passwordFieldText = $("#passwordField").val();
@@ -21,30 +23,134 @@ $("#signInBtn").on('click',async () => {
                 });
             }
         } else {
-            alert("Invalid email address!!");
+            Swal.fire("Bad Request", "The Email was invalid. Please check your input and try again.", "error");
         }
     }
 
 
 });
+$("#resendCode").on('click', async () => {
+    let email = localStorage.getItem('emailAddress');
+    let numberPromise = await generateRandomNumber();
+    localStorage.setItem('securityKey', numberPromise);
+    user_api.sendCodeToChangePassword(email, numberPromise);
+    Swal.fire({
+        title: "Sent To Mail",
+        text: "Check your mail box!",
+        icon: "success"
+    });
+})
 
-function validateEmail(email){
-    if (emailRegex.test(email)) {
-        return true;
+$("#getEmailAndSendCodeBtn").on('click', async () => {
+    event.preventDefault();
+    let email = $("#email").val();
+    let isEmailValid = validateEmail(email);
+    if (isEmailValid) {
+        let number = await generateRandomNumber();
+        localStorage.setItem('securityKey',number);
+        localStorage.setItem('emailAddress',email);
+        $('#emailInSecondModel').html(`We sent a code to <b>${email}</b>`);
+        $("#loading").removeClass('hidden');
+        let newVar = await user_api.sendCodeToChangePassword(email,number);
+        $("#loading").addClass('hidden');
+        if (newVar){
+            $("#forgotPasswordModal").modal('hide');
+            $("#passwordResetModal").modal('show');
+        }else {
+            Swal.fire("Server Error Try Again later");
+            $("#forgotPasswordModal").modal('hide');
+        }
+
     } else {
-        return false;
+        Swal.fire({
+            title: "Invalid Email",
+            text: "The Email was invalid. Please check your input and try again.r",
+            icon: "info"
+        });
     }
+})
+
+function getInputValueAsInteger() {
+    const value = $('.code-input input')
+        .map(function () {
+            return $(this).val(); // Get the value of each input
+        })
+        .get() // Convert jQuery collection to plain array
+        .join(''); // Concatenate the values as a string
+
+    return value ? parseInt(value, 10) : 0; // Convert the concatenated string to an integer
 }
-async function  checkCredentials(email,password){
+
+$("#secondModelNextBtn").on('click', () => {
+    event.preventDefault();
+    let inputValueAsInteger = getInputValueAsInteger();
+    let code = localStorage.getItem('securityKey');
+    if (inputValueAsInteger == code){
+        $("#passwordResetModal").modal('hide');
+        $("#setNewPasswordModal").modal('show');
+    }else {
+        Swal.fire({
+            title: "Invalid Code",
+            text: "Check Again and Enter",
+            icon: "info"
+        });
+    }
+})
+
+$("#confirmPasswordInput").on('keyup', () => {
+    let password = $("#passwordInput").val();
+    let confirmPassword = $("#confirmPasswordInput").val();
+
+    console.log(password + "  " + confirmPassword)
+    if (password != confirmPassword) {
+        $("#confirmPasswordInput").css({
+            boxShadow: "0 0 0 0.25rem rgba(255, 0, 0, 0.25)",
+            borderColor: "#dc3545"
+        })
+    } else {
+        $("#confirmPasswordInput").css({
+            boxShadow: "0 0 0 0.25rem rgba(0, 123, 255, 0.25)",
+            borderColor: "#ced4da"
+        })
+    }
+
+})
+$("#resetPasswordBtn").on('click', async () => {
+    let password = $("#passwordInput").val();
+    let confirmPassword = $("#confirmPasswordInput").val();
+    let email = localStorage.getItem('emailAddress');
+    if (password == confirmPassword) {
+        let newVar = await user_api.changePassword(email, password);
+        if (newVar){
+            $("#setNewPasswordModal").modal('hide');
+            Swal.fire({
+                title: "Changed",
+                text: "You password has been changed",
+                icon: "success"
+            });
+        }
+    } else {
+        Swal.fire({
+            title: "Invalid Password",
+            text: "Check Again and Enter",
+            icon: "info"
+        });
+    }
+})
+
+async function generateRandomNumber() {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+
+function validateEmail(email) {
+    return emailRegex.test(email);
+}
+
+async function checkCredentials(email, password) {
     try {
         let result = await user_api.signIn(email, password);
-        if (result) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!result;
     } catch (error) {
-        console.error("An error occurred:", error);
         return false;
     }
 }

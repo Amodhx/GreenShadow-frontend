@@ -74,6 +74,48 @@ export class UserApi{
         });
     }
 
+    async changePassword(email,newPassword){
+        const data = {
+            "email": email,
+            "newPassword": newPassword
+        }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `http://localhost:5050/api/v1/auth/changePassword`,
+                type: "POST",
+                contentType: "application/json",
+                data:JSON.stringify(data),
+                success: function(response) {
+                    resolve(true);
+                },
+                error: function(xhr, status, error) {
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+    async sendCodeToChangePassword(email,code){
+
+        const data = {
+            "email": email,
+            "code": code
+        }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `http://localhost:5050/api/v1/auth/sendCode`,
+                type: "POST",
+                contentType: "application/json",
+                data:JSON.stringify(data),
+                success: function(response) {
+                    resolve(true);
+                },
+                error: function(xhr, status, error) {
+                    resolve(false);
+                }
+            });
+        });
+    }
     async refreshToken(){
         return new Promise((resolve, reject) => {
             let refreshToken = localStorage.getItem('jwtToken');
