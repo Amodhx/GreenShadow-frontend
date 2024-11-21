@@ -26,7 +26,12 @@ export default class EquipmentApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
-                    console.log(response)
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -78,6 +83,12 @@ export default class EquipmentApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been Updated!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -115,6 +126,12 @@ export default class EquipmentApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your Equipment has been deleted!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {

@@ -46,6 +46,12 @@ export default class LogApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -117,6 +123,12 @@ export default class LogApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been Updated!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -180,6 +192,12 @@ export default class LogApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your Log has been deleted!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {

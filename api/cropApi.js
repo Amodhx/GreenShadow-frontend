@@ -43,6 +43,12 @@ export default class CropApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
@@ -183,6 +189,12 @@ export default class CropApi{
                     "Authorization": "Bearer " + this.token
                 },
                 success: function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Your Crop has been deleted!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     resolve();
                 },
                 error: function(xhr, status, error) {
