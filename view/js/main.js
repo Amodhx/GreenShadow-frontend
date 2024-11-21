@@ -136,6 +136,12 @@ $("#confirmPasswordInput").on('keyup', () => {
     }
 
 })
+
+function clearAllFields(){
+    $("#passwordInput").val("");
+    $("#confirmPasswordInput").val("");
+    $("#email").val("");
+}
 $("#resetPasswordBtn").on('click', async () => {
     let password = $("#passwordInput").val();
     let confirmPassword = $("#confirmPasswordInput").val();
@@ -149,6 +155,7 @@ $("#resetPasswordBtn").on('click', async () => {
                 text: "You password has been changed",
                 icon: "success"
             });
+            clearAllFields();
         }
     } else {
         Swal.fire({
