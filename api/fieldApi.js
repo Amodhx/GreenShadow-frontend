@@ -38,7 +38,6 @@ export default class FieldApi {
             const base64Content1 = fieldModel.field_image_01.split(",")[1];
             const base64Content2 = fieldModel.field_image_01.split(",")[1];
 
-            // Convert base64 string to binary data
             const byteCharacters1 = atob(base64Content1);
             const byteCharacters2 = atob(base64Content2);
             const byteNumbers1 = new Array(byteCharacters1.length);
