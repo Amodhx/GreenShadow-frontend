@@ -8,9 +8,6 @@ export class CropController {
     async loadData() {
         await this.cropApi.getAllCrops();
         await this.loadCards();
-        //     ToDO: Get data from database
-
-
     }
     getCropFromIndex(index){
         return crops[index];

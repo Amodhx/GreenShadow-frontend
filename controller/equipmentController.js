@@ -41,7 +41,6 @@ export default class EquipmentController{
         await this.loadValues();
     }
     async deleteEquipmentValue(equipmentId) {
-        //     Todo: Delete Staff Values From Database
         await this.equipmentApi.deleteEquipment(equipmentId);
         await this.loadValues();
 

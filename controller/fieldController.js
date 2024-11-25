@@ -17,14 +17,14 @@ export default class FieldController{
                  sortedFieldValues.push(field);
              });
              this.fieldList = sortedFieldValues;
-             this.loadCards(sortedFieldValues);
+             await this.loadCards(sortedFieldValues);
          }else {
              fields.map(function (field) {
                  sortedFieldValues.push(field);
              });
              sortedFieldValues.sort((a,b) => a.extent_size - b.extent_size);
              this.fieldList = sortedFieldValues;
-             this.loadCards(sortedFieldValues);
+             await this.loadCards(sortedFieldValues);
          }
     }
 
