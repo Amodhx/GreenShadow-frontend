@@ -32,9 +32,15 @@ export default class FieldApi {
                             break;
                         case 403:
                             Swal.fire("Forbidden", "You do not have permission to access this resource.", "error");
-                            window.location.replace('index.html');
-                            localStorage.removeItem("securityKey")
-                            localStorage.removeItem("jwtToken")
+                            Swal.fire({
+                                title: "The Session expired?",
+                                text: "You have to log again to system?",
+                                icon: "question"
+                            }).then(() => {
+                                window.location.replace('index.html');
+                                localStorage.removeItem("securityKey")
+                                localStorage.removeItem("jwtToken")
+                            });
                             break;
                         case 404:
                             Swal.fire("Not Found", "The requested resource could not be found.", "info");
