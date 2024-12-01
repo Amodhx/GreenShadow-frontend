@@ -154,7 +154,7 @@ export default class StaffApi{
                 success: function(response) {
                     Swal.fire({
                         icon: "success",
-                        title: "Your Equipment has been deleted!",
+                        title: "Your Staff has been deleted!",
                         showConfirmButton: false,
                         timer: 1500
                     });

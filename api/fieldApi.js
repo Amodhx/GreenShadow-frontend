@@ -36,7 +36,7 @@ export default class FieldApi {
         return new Promise((resolve, reject) => {
 
             const base64Content1 = fieldModel.field_image_01.split(",")[1];
-            const base64Content2 = fieldModel.field_image_01.split(",")[1];
+            const base64Content2 = fieldModel.field_image_02.split(",")[1];
 
             const byteCharacters1 = atob(base64Content1);
             const byteCharacters2 = atob(base64Content2);
@@ -54,10 +54,6 @@ export default class FieldApi {
             const byteArray2 = new Uint8Array(byteNumbers2);
             const blob1 = new Blob([byteArray1], { type: 'image/jpeg' });
             const blob2 = new Blob([byteArray2], { type: 'image/jpeg' });
-
-
-
-
             const staffString = fieldModel.staff_list.join(",");
             const cropString = fieldModel.crop_list.join(",");
             const logsString = fieldModel.logs_list.join(",");
@@ -125,7 +121,7 @@ export default class FieldApi {
         return new Promise((resolve, reject) => {
 
             const base64Content1 = fieldModel.field_image_01.split(",")[1];
-            const base64Content2 = fieldModel.field_image_01.split(",")[1];
+            const base64Content2 = fieldModel.field_image_02.split(",")[1];
 
             // Convert base64 string to binary data
             const byteCharacters1 = atob(base64Content1);

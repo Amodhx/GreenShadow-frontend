@@ -51,6 +51,8 @@ $(".userIcon ").on('click', () => {
     }).then((result) => {
         if (result.isConfirmed) {
             window.location.replace('index.html');
+            localStorage.removeItem("securityKey")
+            localStorage.removeItem("jwtToken")
             Swal.fire({
                 title: "Log Outed!",
                 text: "You log out the system",
