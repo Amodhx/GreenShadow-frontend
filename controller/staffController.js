@@ -58,7 +58,7 @@ export default class StaffController {
         let number = await this.generatePassword();
         let userRole = staffValues.role;
 
-        if (userRole != "OTHER"){
+        if (userRole !== "OTHER"){
             let userModel = new UserModel("",staffValues.email,number, userRole);
             this.user_controller.saveUser(userModel);
         }

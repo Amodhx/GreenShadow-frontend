@@ -117,7 +117,6 @@ $("#secondModelNextBtn").on('click', () => {
         });
     }
 })
-
 $("#confirmPasswordInput").on('keyup', () => {
     let password = $("#passwordInput").val();
     let confirmPassword = $("#confirmPasswordInput").val();
@@ -136,7 +135,6 @@ $("#confirmPasswordInput").on('keyup', () => {
     }
 
 })
-
 function clearAllFields(){
     $("#passwordInput").val("");
     $("#confirmPasswordInput").val("");
@@ -165,15 +163,12 @@ $("#resetPasswordBtn").on('click', async () => {
         });
     }
 })
-
 async function generateRandomNumber() {
     return Math.floor(1000 + Math.random() * 9000);
 }
-
 function validateEmail(email) {
     return emailRegex.test(email);
 }
-
 async function checkCredentials(email, password) {
     try {
         let result = await user_api.signIn(email, password);

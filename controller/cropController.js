@@ -1,11 +1,13 @@
 import {crops, equipments, fields} from "../db/db.js";
 import CropApi from "../api/cropApi.js";
+import {UserApi} from "../api/userApi.js";
 
 export class CropController {
     cropApi = new CropApi();
-
+    userApi = new UserApi();
 
     async loadData() {
+        await this.userApi.isTokenExpireSoon();
         await this.cropApi.getAllCrops();
         await this.loadCards();
     }

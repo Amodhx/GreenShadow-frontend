@@ -95,6 +95,16 @@ export class UserApi{
         });
     }
 
+    async isTokenExpireSoon(){
+        const payload = JSON.parse(atob(localStorage.getItem('jwtToken').split('.')[1]));
+        let expireTime = payload.exp * 1000;
+        let isExpireSoon = expireTime - Date.now() < 5 * 60 * 1000;
+        if (isExpireSoon){
+            await this.refreshToken()
+        }
+
+    }
+
     async sendCodeToChangePassword(email,code){
 
         const data = {
