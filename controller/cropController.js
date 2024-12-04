@@ -7,7 +7,7 @@ export class CropController {
     userApi = new UserApi();
 
     async loadData() {
-        await this.userApi.isTokenExpireSoon();
+        // await this.userApi.isTokenExpireSoon();
         await this.cropApi.getAllCrops();
         await this.loadCards();
     }
