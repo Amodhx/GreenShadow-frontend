@@ -43,13 +43,12 @@ $("#resendCode").on('click', async () => {
 })
 
 function setTimer(){
-    let time = 60; // Initial time in seconds (1 minute)
+    let time = 60;
 
     let countdown = setInterval(function () {
         let minutes = Math.floor(time / 60);
         let seconds = time % 60;
 
-        // Format the timer to always show two digits for seconds
         $("#timer").text(minutes + ":" + (seconds < 10 ? "0" + seconds : seconds));
 
         if (time <= 0) {
