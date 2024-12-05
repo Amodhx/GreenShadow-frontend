@@ -125,7 +125,6 @@ $("#dashBoardBtn").on('click', async () => {
     $("#vehicleSection").css({
         display: "none"
     })
-
     await log_controller.loadValues()
     await setDataDashBoardTbl()
 
