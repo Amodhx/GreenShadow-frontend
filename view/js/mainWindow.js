@@ -10,19 +10,17 @@ import {EquipmentModel} from "../../model/equipmentModel.js";
 import {VehicleModel} from "../../model/vehicleModel.js";
 import {LogController} from "../../controller/logController.js";
 import {LogModel} from "../../model/logModel.js";
-import {crops, vehicles, staff, fields} from "../../db/db.js";
+import {crops, vehicles, staff, fields, logs} from "../../db/db.js";
 
 let total_staff;
 let total_crops;
 let total_fields;
 let total_vehicles;
 
-window.onload = function () {
-    console.log(localStorage.getItem('jwtToken'))
+window.onload = async function () {
     field_controller.loadData();
     crop_controller.loadData();
     equipment_controller.loadValues();
-    log_controller.loadValues();
     staff_controller.loadValues();
     vehicle_controller.loadValues();
 
@@ -36,8 +34,44 @@ window.onload = function () {
     $("#vehicleSorting").val("All")
     $("#equipmentSort").val("All")
     $("#logSorting").val("All")
+    await log_controller.loadValues();
+    setDataDashBoardTbl();
 
+};
 
+async function setDataDashBoardTbl(){
+    $("#seeSoonLogTbl").empty()
+    logs.map((log) =>{
+        console.log(log)
+        if (log.logType === "DANGER"){
+            console.log(log)
+            var value =
+                ` <tr>
+                            <td class="text-center">${log.log_code}
+                            </td>
+                            <td class="text-center">
+                                ${log.log_date}
+                            </td>
+                            <td class="text-center">
+                                <img src="${log.observe_image}" 
+                                     alt="Log Image" class="crop-image" 
+                                     style="width: 50px; cursor: pointer;" onclick="showImagePopup('${log.observe_image}')">
+                            </td>
+                        </tr>`
+
+            $("#seeSoonLogTbl").append(value);
+        }
+    })
+}
+window.showImagePopup = function (base64Image) {
+    Swal.fire({
+        title: 'Observed Image',
+        imageUrl: base64Image,
+        imageAlt: 'Observe Image',
+        width: '400px',
+        showCloseButton: true,
+        showConfirmButton: false
+    });
 };
 $(".userIcon ").on('click', () => {
     Swal.fire({
@@ -1824,3 +1858,29 @@ $("#vehicleSorting").on('change', async () => {
 $("#logSorting").on('change', async () => {
     await log_controller.loadCardSorting($("#logSorting").val());
 })
+
+const incomeData = [10, 12, 8, 15, 20, 18, 16, 22, 25, 21, 18, 20];
+
+const ctx = $('#myChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Crops in Season',
+            data: incomeData,
+            // backgroundColor:[
+            //     '#cce5ff'
+            // ],
+            borderColor: [
+                '#66b0ff'
+            ],
+            borderWidth: 3,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
