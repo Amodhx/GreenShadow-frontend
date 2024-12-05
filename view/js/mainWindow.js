@@ -96,7 +96,7 @@ $(".userIcon ").on('click', () => {
     });
 })
 // staff js start
-$("#dashBoardBtn").on('click', () => {
+$("#dashBoardBtn").on('click', async () => {
     $("#dashBoardBtn").addClass('active');
     $("#staffBtn").removeClass('active');
     $("#fieldBtn").removeClass('active');
@@ -125,6 +125,9 @@ $("#dashBoardBtn").on('click', () => {
     $("#vehicleSection").css({
         display: "none"
     })
+
+    await log_controller.loadValues()
+    await setDataDashBoardTbl()
 
 
 })
